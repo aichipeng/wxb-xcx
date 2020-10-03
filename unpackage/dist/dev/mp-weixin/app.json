@@ -1,0 +1,35 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/orderScreen/orderScreen",
+    "pages/cashScreen/cashScreen",
+    "pages/cashApply/cashApply",
+    "pages/activityScreen/activityScreen",
+    "pages/activityDetail/activityDetail",
+    "pages/activityCreate/activityCreate",
+    "pages/userSetting/userSetting",
+    "pages/addressScreen/addressScreen",
+    "pages/addressCreate/addressCreate",
+    "pages/activityPreview/activityPreview",
+    "pages/activityClient/activityClient",
+    "pages/orderPay/orderPay",
+    "pages/loginScreen/loginScreen",
+    "pages/accountKeep/accountKeep",
+    "pages/orderDetail/orderDetail",
+    "pages/statScreen/statScreen",
+    "pages/accKeepCreate/accKeepCreate",
+    "pages/orderPick/orderPick",
+    "pages/orderExport/orderExport",
+    "pages/orderSend/orderSend"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "大付翁",
+    "navigationBarBackgroundColor": "#FFFFFF"
+  },
+  "usingComponents": {
+    "uni-icons": "/components/uni-icons/uni-icons",
+    "uni-popup": "/components/uni-popup/uni-popup"
+  }
+}

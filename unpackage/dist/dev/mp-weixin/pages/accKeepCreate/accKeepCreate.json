@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "添加一笔",
+  "usingComponents": {
+    "uni-icons": "/components/uni-icons/uni-icons"
+  }
+}

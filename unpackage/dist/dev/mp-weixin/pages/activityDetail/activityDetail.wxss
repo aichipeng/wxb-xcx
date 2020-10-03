@@ -1,0 +1,235 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.activity-detail-page.data-v-5cc0a8c6 {
+  padding: 1rpx 24rpx;
+}
+.activity-detail-page .activity-card.data-v-5cc0a8c6 {
+  background-color: #fff;
+  box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+  border-radius: 10rpx;
+  padding: 10rpx 40rpx 30rpx;
+  margin: 40rpx 0;
+}
+.activity-detail-page .activity-card .header.data-v-5cc0a8c6 {
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  margin: 10rpx 0;
+}
+.activity-detail-page .activity-card .header .header-left.data-v-5cc0a8c6 {
+  font-size: 24rpx;
+  color: #999;
+  line-height: 34rpx;
+}
+.activity-detail-page .activity-card .header .header-right.data-v-5cc0a8c6 {
+  font-size: 30rpx;
+  color: #EFB600;
+  line-height: 42rpx;
+}
+.activity-detail-page .activity-card .body.data-v-5cc0a8c6 {
+  margin: 24rpx 0 28rpx;
+}
+.activity-detail-page .activity-card .body .txt.data-v-5cc0a8c6 {
+  font-size: 28rpx;
+  line-height: 44rpx;
+  word-break: break-all;
+}
+.activity-detail-page .activity-card .footer.data-v-5cc0a8c6 {
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+}
+.activity-detail-page .activity-card .footer .footer-left.data-v-5cc0a8c6 {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  overflow: hidden;
+}
+.activity-detail-page .activity-card .footer .footer-right.data-v-5cc0a8c6 {
+  width: 176rpx;
+  height: 64rpx;
+  background: #EFB600;
+  box-shadow: 0 6rpx 12rpx 0 rgba(239, 182, 0, 0.2);
+  border-radius: 32rpx;
+  color: #fff;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+}
+.activity-detail-page .activity-card .footer .footer-right .btn.data-v-5cc0a8c6 {
+  line-height: 40rpx;
+  font-size: 28rpx;
+}
+.activity-detail-page .activity-count.data-v-5cc0a8c6 {
+  box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+  background-color: #fff;
+  border-radius: 10rpx;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  padding: 36rpx 0;
+  margin: 40rpx 0;
+}
+.activity-detail-page .activity-count .count-item.data-v-5cc0a8c6 {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  margin: 0 50rpx;
+}
+.activity-detail-page .activity-count .count-item .val.data-v-5cc0a8c6 {
+  font-size: 36rpx;
+  line-height: 50rpx;
+  margin: 4rpx 0;
+}
+.activity-detail-page .activity-count .count-item .lab.data-v-5cc0a8c6 {
+  color: #666;
+  font-size: 26rpx;
+  line-height: 36rpx;
+  margin: 4rpx 0;
+}
+.activity-detail-page .activity-order.data-v-5cc0a8c6 {
+  margin: 40rpx 0;
+}
+.activity-detail-page .activity-order .title-bar.data-v-5cc0a8c6 {
+  font-size: 36rpx;
+  line-height: 50rpx;
+  font-weight: 500;
+  padding: 40rpx 0;
+}
+.activity-detail-page .activity-order .tabbar-order.data-v-5cc0a8c6 {
+  background-color: #fff;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+.activity-detail-page .activity-order .tabbar-order .tab-wrap.data-v-5cc0a8c6 {
+  position: relative;
+  line-height: 42rpx;
+  font-size: 30rpx;
+  height: 132rpx;
+}
+.activity-detail-page .activity-order .tabbar-order .tab-wrap .tab.data-v-5cc0a8c6 {
+  margin: 4rpx 0;
+}
+.activity-detail-page .activity-order .tabbar-order .tab-wrap .num.data-v-5cc0a8c6 {
+  margin: 4rpx 0;
+}
+.activity-detail-page .activity-order .tabbar-order .tab-wrap .line.data-v-5cc0a8c6 {
+  position: absolute;
+  z-index: 2;
+  bottom: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: 40rpx;
+  height: 6rpx;
+  background: #EFB600;
+}
+.activity-detail-page .activity-order .order-list.data-v-5cc0a8c6 {
+  padding: 132rpx 0 0;
+}
+.activity-detail-page .activity-order .order-list .order-item.data-v-5cc0a8c6 {
+  margin: 40rpx 0;
+  padding: 40rpx 20rpx;
+  box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+  background-color: #fff;
+  border-radius: 10rpx;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+}
+.activity-detail-page .activity-order .order-list .order-item .item-left .checkbox.data-v-5cc0a8c6 {
+  -webkit-transform: translateY(4rpx);
+          transform: translateY(4rpx);
+  margin-right: 10rpx;
+}
+.activity-detail-page .activity-order .order-list .order-item .item-left .time.data-v-5cc0a8c6 {
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+          align-items: flex-start;
+  width: 100rpx;
+}
+.activity-detail-page .activity-order .order-list .order-item .item-center.data-v-5cc0a8c6 {
+  overflow: hidden;
+}
+.activity-detail-page .activity-order .order-list .order-item .item-center .status.data-v-5cc0a8c6 {
+  font-size: 28rpx;
+  color: #EFB600;
+  width: 100rpx;
+}
+.activity-detail-page .activity-order .order-list .order-item .item-center .avatar.data-v-5cc0a8c6 {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 30rpx;
+  margin: 0 6rpx;
+}
+.activity-detail-page .activity-order .order-list .order-item .item-center .name.data-v-5cc0a8c6 {
+  margin: 0 6rpx;
+}
+.activity-detail-page .activity-order .order-list .order-item .btn.data-v-5cc0a8c6 {
+  width: 176rpx;
+  height: 60rpx;
+  background: #EFB600;
+  box-shadow: 0 6rpx 12rpx 0 rgba(239, 182, 0, 0.2);
+  border-radius: 32rpx;
+  color: #fff;
+}
+.activity-detail-page .footer-fixed.data-v-5cc0a8c6 {
+  background: #fff;
+  height: 270rpx;
+  padding: 12rpx 24rpx;
+  overflow: hidden;
+}
+.activity-detail-page .footer-fixed .select-all.data-v-5cc0a8c6 {
+  font-size: 30rpx;
+  line-height: 42rpx;
+  margin: 12rpx 0;
+}
+.activity-detail-page .footer-fixed .select-all .checkbox.data-v-5cc0a8c6 {
+  -webkit-transform: translateY(4rpx);
+          transform: translateY(4rpx);
+}
+.activity-detail-page .footer-fixed .btn-group.data-v-5cc0a8c6 {
+  margin: 40rpx 0;
+}
+.activity-detail-page .footer-fixed .btn-group .btn.data-v-5cc0a8c6 {
+  height: 136rpx;
+  border-radius: 10rpx;
+  border: 2rpx solid #FFD44D;
+}
+.activity-detail-page .footer-fixed .btn-group .btn .name.data-v-5cc0a8c6 {
+  font-weight: 500;
+  font-size: 30rpx;
+  line-height: 42rpx;
+  margin: 4rpx 0;
+  color: #333;
+}
+.activity-detail-page .footer-fixed .btn-group .btn .tips.data-v-5cc0a8c6 {
+  margin: 4rpx 0;
+  color: #999;
+}
+

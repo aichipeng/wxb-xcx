@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "修改名片",
+  "usingComponents": {
+    "uni-icons": "/components/uni-icons/uni-icons"
+  }
+}

@@ -1,0 +1,112 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "大付翁",
+				"enablePullDownRefresh": true
+			}
+		}, {
+			"path": "pages/orderScreen/orderScreen",
+			"style": {
+				"navigationBarTitleText": "全部订单",
+				"enablePullDownRefresh": true
+			}
+		}, {
+			"path": "pages/cashScreen/cashScreen",
+			"style": {}
+		}, {
+			"path": "pages/cashApply/cashApply",
+			"style": {
+				"navigationBarTitleText": "提现申请"
+			}
+		}, {
+			"path": "pages/activityScreen/activityScreen",
+			"style": {
+				"navigationBarTitleText": "全部活动",
+				"enablePullDownRefresh": true
+			}
+		}, {
+			"path": "pages/activityDetail/activityDetail",
+			"style": {
+				"navigationBarTitleText": "活动详情",
+				"enablePullDownRefresh": true
+			}
+		}, {
+			"path": "pages/activityCreate/activityCreate",
+			"style": {
+				"navigationBarTitleText": "多人收款"
+			}
+		}, {
+			"path": "pages/userSetting/userSetting",
+			"style": {
+				"navigationBarTitleText": "修改名片"
+			}
+		}, {
+			"path": "pages/addressScreen/addressScreen",
+			"style": {
+				"navigationBarTitleText": "地址管理"
+			}
+		}, {
+			"path": "pages/addressCreate/addressCreate",
+			"style": {
+				"navigationBarTitleText": "新增地址"
+			}
+		}, {
+			"path": "pages/activityPreview/activityPreview",
+			"style": {
+				"navigationBarTitleText": "活动详情"
+			}
+		}, {
+			"path": "pages/activityClient/activityClient",
+			"style": {
+				"navigationBarTitleText": "活动详情"
+			}
+		}, {
+			"path": "pages/orderPay/orderPay",
+			"style": {
+				"navigationBarTitleText": "支付页面"
+			}
+		}, {
+			"path": "pages/loginScreen/loginScreen",
+			"style": {}
+		}, {
+			"path": "pages/accountKeep/accountKeep",
+			"style": {
+				"navigationBarTitleText": "记账"
+			}
+		}, {
+			"path": "pages/orderDetail/orderDetail",
+			"style": {}
+		}, {
+			"path": "pages/statScreen/statScreen",
+			"style": {
+				"navigationBarTitleText": "统计"
+			}
+		}, {
+			"path": "pages/accKeepCreate/accKeepCreate",
+			"style": {
+				"navigationBarTitleText": "添加一笔"
+			}
+		}, {
+			"path": "pages/orderPick/orderPick",
+			"style": {
+				"navigationBarTitleText": "预约取件"
+			}
+		}, {
+			"path": "pages/orderExport/orderExport",
+			"style": {
+				"navigationBarTitleText": "导出单号"
+			}
+		}, {
+			"path": "pages/orderSend/orderSend",
+			"style": {
+				"navigationBarTitleText": "填写单号"
+			}
+		}],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "大付翁",
+		"navigationBarBackgroundColor": "#FFFFFF"
+	}
+}

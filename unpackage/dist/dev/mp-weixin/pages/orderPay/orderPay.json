@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "支付页面",
+  "usingComponents": {
+    "uni-icons": "/components/uni-icons/uni-icons"
+  }
+}
