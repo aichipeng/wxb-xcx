@@ -58,8 +58,10 @@ page.data-v-6cb279cc {
 .activity-export .btn-bottom.data-v-6cb279cc {
   height: 90rpx;
   background: #FFD44D;
-  box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
-  border-radius: 45rpx;
+  -webkit-box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
+          box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
+  -webkit-border-radius: 45rpx;
+          border-radius: 45rpx;
   margin: 60rpx 24rpx 0;
 }
 

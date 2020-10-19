@@ -28,9 +28,11 @@
   padding: 1rpx 24rpx 180rpx;
 }
 .user-setting-page .cell-group {
-  box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+  -webkit-box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+          box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
   background-color: #fff;
-  border-radius: 10rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
   padding: 0 16rpx;
   margin: 15rpx 0 24rpx;
 }
@@ -50,12 +52,14 @@
 .user-setting-page .cell-group .cell-item .value .avatar {
   height: 80rpx;
   width: 80rpx;
-  border-radius: 40rpx;
+  -webkit-border-radius: 40rpx;
+          border-radius: 40rpx;
 }
 .user-setting-page .cell-group .cell-item .value .circle-box {
   width: 36rpx;
   height: 36rpx;
-  border-radius: 18rpx;
+  -webkit-border-radius: 18rpx;
+          border-radius: 18rpx;
   color: #fff;
   background-color: #FFD44D;
   line-height: 30rpx;
@@ -67,8 +71,10 @@
   right: 24rpx;
   height: 90rpx;
   background: #FFD44D;
-  box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
-  border-radius: 45rpx;
+  -webkit-box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
+          box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
+  -webkit-border-radius: 45rpx;
+          border-radius: 45rpx;
   font-size: 30rpx;
   line-height: 42rpx;
 }

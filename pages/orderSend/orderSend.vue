@@ -158,7 +158,7 @@
 								uni.navigateBack({
 									delta: 1
 								})
-							}, 200)
+							}, 500)
 						} else {
 							uni.showToast({
 								title: "提交成功！下一个",

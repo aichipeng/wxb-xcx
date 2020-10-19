@@ -51,7 +51,8 @@
   width: 103rpx;
   height: 6rpx;
   background: #EFB600;
-  border-radius: 2rpx;
+  -webkit-border-radius: 2rpx;
+          border-radius: 2rpx;
 }
 .account-keep-page .account-content .count-month.data-v-d877a1a8 {
   -webkit-box-pack: justify;
@@ -70,7 +71,8 @@
           justify-content: space-between;
   background-color: #F9F9F9;
   padding: 10rpx 20rpx;
-  border-radius: 12rpx;
+  -webkit-border-radius: 12rpx;
+          border-radius: 12rpx;
 }
 .account-keep-page .account-content .count-day .keep-item.data-v-d877a1a8 {
   padding: 34rpx 0;
@@ -102,6 +104,8 @@
   padding: 32rpx 24rpx;
   border-bottom: solid 2rpx #EEEEEE;
   background-color: #fff;
+  font-size: 28rpx;
+  line-height: 40rpx;
 }
 .account-keep-page .account-content .order-item .order-item-top.data-v-d877a1a8 {
   -webkit-box-pack: justify;
@@ -113,7 +117,17 @@
   max-width: 75%;
 }
 .account-keep-page .account-content .order-item .order-item-top .info .name.data-v-d877a1a8 {
-  margin-right: 10rpx;
+  margin-right: 24rpx;
+}
+.account-keep-page .account-content .order-item .order-item-top .info .tag.data-v-d877a1a8 {
+  background-color: #F1F1F1;
+  -webkit-border-radius: 4rpx;
+          border-radius: 4rpx;
+  font-size: 24rpx;
+  line-height: 34rpx;
+  font-weight: 500;
+  color: #999;
+  padding: 2rpx 8rpx;
 }
 .account-keep-page .account-content .order-item .order-item-bottom.data-v-d877a1a8 {
   -webkit-box-pack: justify;
@@ -125,8 +139,10 @@
   width: 168rpx;
   height: 60rpx;
   background-color: #FFD44D;
-  box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
-  border-radius: 45rpx;
+  -webkit-box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
+          box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
+  -webkit-border-radius: 45rpx;
+          border-radius: 45rpx;
   font-size: 28rpx;
   line-height: 40rpx;
 }

@@ -53,8 +53,8 @@
 				<view class="txt flex-1">
 					<view class="name acp-ellipsis">{{info.sellerName || '商家名称'}}</view>
 					<view class="contact">
-						<text>{{info.mobile || '商家微信'}}</text>
-						<uni-icons type="compose" size="12" color="#5D5D5D" style="padding: 0 16rpx;"></uni-icons>
+						<text>{{info.wechatNo || '商家微信'}}</text>
+						<uni-icons @click="copeText(info.wechatNo)" type="compose" size="12" color="#5D5D5D" style="padding: 0 16rpx;"></uni-icons>
 					</view>
 				</view>
 				<!-- <text class="edit" @click="navigateTo('/pages/userSetting/userSetting')">修改名片</text> -->
@@ -123,7 +123,18 @@
 				})
 			},
 			handleSubmit() {
-				console.log(this.formData)
+				// console.log(this.formData)
+				const {
+					address
+				} = this.formData
+				if (!address) {
+					uni.showToast({
+						title: "请选择地址",
+						icon: "none",
+						mask: true,
+					})
+					return
+				}
 				updateOrder(this.formData).then(res => {
 					payOK({
 						orderNo: res.data
@@ -139,6 +150,27 @@
 							});
 						}, 500)
 					})
+				})
+			},
+			copeText(data) {
+				if (!data) return;
+				uni.setClipboardData({
+					data: data,
+					success: function(data) {
+						uni.showToast({
+							title: '复制成功',
+							icon: 'none',
+							mask: true
+						})
+					},
+					fail: function(err) {
+						uni.showToast({
+							title: '复制失败',
+							icon: 'none',
+							mask: true
+						})
+					},
+					complete: function(res) {}
 				})
 			},
 			navigateTo(url) {

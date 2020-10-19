@@ -3,7 +3,7 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "大付翁",
+				"navigationBarTitleText": "内有微商",
 				"enablePullDownRefresh": true
 			}
 		}, {
@@ -14,7 +14,9 @@
 			}
 		}, {
 			"path": "pages/cashScreen/cashScreen",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "我的账号"
+			}
 		}, {
 			"path": "pages/cashApply/cashApply",
 			"style": {
@@ -73,11 +75,14 @@
 		}, {
 			"path": "pages/accountKeep/accountKeep",
 			"style": {
-				"navigationBarTitleText": "记账"
+				"navigationBarTitleText": "记账",
+				"enablePullDownRefresh": true
 			}
 		}, {
 			"path": "pages/orderDetail/orderDetail",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "订单详情"
+			}
 		}, {
 			"path": "pages/statScreen/statScreen",
 			"style": {
@@ -103,10 +108,52 @@
 			"style": {
 				"navigationBarTitleText": "填写单号"
 			}
-		}],
+		}, {
+			"path": "pages/orderExpress/orderExpress",
+			"style": {
+				"navigationBarTitleText": "物流信息"
+			}
+		}, {
+			"path": "pages/sendScreen/sendScreen",
+			"style": {
+				"navigationBarTitleText": "安排发货"
+			}
+		}, {
+			"path": "pages/userScreen/userScreen",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		}, {
+			"path": "pages/activityShare/activityShare",
+			"style": {
+				"navigationBarTitleText": "活动详情"
+			}
+		}, {
+			"path": "pages/feedback/feedback",
+			"style": {
+				"navigationBarTitleText": "意见反馈"
+			}
+		}, {
+			"path": "pages/contactUs/contactUs",
+			"style": {
+				"navigationBarTitleText": "联系我们"
+			}
+		}, {
+			"path": "pages/cashList/cashList",
+			"style": {
+				"navigationBarTitleText": "余额明细"
+			}
+		}, {
+			"path": "pages/cashLogs/cashLogs",
+			"style": {
+				"navigationBarTitleText": "提现记录",
+				"enablePullDownRefresh": true
+			}
+		}
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "大付翁",
+		"navigationBarTitleText": "内有微商",
 		"navigationBarBackgroundColor": "#FFFFFF"
 	}
 }

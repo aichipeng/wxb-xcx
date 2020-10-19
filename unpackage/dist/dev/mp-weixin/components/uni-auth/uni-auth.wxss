@@ -26,32 +26,30 @@
 /* 文章场景相关 */
 .auth-popup {
   background-color: #fff;
-  padding: 30rpx 24rpx;
-  border-radius: 20rpx 20rpx 0 0;
+  padding: 20rpx 80rpx;
+  -webkit-border-radius: 20rpx 20rpx 0 0;
+          border-radius: 20rpx 20rpx 0 0;
 }
 .auth-popup .auth-phone {
-  background-color: green;
-  height: 80rpx;
-  margin: 10rpx 0;
-  width: 300rpx;
-  margin: 10rpx 0;
+  background: #FFD44D;
+  height: 90rpx;
+  margin: 30rpx 0;
   text-align: center;
   font-size: 30rpx;
-  line-height: 80rpx;
-  color: #fff;
-  border-radius: 10rpx;
+  line-height: 90rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
 }
 .auth-popup .auth-wx {
-  background-color: green;
-  height: 80rpx;
-  margin: 10rpx 0;
-  width: 300rpx;
-  margin: 10rpx 0;
+  background-color: #07c160;
+  height: 90rpx;
+  margin: 30rpx 0;
   padding: 0;
   text-align: center;
   font-size: 30rpx;
-  line-height: 80rpx;
+  line-height: 90rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
   color: #fff;
-  border-radius: 10rpx;
 }
 

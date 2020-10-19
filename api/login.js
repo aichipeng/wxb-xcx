@@ -27,6 +27,11 @@ export const loginAuth = (params = {}) => {
 	return ajax(params, '/auth/login', 'POST')
 }
 
+// 获取小程序码
+export const getWacodeunlimit = (params = {}) => {
+	return ajax(params, '/auth/getwxacodeunlimit', 'GET')
+}
+
 // 退出登录
 export const authLogout = (params = {}) => {
 	return ajax(params, '/auth/logout', 'POST')

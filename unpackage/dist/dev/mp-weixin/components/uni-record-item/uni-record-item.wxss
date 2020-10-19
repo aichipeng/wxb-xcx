@@ -26,8 +26,10 @@
 /* 文章场景相关 */
 .uni-record-item {
   background-color: #fff;
-  box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
-  border-radius: 10rpx;
+  -webkit-box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+          box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
   padding: 10rpx 40rpx 30rpx;
   margin: 40rpx 0;
 }
@@ -65,13 +67,24 @@
   -webkit-flex: 1;
           flex: 1;
   overflow: hidden;
+  margin-right: 30rpx;
+}
+.uni-record-item .footer .footer-left .name-wrap {
+  padding: 6rpx 12rpx;
+  font-size: 28rpx;
+  background-color: rgba(216, 216, 216, 0.3);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: inline-flex;
 }
 .uni-record-item .footer .footer-right {
   width: 176rpx;
   height: 64rpx;
   background: #EFB600;
-  box-shadow: 0 6rpx 12rpx 0 rgba(239, 182, 0, 0.2);
-  border-radius: 32rpx;
+  -webkit-box-shadow: 0 6rpx 12rpx 0 rgba(239, 182, 0, 0.2);
+          box-shadow: 0 6rpx 12rpx 0 rgba(239, 182, 0, 0.2);
+  -webkit-border-radius: 32rpx;
+          border-radius: 32rpx;
   color: #fff;
   -webkit-box-pack: center;
   -webkit-justify-content: center;

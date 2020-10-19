@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "记账",
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "uni-keep-float": "/components/uni-keep-float/uni-keep-float"
   }

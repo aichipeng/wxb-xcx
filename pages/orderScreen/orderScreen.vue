@@ -14,7 +14,7 @@
 								<text style="margin: 0 10rpx;">单价 {{item.goodsPrice}}</text>
 								<text style="margin: 0 10rpx;">数量 {{item.goodsNum}}</text>
 							</view>
-							<text style="color: #EFB600;">+{{(item.goodsPrice||0).toFixed(2)}}</text>
+							<text style="color: #EFB600;">+ {{(item.goodsPrice || 0) * (item.goodsNum || 0) + (item.freightPrice || 0)}}</text>
 						</view>
 						<view class="order-item-bottom flex-row">
 							<text style="color: #999">订单支付时间：{{item.addTime}}</text>
@@ -43,7 +43,9 @@
 					size: 10,
 					type: 1
 				},
-				list: []
+				list: [],
+				isLoading: false,
+				finish: false
 			};
 		},
 		onLoad() {

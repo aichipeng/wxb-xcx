@@ -1,22 +1,48 @@
 <template>
 	<view class="stat-screen">
-		<view class="tabbar-top flex-row border-bottom">
-			<block v-for="(item,index) in tabList" :key="index">
-				<view class="tab-wrap flex-col flex-1" @click="toggleType(item)">
-					<text :style="{color: current === item.type ? '#333' : '#999'}">{{item.name}}</text>
-					<view v-if="current === item.type" class="line"></view>
-				</view>
-			</block>
-		</view>
+		<cover-view class="tabbar-top flex-row border-bottom">
+			<cover-view v-for="(item,index) in tabList" :key="index" class="tab-wrap flex-col flex-1" @click="toggleType(item)">
+				<cover-view :style="{color: current === item.type ? '#333' : '#999'}">{{item.name}}</cover-view>
+				<cover-view v-if="current === item.type" class="line"></cover-view>
+			</cover-view>
+		</cover-view>
 		<view class="stat-warp border-bottom">
+			<view class="flex-col">
+				<view class="select-wrap flex-row" v-if="current != 4">
+					<view class="flex-row">
+						<block>
+							<view class="time" v-if="current == 1">{{moment(new Date(formData.data)).format('YYYY年MM月DD日')}}</view>
+							<view class="time flex-col" v-if="current == 2">
+								<view class="">{{moment(currentWeek.yearMonth + '01').format('YYYY年MM月')}}第{{currentWeek.nameNum}}周</view>
+								<view class="">{{currentWeek.data}}</view>
+							</view>
+							<view class="time" v-if="current == 3">{{moment(formData.month + '-01').format('YYYY年MM月')}}</view>
+						</block>
+						<block>
+							<picker v-if="current == 1" mode="date" fields='day' :end="end" :value="formData.data" @change="bindDateChange"
+							 style="transform: translateY(4rpx);">
+								<uni-icons type="info" size="16"></uni-icons>
+							</picker>
+							<picker v-if="current == 2" :range="weekList" range-key="label" :value="weekList.length-1" @change="bindDateChange"
+							 style="transform: translateY(4rpx);">
+								<uni-icons type="info" size="16"></uni-icons>
+							</picker>
+							<picker v-if="current == 3" mode="date" fields="month" :end="end" :value="formData.month" @change="bindDateChange"
+							 style="transform: translateY(4rpx);">
+								<uni-icons type="info" size="16"></uni-icons>
+							</picker>
+						</block>
+					</view>
+				</view>
+			</view>
 			<view class="flex-row">
 				<view class="stat-item flex-col flex-1">
 					<text class="label">收入总额</text>
-					<text class="value"><text class="sign">￥</text><text>{{(info.incomeTotal||0).toFixed(2)}}</text></text>
+					<text class="value"><text class="sign">￥</text><text>{{(info.incomeTotal || 0).toFixed(2)}}</text></text>
 				</view>
 				<view class="stat-item flex-col flex-1">
 					<text class="label">支出总额</text>
-					<text class="value"><text class="sign">￥</text><text>{{(info.expendTotal||0).toFixed(2)}}</text></text>
+					<text class="value"><text class="sign">￥</text><text>{{(info.expendTotal || 0).toFixed(2)}}</text></text>
 				</view>
 			</view>
 			<view class="flex-row">
@@ -118,16 +144,21 @@
 <script>
 	import {
 		statisticsDay,
-		statisticsWeek
+		statisticsWeek,
+		statisticsWeekList,
+		statisticsMonth
 	} from '@/api/stat.js'
 	import {
 		getRatio
 	} from "@/static/utils/common.js"
+	import moment from "moment";
+	// console.log(moment(new Date()).format("YYYY年"));
 	import uCharts from '@/static/stan-ucharts/u-charts/u-charts.js';
 	import uniKeepFloat from "@/components/uni-keep-float/uni-keep-float.vue"
 	export default {
 		data() {
 			return {
+				moment,
 				avatar: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2476878483,4014399276&fm=26&gp=0.jpg',
 				current: 1,
 				tabList: [{
@@ -137,8 +168,22 @@
 					{
 						name: '周报',
 						type: 2
+					},
+					{
+						name: '月报',
+						type: 3
 					}
 				],
+				weekList: [],
+				currentWeek: {
+
+				},
+				end: moment(new Date().getTime() - 24 * 60 * 60 * 1000).format("YYYY-MM-DD"),
+				formData: {
+					data: moment(new Date().getTime() - 24 * 60 * 60 * 1000).format("YYYY-MM-DD"),
+					month: moment(new Date()).format("YYYY-MM"),
+					num: 1,
+				},
 				info: {},
 				pixelRatio: getRatio(),
 				rIndex: 0,
@@ -156,7 +201,8 @@
 		},
 		onLoad() {
 			this.getInfo()
-			console.log(this.pixelRatio)
+			this.getWeekList()
+			// console.log(this.pixelRatio)
 			this.rWidth = this.pixelRatio * 320;
 			this.rHeight = this.pixelRatio * 320;
 			this.qWidth = this.pixelRatio * 340;
@@ -165,23 +211,55 @@
 			this.sHeight = this.pixelRatio * 320;
 		},
 		methods: {
+			toggleType(item) {
+				if (this.current !== item.type) {
+					this.info = {}
+					this.current = item.type
+					this.getInfo()
+				}
+			},
+			getWeekList() {
+				statisticsWeekList().then(res => {
+					const weekList = res.data || [];
+					this.weekList = weekList;
+					if (res.data.length > 0) {
+						this.currentWeek = weekList[weekList.length - 1];
+					}
+				})
+			},
 			getInfo() {
 				let {
 					current,
-				} = this, api = undefined
+					formData,
+					currentWeek
+				} = this, api = undefined, obj = {}
 				switch (Number(current)) {
 					case 1:
 						api = statisticsDay
+						obj = {
+							data: moment(new Date(formData.data)).format("YYYYMMDD")
+						}
 						break;
 					case 2:
+						obj = {
+							month: currentWeek.yearMonth || moment(new Date(formData.month + '-01')).format("YYYYMM"),
+							num: currentWeek.nameNum || 1,
+						}
 						api = statisticsWeek
+						break;
+					case 3:
+						obj = {
+							data: moment(new Date(formData.month + '-01')).format("YYYYMM")
+						}
+						api = statisticsMonth
 						break;
 					default:
 						break
 				}
 				if (api) {
-					api().then(res => {
-						this.info = res.data;
+					console.log(formData)
+					api(obj).then(res => {
+						this.info = res.data || {};
 						this.setRingChart(res.data, 0)
 						this.setRingChart(res.data, 1)
 						this.setQiunChart(res.data, 0)
@@ -190,8 +268,31 @@
 					})
 				}
 			},
+			bindDateChange(e) {
+				let {
+					value
+				} = e.detail
+				// console.log(value)
+				switch (Number(this.current)) {
+					case 1:
+						this.formData.data = value;
+						this.getInfo()
+						break;
+					case 2:
+						// console.log(this.weekList[value].isClick)
+						this.currentWeek = this.weekList[value];
+						this.getInfo()
+						break;
+					case 3:
+						this.formData.month = value;
+						this.getInfo()
+						break;
+					default:
+						break
+				}
+			},
 			// 收入、支出统计表
-			setRingChart(info, type) {
+			setRingChart(info = {}, type) {
 				const _self = this;
 				const series = [{
 					name: '记账总额',
@@ -217,7 +318,8 @@
 						fontSize: 12 * _self.pixelRatio,
 					},
 					subtitle: {
-						name: '¥' + Number(type == 0 ? info.incomeTotal : info.expendTotal).toFixed(2) || '0.00',
+						name: '¥' + type == 0 ? Number(info.incomeTotal || 0).toFixed(2) : Number(info.expendTotal || 0).toFixed(2),
+						// Number(type == 0 ? info.incomeTotal || 0 : info.expendTotal || 0) || '0.00',
 						color: '#333333',
 						fontSize: 20 * _self.pixelRatio,
 					},
@@ -254,7 +356,7 @@
 				this.rIndex = e.detail.current
 			},
 			// 订单、顾客统计表
-			setQiunChart(info, type) {
+			setQiunChart(info = {}, type) {
 				const _self = this;
 				let arr = type == 0 ? info.orderList || [] : info.customerList || [],
 					categories = [],
@@ -315,7 +417,7 @@
 				}
 			},
 			// 商品排行统计表
-			setStackChart(info) {
+			setStackChart(info = {}) {
 				const _self = this;
 				let arr = info.goods || [],
 					categories = [],
@@ -375,13 +477,6 @@
 					}
 				});
 			},
-			toggleType(item) {
-				if (this.current !== item.type) {
-					this.info = {}
-					this.current = item.type
-					this.getInfo()
-				}
-			}
 		}
 	}
 </script>
@@ -396,7 +491,7 @@
 
 		.tabbar-top {
 			position: fixed;
-			z-index: 99;
+			z-index: 999;
 			/* #ifdef H5 */
 			top: 88rpx;
 			/* #endif */
@@ -429,6 +524,17 @@
 
 		.stat-warp {
 			padding: 50rpx 0;
+
+			.select-wrap {
+				background-color: #F9F9F9;
+				padding: 10rpx 20rpx;
+				border-radius: 4rpx;
+
+				.time {
+					padding: 0 30rpx 0 10rpx;
+					color: #999999;
+				}
+			}
 
 			.stat-item {
 				padding: 26rpx 0;

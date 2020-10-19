@@ -20,16 +20,25 @@
     "pages/accKeepCreate/accKeepCreate",
     "pages/orderPick/orderPick",
     "pages/orderExport/orderExport",
-    "pages/orderSend/orderSend"
+    "pages/orderSend/orderSend",
+    "pages/orderExpress/orderExpress",
+    "pages/sendScreen/sendScreen",
+    "pages/userScreen/userScreen",
+    "pages/activityShare/activityShare",
+    "pages/feedback/feedback",
+    "pages/contactUs/contactUs",
+    "pages/cashList/cashList",
+    "pages/cashLogs/cashLogs"
   ],
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "大付翁",
+    "navigationBarTitleText": "内有微商",
     "navigationBarBackgroundColor": "#FFFFFF"
   },
   "usingComponents": {
     "uni-icons": "/components/uni-icons/uni-icons",
     "uni-popup": "/components/uni-popup/uni-popup"
-  }
+  },
+  "sitemapLocation": "sitemap88.json"
 }

@@ -44,7 +44,7 @@
 			</view>
 			<view class="form-item flex-row" style="border-bottom: none">
 				<text></text>
-				<text>总计：¥ {{Number(formData.freightPrice) + Number(formData.price)}}</text>
+				<text>总计：¥ {{Number(formData.freightPrice || 0) + Number(formData.price || 0) * formData.num}}</text>
 			</view>
 		</view>
 		<view class="form-group">
@@ -87,9 +87,9 @@
 					describe: undefined,
 					saleVolume: undefined,
 					name: undefined,
-					price: 0,
+					price: undefined,
 					num: 1,
-					freightPrice: 0,
+					freightPrice: undefined,
 					isShowWx: true,
 				}
 			};
@@ -149,23 +149,32 @@
 			},
 			handleSubmit(type) {
 				// console.log(res)
-				const _this = this
-				switch (Number(type)) {
-					case 1:
-						_this.handleHold()
-						break;
-					case 2:
-						_this.handleCreate()
-						break;
-					default:
-						break;
+				const _this = this;
+				const msg = this.verifyForm();
+				if (!msg) {
+					switch (Number(type)) {
+						case 1:
+							_this.handleHold()
+							break;
+						case 2:
+							_this.handleCreate()
+							break;
+						default:
+							break;
+					}
+				} else {
+					uni.showToast({
+						title: msg,
+						icon: 'none',
+						mask: true
+					})
 				}
 			},
 			// 发布
 			handleCreate() {
 				activityCreate(this.formData).then(res => {
 					uni.redirectTo({
-						url: '/pages/activityPreview/activityPreview?id=' + res.data
+						url: '/pages/activityShare/activityShare?id=' + res.data
 					});
 				})
 			},
@@ -173,9 +182,38 @@
 			handleHold() {
 				activityHold(this.formData).then(res => {
 					uni.redirectTo({
-						url: '/pages/activityClient/activityClient?id=' + res.data
+						url: '/pages/activityPreview/activityPreview?id=' + res.data
 					});
 				})
+			},
+			// 校验表单
+			verifyForm() {
+				const {
+					describe,
+					saleVolume,
+					name,
+					price,
+					num
+				} = this.formData;
+				const {
+					agree
+				} = this
+				let msg = '';
+				// if (agree) {
+				// 	msg = '请同意用户协议！'
+				// } else
+				if (!describe) {
+					msg = '活动描述不能为空！'
+				} else if (!saleVolume) {
+					msg = '可售单量不能为空！'
+				} else if (!name) {
+					msg = '商品名称不能为空！'
+				} else if (!price) {
+					msg = '商品单价不能为空！'
+				} else if (!num) {
+					msg = '商品数量不能为空！'
+				}
+				return msg
 			},
 			navigateTo(url) {
 				uni.navigateTo({

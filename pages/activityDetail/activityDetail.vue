@@ -1,40 +1,30 @@
 <template>
 	<view class="activity-detail-page" :style="{paddingBottom: queryList.status == 201 ? '294rpx' : 0}">
-		<view class="activity-card">
+		<view class="activity-card" @click="handleActivity">
 			<view class="header flex-row">
 				<text class="header-left">
-					<text>{{info.addTime}}</text>
-					<!-- <text>
+					<text>{{moment(info.addTime).format('MM月DD日 HH:mm')}}</text>
+					<text v-if="info.status != 0">
 						<text style="margin: 0 16rpx;">|</text>
-						<text style="color: #EFB600;">33</text>
-						<text>人查看</text>
-					</text> -->
+						<!-- <text style="color: #EFB600;">{{info.browseNum || 0}}</text> -->
+						<text>已发布{{info.day || 0}}天</text>
+					</text>
 				</text>
 				<text class="header-right">{{typeMap[info.status]}}</text>
 			</view>
 			<view class="body">
-				<text class="txt acp-ellipsis-l2">{{info.describe}}</text>
+				<text class="txt acp-ellipsis-l2">{{info.describe || '暂无描述'}}</text>
 			</view>
 			<view class="footer flex-row">
 				<view class="footer-left">
 					<view class="flex-row" style="padding: 4rpx 0;font-size: 28rpx;">
-						<text class="acp-ellipsis">{{info.name}}</text>
-						<text style="margin:0 24rpx; flex: 1; font-weight: 500;">¥{{info.price}}</text>
+						<!-- <text class="acp-ellipsis" style="margin-right: 24rpx">{{info.name || '商品名称'}}</text> -->
+						<text style="font-weight: 500;">¥{{info.price}}</text>
+						<text style="margin: 0 16rpx;">|</text>
+						<text class="flex-1" style="white-space: nowrap;">可售单量{{info.saleVolume || 0}}单</text>
 					</view>
-					<!-- <view class="flex-row" style="padding: 4rpx 0;font-size: 24rpx; color: #999;">
-						<text>
-							<text>已售</text>
-							<text style="color: #333; margin: 0 6rpx;">12</text>
-							<text>单</text>
-						</text>
-						<text style="margin:0 24rpx;">
-							<text>待发货</text>
-							<text style="color: #B72A2A; margin: 0 6rpx;">12</text>
-							<text>单</text>
-						</text>
-					</view> -->
 				</view>
-				<view v-if="info.status != 2" class="footer-right flex-row" @click="handleClick">
+				<view v-if="info.status != 2" class="footer-right flex-row" @click.stop="handleClick">
 					<text class="btn">{{btnMap[info.status] || '安排发货'}}</text>
 				</view>
 			</view>
@@ -50,7 +40,7 @@
 					<text class="lab">待发货</text>
 				</view>
 				<view class="count-item flex-col">
-					<text class="val">{{info.saleVolume || 0}}</text>
+					<text class="val">{{info.browseNum || 0}}</text>
 					<text class="lab">浏览人次</text>
 				</view>
 			</view>
@@ -70,10 +60,10 @@
 				</view>
 				<view class="order-list">
 					<block v-for="(item,index) in list" :key="index">
-						<view class="order-item flex-row">
-							<view class="item-left flex-row" @click="select(item)">
+						<view class="order-item flex-row" @click="navigateTo('/pages/orderDetail/orderDetail?orderSn=' + item.orderSn + '&mode=server')">
+							<view class="item-left flex-row" @click.stop="select(item)">
 								<view v-if="queryList.status == 201" class="checkbox">
-									<uni-icons v-if="checkedMap.indexOf(item.orderSn) == -1" type="circle" size="20" color="#ddd"></uni-icons>
+									<uni-icons v-if="checkedMap.indexOf(item.orderSn) == -1" type="checkbox-filled" size="20" color="#ddd"></uni-icons>
 									<uni-icons v-else type="checkbox-filled" size="20" color="#FFD44D"></uni-icons>
 								</view>
 								<view class="time flex-col">
@@ -86,7 +76,7 @@
 								<image class="avatar" :src="item.avatar || avatar"></image>
 								<text class="name acp-ellipsis flex-1">{{item.nickName}}</text>
 							</view>
-							<view class="item-right btn flex-col" @click="handleBtn(item)">
+							<view class="item-right btn flex-col" @click.stop="handleBtn(item)">
 								<text>{{btnTxtMap[item.orderStatus] || '查看详情'}} </text>
 							</view>
 						</view>
@@ -98,7 +88,7 @@
 			<view class="footer-fixed">
 				<view class="select-all flex-row">
 					<view class="checkbox" @click="selectAll">
-						<uni-icons v-if="!isAll" type="circle" size="20" color="#ddd"></uni-icons>
+						<uni-icons v-if="!isAll" type="checkbox-filled" size="20" color="#ddd"></uni-icons>
 						<uni-icons v-else type="checkbox-filled" size="20" color="#FFD44D"></uni-icons>
 					</view>
 					<text style="margin-left: 16rpx;">全选</text>
@@ -134,6 +124,7 @@
 		orderByActivity,
 		orderByActivityCount
 	} from "@/api/order.js"
+	import moment from "moment";
 	import uniRecordItem from "@/components/uni-record-item/uni-record-item.vue"
 	export default {
 		name: 'ActivityDetail',
@@ -142,6 +133,7 @@
 		},
 		data() {
 			return {
+				moment,
 				id: undefined,
 				info: {
 					status: 0
@@ -160,6 +152,8 @@
 				statusMap: {
 					101: '待付款',
 					201: '待发货',
+					202: '预约中',
+					203: '已导出',
 					301: '运输中',
 					601: '已结束',
 					602: '已关闭',
@@ -167,6 +161,8 @@
 				btnTxtMap: {
 					101: '查看详情',
 					201: '安排发货',
+					202: '安排发货',
+					203: '安排发货',
 					301: '查看物流',
 					601: '查看详情',
 					602: '查看详情',
@@ -203,6 +199,7 @@
 					size: 10
 				},
 				list: [],
+				length: 0,
 				isLoading: false,
 				finish: false,
 				isAll: false,
@@ -214,6 +211,10 @@
 				this.id = options.id
 				this.getInfo();
 			}
+		},
+		onShow() {
+			this.isAll = false;
+			this.checkedMap = [];
 		},
 		onPullDownRefresh() {
 			this.list = [];
@@ -270,6 +271,27 @@
 					this.isLoading = false
 				})
 			},
+
+			handleActivity() {
+				const {
+					status
+				} = this.info,
+					_this = this
+				switch (Number(status)) {
+					case 0:
+						_this.navigateTo('/pages/activityPreview/activityPreview?id=' + this.id)
+						break;
+					case 1:
+						this.navigateTo('/pages/activityShare/activityShare?id=' + this.id)
+						break;
+					case 2:
+						// 关闭
+						// _this.navigateTo('/pages/activityShare/activityShare?id=' + this.id)
+						break;
+					default:
+						break
+				}
+			},
 			handleClick() {
 				// console.log(this.info);
 				const {
@@ -287,13 +309,12 @@
 						break;
 					case 2:
 						// 关闭
-						// _this.navigateTo('/pages/activityPreview/activityPreview?id=' + this.id)
+						// _this.navigateTo('/pages/activityShare/activityShare?id=' + this.id)
 						break;
 					default:
 						break
 				}
 			},
-			// 
 			closeActivity() {
 				const _this = this
 				uni.showModal({
@@ -309,20 +330,13 @@
 									icon: 'none',
 									mask: true
 								})
-								_this.refresh()
+								_this.info.status = 2
 							})
 						} else if (res.cancel) {
 							console.log('用户点击取消');
 						}
 					}
 				});
-			},
-			refresh() {
-				activityDetail({
-					id: this.id
-				}).then(res => {
-					this.info = res.data;
-				})
 			},
 			// 切换状态
 			toggleType(item) {
@@ -349,9 +363,6 @@
 					checkedMap,
 					list
 				} = this;
-				if (queryList.status != 201) {
-					return
-				}
 				const idx = checkedMap.indexOf(item.orderSn);
 				if (idx == -1) {
 					checkedMap.push(item.orderSn)
@@ -360,10 +371,31 @@
 				}
 				this.isAll = checkedMap.length == list.length
 			},
+			// filterList() {
+			// 	const {
+			// 		list
+			// 	} = this;
+			// 	return list.filter(item => item.orderStatus == 201 || item.orderStatus == 202)
+			// },
 			handleBtn(item) {
-				console.log(item)
-				// this.navigateTo('/pages/orderPay/orderPay?orderSn=' + item.orderSn)
-				this.navigateTo('/pages/orderDetail/orderDetail?orderSn=' + item.orderSn + '&mode=server')
+				switch (Number(item.orderStatus)) {
+					case 201:
+						this.navigateTo('/pages/sendScreen/sendScreen?id=' + this.id + '&name=' + this.info.name)
+						break;
+					case 202:
+						this.navigateTo('/pages/sendScreen/sendScreen?id=' + this.id + '&name=' + this.info.name)
+						break;
+					case 203:
+						this.navigateTo('/pages/sendScreen/sendScreen?id=' + this.id + '&name=' + this.info.name)
+						break;
+					case 301:
+						this.navigateTo('/pages/orderExpress/orderExpress?no=' + item.shipSn + '&code=' + item.shipChannel)
+						break;
+					default:
+						this.navigateTo('/pages/orderDetail/orderDetail?orderSn=' + item.orderSn + '&mode=server')
+						break;
+				}
+				// console.log(item)
 			},
 			// 全选
 			selectAll() {
@@ -378,7 +410,9 @@
 				} else {
 					this.isAll = true;
 					list.forEach((item, index) => {
-						checkedMap.push(item.orderSn)
+						if (item.orderStatus == 201 || item.orderStatus == 202) {
+							checkedMap.push(item.orderSn)
+						}
 					});
 					this.checkedMap = checkedMap;
 				}
@@ -390,6 +424,12 @@
 				} = this;
 				if (checkedMap.length > 0) {
 					this.navigateTo('/pages/orderSend/orderSend?item=' + JSON.stringify(checkedMap))
+				} else {
+					uni.showToast({
+						title: '请选择订单',
+						icon: 'none',
+						mask: true
+					})
 				}
 			},
 			// 预约取件
@@ -399,6 +439,12 @@
 				} = this;
 				if (checkedMap.length > 0) {
 					this.navigateTo('/pages/orderPick/orderPick?item=' + JSON.stringify(checkedMap))
+				} else {
+					uni.showToast({
+						title: '请选择订单',
+						icon: 'none',
+						mask: true
+					})
 				}
 			},
 			// 他人代发
@@ -408,6 +454,12 @@
 				} = this;
 				if (checkedMap.length > 0) {
 					this.navigateTo('/pages/orderExport/orderExport?item=' + JSON.stringify(checkedMap))
+				} else {
+					uni.showToast({
+						title: '请选择订单',
+						icon: 'none',
+						mask: true
+					})
 				}
 			},
 			navigateTo(url) {
@@ -478,6 +530,7 @@
 					border-radius: 32rpx;
 					color: #fff;
 					justify-content: center;
+					margin-left: 20rpx;
 
 					.btn {
 						line-height: 40rpx;

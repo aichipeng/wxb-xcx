@@ -77,7 +77,7 @@
         "enable" : false
     },
     "h5" : {
-        "title" : "大付翁",
+        "title" : "内有微商",
         "router" : {
             "mode" : "history"
         }

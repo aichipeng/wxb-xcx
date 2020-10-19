@@ -28,9 +28,11 @@
   padding: 16rpx 24rpx;
 }
 .cash-apply .cash-card.data-v-38ce6704 {
-  box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.04);
+  -webkit-box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.04);
+          box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.04);
   background-color: #fff;
-  border-radius: 10rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
   padding: 41rpx 41rpx 70rpx;
 }
 .cash-apply .cash-card .title.data-v-38ce6704 {
@@ -49,7 +51,7 @@
   margin: 10rpx 0;
 }
 .cash-apply .cash-card .form-item .input.data-v-38ce6704 {
-  font-size: 52rpx;
+  font-size: 40rpx;
   font-weight: 500;
   line-height: 74rpx;
   margin: 0 10rpx;
@@ -75,8 +77,10 @@
 .cash-apply .cash-card .btn-bottom.data-v-38ce6704 {
   height: 90rpx;
   background: #FFD44D;
-  box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
-  border-radius: 45rpx;
+  -webkit-box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
+          box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
+  -webkit-border-radius: 45rpx;
+          border-radius: 45rpx;
   font-size: 30rpx;
   line-height: 42rpx;
   margin-top: 104rpx;

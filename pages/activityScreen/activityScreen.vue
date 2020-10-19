@@ -16,7 +16,7 @@
 
 <script>
 	import {
-		activityIndex
+		activityList
 	} from "@/api/activity.js"
 	import uniRecordItem from "@/components/uni-record-item/uni-record-item.vue"
 	export default {
@@ -52,7 +52,11 @@
 		components: {
 			uniRecordItem,
 		},
-		created() {
+		onShow() {
+			this.isLoading = false;
+			this.list = [];
+			this.finish = false;
+			this.queryList.page = 1
 			this.getList()
 		},
 		onPullDownRefresh() {
@@ -70,7 +74,7 @@
 		methods: {
 			// 活动列表
 			getList() {
-				activityIndex(this.queryList).then(res => {
+				activityList(this.queryList).then(res => {
 					if (res.data && res.data.length > 0) {
 						this.list = this.list.concat(res.data)
 						this.finish = false

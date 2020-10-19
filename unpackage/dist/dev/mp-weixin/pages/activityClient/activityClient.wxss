@@ -29,8 +29,10 @@
 }
 .activity-client-page .header.data-v-bbd2b4f4 {
   background-color: #FFD44D;
-  box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
-  border-radius: 0 0 40rpx 40rpx;
+  -webkit-box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+          box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+  -webkit-border-radius: 0 0 40rpx 40rpx;
+          border-radius: 0 0 40rpx 40rpx;
   padding: 48rpx 24rpx 184rpx;
 }
 .activity-client-page .header .title.data-v-bbd2b4f4 {
@@ -48,9 +50,11 @@
   padding: 0 24rpx;
 }
 .activity-client-page .body .info-card.data-v-bbd2b4f4 {
-  box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.04);
+  -webkit-box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.04);
+          box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.04);
   background-color: #fff;
-  border-radius: 10rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
   padding: 0 24rpx;
   margin: 24rpx 0;
 }
@@ -63,9 +67,11 @@
   font-size: 30rpx;
 }
 .activity-client-page .body .user-card.data-v-bbd2b4f4 {
-  box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.04);
+  -webkit-box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.04);
+          box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.04);
   background-color: #fff;
-  border-radius: 10rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
   padding: 1rpx 24rpx;
   margin: 24rpx 0;
 }
@@ -81,7 +87,8 @@
 .activity-client-page .body .user-card .tips .dot.data-v-bbd2b4f4 {
   width: 8rpx;
   height: 8rpx;
-  border-radius: 4rpx;
+  -webkit-border-radius: 4rpx;
+          border-radius: 4rpx;
   background: #D8D8D8;
   margin: 0 24rpx;
 }
@@ -91,7 +98,8 @@
 .activity-client-page .body .user-card .user-info .avatar.data-v-bbd2b4f4 {
   width: 100rpx;
   height: 100rpx;
-  border-radius: 50rpx;
+  -webkit-border-radius: 50rpx;
+          border-radius: 50rpx;
 }
 .activity-client-page .body .user-card .user-info .txt.data-v-bbd2b4f4 {
   overflow: hidden;
@@ -126,8 +134,10 @@
   right: 24rpx;
   height: 90rpx;
   background: #FFD44D;
-  box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
-  border-radius: 45rpx;
+  -webkit-box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
+          box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
+  -webkit-border-radius: 45rpx;
+          border-radius: 45rpx;
   font-size: 30rpx;
   line-height: 42rpx;
 }

@@ -11,3 +11,14 @@ export const statisticsDay = params => {
 export const statisticsWeek = params => {
 	return ajax(params, '/statistics/week', 'GET')
 }
+
+export const statisticsWeekList = params => {
+	return ajax(params, '/statistics/weekList', 'GET')
+}
+
+// 月统计
+export const statisticsMonth = params => {
+	return ajax(params, '/statistics/month', 'GET')
+}
+
+

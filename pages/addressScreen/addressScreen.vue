@@ -55,6 +55,7 @@
 			getList() {
 				try {
 					this.list = uni.getStorageSync('addressList') || [];
+					// console.log(uni.getStorageSync('addressList'))
 				} catch (e) {}
 			},
 			select(item) {
@@ -72,9 +73,12 @@
 			navigateBack(data) {
 				let pages = getCurrentPages();
 				const prevPage = pages[pages.length - 2]
+				// console.log(prevPage)
+				// #ifdef MP-WEIXIN
 				prevPage.setData({
 					addressInfo: data
 				})
+				// #endif
 				uni.navigateBack({
 					delta: 1
 				})

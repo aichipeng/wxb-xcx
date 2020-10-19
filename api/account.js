@@ -1,10 +1,19 @@
 import {
 	ajax
 } from './request.js'
+// 用户账户列表
+export const accountList = params => {
+	return ajax(params, '/account/accountList', 'GET')
+}
 
 // 用户账户信息
 export const accountDetail = params => {
 	return ajax(params, '/account/detail', 'GET')
+}
+
+// 余额列表
+export const balanceList = params => {
+	return ajax(params, '/account/balanceList', 'GET')
 }
 
 // 今日销量top

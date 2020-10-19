@@ -30,8 +30,10 @@
 .address-create-page .form-group.data-v-7cbf0430 {
   margin: 16rpx 0;
   background-color: #fff;
-  box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
-  border-radius: 10rpx;
+  -webkit-box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+          box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
   padding: 0 16rpx;
 }
 .address-create-page .form-group .form-item.data-v-7cbf0430 {
@@ -52,7 +54,8 @@
 .address-create-page .form-group .form-item .value .circle-box.data-v-7cbf0430 {
   width: 36rpx;
   height: 36rpx;
-  border-radius: 18rpx;
+  -webkit-border-radius: 18rpx;
+          border-radius: 18rpx;
 }
 .address-create-page .form-group .form-item .value .input-box.data-v-7cbf0430 {
   position: relative;
@@ -73,20 +76,24 @@
 .address-create-page .discern-card.data-v-7cbf0430 {
   margin: 16rpx 0;
   background-color: #fff;
-  box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
-  border-radius: 10rpx;
+  -webkit-box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+          box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
   padding: 1rpx 20rpx 16rpx;
 }
 .address-create-page .discern-card .input-value.data-v-7cbf0430 {
   height: 208rpx;
   background-color: #F9F9F9;
   margin: 24rpx 0 16rpx;
-  border-radius: 10rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
   font-size: 24rpx;
   line-height: 34rpx;
   padding: 20rpx;
   width: 100%;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .address-create-page .discern-card .tips.data-v-7cbf0430 {
   margin: 16rpx 0;
@@ -98,8 +105,10 @@
   right: 24rpx;
   height: 90rpx;
   background: #FFD44D;
-  box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
-  border-radius: 45rpx;
+  -webkit-box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
+          box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
+  -webkit-border-radius: 45rpx;
+          border-radius: 45rpx;
   font-size: 30rpx;
   line-height: 42rpx;
 }

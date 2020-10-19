@@ -29,8 +29,10 @@
 }
 .activity-detail-page .activity-card.data-v-5cc0a8c6 {
   background-color: #fff;
-  box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
-  border-radius: 10rpx;
+  -webkit-box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+          box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
   padding: 10rpx 40rpx 30rpx;
   margin: 40rpx 0;
 }
@@ -73,21 +75,26 @@
   width: 176rpx;
   height: 64rpx;
   background: #EFB600;
-  box-shadow: 0 6rpx 12rpx 0 rgba(239, 182, 0, 0.2);
-  border-radius: 32rpx;
+  -webkit-box-shadow: 0 6rpx 12rpx 0 rgba(239, 182, 0, 0.2);
+          box-shadow: 0 6rpx 12rpx 0 rgba(239, 182, 0, 0.2);
+  -webkit-border-radius: 32rpx;
+          border-radius: 32rpx;
   color: #fff;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
           justify-content: center;
+  margin-left: 20rpx;
 }
 .activity-detail-page .activity-card .footer .footer-right .btn.data-v-5cc0a8c6 {
   line-height: 40rpx;
   font-size: 28rpx;
 }
 .activity-detail-page .activity-count.data-v-5cc0a8c6 {
-  box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+  -webkit-box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+          box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
   background-color: #fff;
-  border-radius: 10rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
           justify-content: space-between;
@@ -155,9 +162,11 @@
 .activity-detail-page .activity-order .order-list .order-item.data-v-5cc0a8c6 {
   margin: 40rpx 0;
   padding: 40rpx 20rpx;
-  box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+  -webkit-box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+          box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
   background-color: #fff;
-  border-radius: 10rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
           justify-content: space-between;
@@ -184,7 +193,8 @@
 .activity-detail-page .activity-order .order-list .order-item .item-center .avatar.data-v-5cc0a8c6 {
   width: 60rpx;
   height: 60rpx;
-  border-radius: 30rpx;
+  -webkit-border-radius: 30rpx;
+          border-radius: 30rpx;
   margin: 0 6rpx;
 }
 .activity-detail-page .activity-order .order-list .order-item .item-center .name.data-v-5cc0a8c6 {
@@ -194,8 +204,10 @@
   width: 176rpx;
   height: 60rpx;
   background: #EFB600;
-  box-shadow: 0 6rpx 12rpx 0 rgba(239, 182, 0, 0.2);
-  border-radius: 32rpx;
+  -webkit-box-shadow: 0 6rpx 12rpx 0 rgba(239, 182, 0, 0.2);
+          box-shadow: 0 6rpx 12rpx 0 rgba(239, 182, 0, 0.2);
+  -webkit-border-radius: 32rpx;
+          border-radius: 32rpx;
   color: #fff;
 }
 .activity-detail-page .footer-fixed.data-v-5cc0a8c6 {
@@ -218,7 +230,8 @@
 }
 .activity-detail-page .footer-fixed .btn-group .btn.data-v-5cc0a8c6 {
   height: 136rpx;
-  border-radius: 10rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
   border: 2rpx solid #FFD44D;
 }
 .activity-detail-page .footer-fixed .btn-group .btn .name.data-v-5cc0a8c6 {

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App'
+import './js_sdk/ican-clipBoard/ican-clipBoard.js'
 import uniIcons from "@/components/uni-icons/uni-icons.vue"
 import uniPopup from '@/components/uni-popup/uni-popup.vue'
 // #ifdef MP-WEIXIN

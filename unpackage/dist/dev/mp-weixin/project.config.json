@@ -5,7 +5,30 @@
 	},
 	"setting": {
 		"urlCheck": false,
-		"es6": true
+		"es6": true,
+		"enhance": false,
+		"postcss": true,
+		"preloadBackgroundData": false,
+		"minified": true,
+		"newFeature": false,
+		"coverView": true,
+		"nodeModules": false,
+		"autoAudits": false,
+		"showShadowRootInWxmlPanel": true,
+		"scopeDataCheck": false,
+		"uglifyFileName": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"compileHotReLoad": false,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		},
+		"useIsolateContext": true,
+		"useCompilerModule": true,
+		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "",
@@ -39,16 +62,23 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "pages/activityClient/activityClient",
+					"name": "pages/activityShare/activityShare",
+					"pathName": "pages/activityShare/activityShare",
+					"query": "id=68&channelId=1",
+					"scene": null
+				},
+				{
+					"id": 1,
+					"name": "pages/a",
 					"pathName": "pages/activityClient/activityClient",
-					"query": "id=2",
+					"query": "id=68&channelId=1",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "pages/orderDetail/orderDetail",
-					"pathName": "pages/orderDetail/orderDetail",
-					"query": "orderSn=2020100201349739&mode=server",
+					"name": "pages/addressScreen/addressScreen",
+					"pathName": "pages/addressScreen/addressScreen",
+					"query": "",
 					"scene": null
 				}
 			]

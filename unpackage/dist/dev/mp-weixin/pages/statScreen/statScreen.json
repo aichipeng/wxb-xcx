@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "统计",
   "usingComponents": {
+    "uni-icons": "/components/uni-icons/uni-icons",
     "uni-keep-float": "/components/uni-keep-float/uni-keep-float"
   }
 }

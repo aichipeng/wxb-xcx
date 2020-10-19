@@ -32,7 +32,7 @@ page {
 }
 .stat-screen .tabbar-top {
   position: fixed;
-  z-index: 99;
+  z-index: 999;
   top: 0;
   left: 0;
   right: 0;
@@ -53,11 +53,22 @@ page {
           transform: translateX(-50%);
   width: 103rpx;
   height: 4rpx;
-  border-radius: 2rpx;
+  -webkit-border-radius: 2rpx;
+          border-radius: 2rpx;
   background: #EFB600;
 }
 .stat-screen .stat-warp {
   padding: 50rpx 0;
+}
+.stat-screen .stat-warp .select-wrap {
+  background-color: #F9F9F9;
+  padding: 10rpx 20rpx;
+  -webkit-border-radius: 4rpx;
+          border-radius: 4rpx;
+}
+.stat-screen .stat-warp .select-wrap .time {
+  padding: 0 30rpx 0 10rpx;
+  color: #999999;
 }
 .stat-screen .stat-warp .stat-item {
   padding: 26rpx 0;

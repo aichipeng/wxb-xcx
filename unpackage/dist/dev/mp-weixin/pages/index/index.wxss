@@ -30,9 +30,11 @@
 .index-page .header-card.data-v-57280228 {
   margin: 28rpx 0 40rpx;
   padding: 10rpx 40rpx 30rpx;
-  box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+  -webkit-box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+          box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
   background-color: #fff;
-  border-radius: 10rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
 }
 .index-page .header-card button.data-v-57280228 {
   padding: 0;
@@ -47,7 +49,8 @@
 .index-page .header-card .user-info .avatar.data-v-57280228 {
   width: 90rpx;
   height: 90rpx;
-  border-radius: 45rpx;
+  -webkit-border-radius: 45rpx;
+          border-radius: 45rpx;
 }
 .index-page .header-card .user-info .nick-name.data-v-57280228 {
   font-weight: 500;
@@ -66,8 +69,10 @@
   z-index: 1;
   width: 222rpx;
   height: 90rpx;
-  box-shadow: 0 4rpx 12rpx 0 rgba(248, 210, 90, 0.29);
-  border-radius: 45rpx 0 0 45rpx;
+  -webkit-box-shadow: 0 4rpx 12rpx 0 rgba(248, 210, 90, 0.29);
+          box-shadow: 0 4rpx 12rpx 0 rgba(248, 210, 90, 0.29);
+  -webkit-border-radius: 45rpx 0 0 45rpx;
+          border-radius: 45rpx 0 0 45rpx;
 }
 .index-page .header-card .user-info .assets .assets-wrap.data-v-57280228 {
   position: absolute;
@@ -104,9 +109,11 @@
   margin: 8rpx 0 0;
 }
 .index-page .rank-card.data-v-57280228 {
-  box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+  -webkit-box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+          box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
   background-color: #fff;
-  border-radius: 10rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
   padding: 40rpx 42rpx;
   margin: 40rpx 0;
 }
@@ -140,21 +147,42 @@
   width: 170rpx;
   text-align: right;
 }
-.index-page .rank-card .rank-body .index.data-v-57280228 {
+.index-page .rank-card .rank-body .swiper-item.data-v-57280228 {
+  position: relative;
+  overflow: hidden;
+  padding: 30rpx 0rpx 30rpx 20rpx;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.index-page .rank-card .rank-body .swiper-item .badge.data-v-57280228 {
+  position: absolute;
+  width: 70rpx;
+  height: 50rpx;
+  left: 0rpx;
+  top: 6rpx;
+}
+.index-page .rank-card .rank-body .swiper-item .rank-wrap.data-v-57280228 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  overflow: hidden;
+}
+.index-page .rank-card .rank-body .swiper-item .rank-wrap .index.data-v-57280228 {
   width: 68rpx;
   height: 68rpx;
   line-height: 68rpx;
-  border-radius: 34rpx;
+  -webkit-border-radius: 34rpx;
+          border-radius: 34rpx;
   text-align: center;
   background-color: #F9F9F9;
   font-weight: 500;
 }
-.index-page .rank-card .rank-body .name.data-v-57280228 {
+.index-page .rank-card .rank-body .swiper-item .rank-wrap .name.data-v-57280228 {
   font-size: 24rpx;
   line-height: 36rpx;
   color: #000;
 }
-.index-page .rank-card .rank-body .num.data-v-57280228 {
+.index-page .rank-card .rank-body .swiper-item .rank-wrap .num.data-v-57280228 {
   font-size: 24rpx;
   line-height: 36rpx;
   color: #333;
@@ -174,8 +202,10 @@
 }
 .index-page .nav-list .nav-item.data-v-57280228 {
   background-color: #fff;
-  box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
-  border-radius: 10rpx;
+  -webkit-box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+          box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
   padding: 40rpx 18rpx 40rpx 40rpx;
 }
 .index-page .nav-list .nav-item .icon-box.data-v-57280228 {

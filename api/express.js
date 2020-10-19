@@ -11,3 +11,8 @@ export const expressDetial = params => {
 export const expressList = params => {
 	return ajax(params, '/express/list', 'GET')
 }
+
+// 预约快递
+export const expressSubscribe = params => {
+	return ajax(params, '/express/subscribe', 'POST')
+}

@@ -1,14 +1,14 @@
 <template>
 	<view class="activity-preview-page" :style="{paddingBottom:showDrawer ? '444rpx' : 0}">
 		<view class="header flex-col">
-			<text class="title">{{info.describe}}</text>
-			<text class="tips">仅剩{{info.saleVolume - info.soldVolume}}单可售</text>
+			<text class="title">{{info.describe || '暂无描述'}}</text>
+			<text class="tips">仅剩{{info.saleVolume || 0}}单可售</text>
 		</view>
 		<view class="body">
 			<view class="info-card">
 				<view class="info-item flex-row border-bottom">
-					<text>{{info.name}}</text>
-					<text>x{{info.num}}</text>
+					<text>{{info.name || '暂无名称'}}</text>
+					<text>x{{info.num || 0}}</text>
 				</view>
 				<!-- <view v-if="info.freightPrice" class="info-item flex-row border-bottom">
 					<text>邮费</text>
@@ -16,7 +16,7 @@
 				</view> -->
 				<view class="info-item flex-row">
 					<text>总计</text>
-					<text>¥ {{info.price + info.freightPrice}}</text>
+					<text>¥ {{(info.price || 0) * (info.num ||  0) + (info.freightPrice || 0)}}</text>
 				</view>
 			</view>
 			<view class="user-card" v-if="info.isShowWx">
@@ -29,44 +29,34 @@
 					<image class="avatar" :src="info.avatar || avatar"></image>
 					<view class="txt flex-1">
 						<view class="name acp-ellipsis">{{info.nickName}}</view>
-						<view class="contact" v-if="info.wechatNo">
-							<text>{{info.wechatNo}}</text>
-							<uni-icons type="compose" size="12" color="#5D5D5D" style="padding: 0 16rpx;"></uni-icons>
+						<view class="contact">
+							<text>{{info.wechatNo || '暂无微信号'}}</text>
+							<!-- <uni-icons type="compose" size="12" color="#5D5D5D" style="padding: 0 16rpx;"></uni-icons> -->
 						</view>
 					</view>
-					<text class="edit" @click="navigateTo('/pages/userSetting/userSetting')">修改名片</text>
+					<text class="edit" @click="navigateTo('/pages/userSetting/userSetting?id=' + id)">修改名片</text>
+				</view>
+			</view>
+			<!-- <view class="btn-bottom flex-col" @click="">
+				<text>编辑</text>
+			</view> -->
+			<view class="btn-group flex-row">
+				<view class="btn-left flex-col flex-1" @click="handleUpdate">
+					<text>编辑</text>
+				</view>
+				<view style="width: 34rpx;"></view>
+				<view class="btn-right flex-col flex-1" @click="handleCreate">
+					<text>发布</text>
 				</view>
 			</view>
 		</view>
-		<uni-popup ref="popup" type="bottom" :maskShow="false">
-			<view class="footer-wrap">
-				<uni-icons class="close" type="closeempty" size="30" color="#000" @click="close()"></uni-icons>
-				<view>创建成功</view>
-				<view style="margin-top: 10rpx;">是否推送给用户发起微信支付？</view>
-				<view class="btn-group flex-row">
-					<button class="flex-col" open-type="share">
-						<view class="flex-col icon-box">
-							<uni-icons type="weixin" size="30" color="#19AD19"></uni-icons>
-							<!-- <image class="icon" :src="avatar" mode="widthFix"></image> -->
-						</view>
-						<view class="txt">分享给好友</view>
-					</button>
-					<view class="flex-col" @click="close()">
-						<view class="flex-col icon-box">
-							<uni-icons type="pengyouquan" size="30" color="#19AD19"></uni-icons>
-							<!-- <image class="icon" :src="avatar" mode="widthFix"></image> -->
-						</view>
-						<view class="txt">保存海报</view>
-					</view>
-				</view>
-			</view>
-		</uni-popup>
 	</view>
 </template>
 
 <script>
 	import {
-		activityDetail
+		activityDetail,
+		activityCreate,
 	} from "@/api/activity.js"
 	export default {
 		data() {
@@ -79,21 +69,11 @@
 		},
 		onLoad(options) {
 			if (options.id) {
-				this.id = options.id
-				this.getInfo()
+				this.id = options.id;
 			}
 		},
 		onShow() {
-			this.$refs.popup && this.$refs.popup.open()
-		},
-		onReady() {
-			this.$refs.popup.open()
-		},
-		onShareAppMessage(res) {
-			return {
-				title: this.info.name || '大付翁',
-				path: '/pages/activityClient/activityClient?id=' + this.id
-			}
+			this.id && this.getInfo();
 		},
 		methods: {
 			getInfo() {
@@ -101,6 +81,41 @@
 					id: this.id
 				}).then(res => {
 					this.info = res.data
+					if (res.data.status == 1) {
+						uni.redirectTo({
+							url: '/pages/activityShare/activityShare?id=' + this.id
+						});
+					}
+				})
+			},
+			handleUpdate() {
+				this.navigateTo('/pages/activityCreate/activityCreate?id=' + this.id)
+			},
+			// 发布
+			handleCreate() {
+				const {
+					id,
+					describe,
+					saleVolume,
+					name,
+					price,
+					num,
+					freightPrice,
+					isShowWx,
+				} = this.info
+				activityCreate({
+					id,
+					describe,
+					saleVolume,
+					name,
+					price,
+					num,
+					freightPrice,
+					isShowWx,
+				}).then(res => {
+					uni.redirectTo({
+						url: '/pages/activityShare/activityShare?id=' + res.data
+					});
 				})
 			},
 			navigateTo(url) {
@@ -123,6 +138,8 @@
 
 <style lang="scss" scoped>
 	.activity-preview-page {
+		padding-bottom: 180rpx;
+
 		.header {
 			background-color: #FFD44D;
 			box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
@@ -252,20 +269,48 @@
 					margin: 8rpx 0;
 
 					.icon {
-						width: 48rpx;
-						max-height: 48rpx;
+						width: 82rpx;
+						max-height: 82rpx;
 					}
 				}
 
 				.txt {
 					font-size: 28rpx;
+					line-height: 40rpx;
+					color: #333;
 				}
 			}
 		}
+
 		button {
 			padding: 0;
 			margin: 0;
 			background-color: unset;
+		}
+
+		.btn-group {
+			position: fixed;
+			bottom: 60rpx;
+			left: 24rpx;
+			right: 24rpx;
+
+			.btn-left {
+				height: 90rpx;
+				background: #FFFFFF;
+				box-shadow: 0 6rpx 12rpx 0 rgba(0, 0, 0, 0.04);
+				border-radius: 45rpx;
+				font-size: 30rpx;
+				line-height: 42rpx;
+			}
+
+			.btn-right {
+				height: 90rpx;
+				background: #FFD44D;
+				box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
+				border-radius: 45px;
+				font-size: 30rpx;
+				line-height: 42rpx;
+			}
 		}
 	}
 </style>

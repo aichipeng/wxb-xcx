@@ -4,6 +4,11 @@ import {
 
 // 首页活动列表
 export const activityIndex = params => {
+	return ajax(params, '/activity/stayActivityTotal', 'GET')
+}
+
+// 活动列表
+export const activityList = params => {
 	return ajax(params, '/activity/activityTotal', 'GET')
 }
 
@@ -25,4 +30,9 @@ export const activityDetail = params => {
 // 关闭活动
 export const activityClose = params => {
 	return ajax(params, '/activity/close', 'GET')
+}
+
+// 修改名片
+export const updateWxNo = params => {
+	return ajax(params, '/activity/updateWxNo', 'POST')
 }

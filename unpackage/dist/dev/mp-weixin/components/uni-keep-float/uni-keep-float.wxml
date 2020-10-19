@@ -1,1 +1,1 @@
-<view></view>
+<view data-event-opts="{{[['tap',[['navigateTo',['/pages/accKeepCreate/accKeepCreate']]]]]}}" class="fixed-btn flex-col" bindtap="__e"><uni-icons vue-id="1342bb3c-1" type="compose" size="24" color="#fff" bind:__l="__l"></uni-icons></view>

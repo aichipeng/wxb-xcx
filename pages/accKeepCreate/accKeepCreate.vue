@@ -3,24 +3,24 @@
 		<view class="keep-card">
 			<view class="header flex-row" style="justify-content: space-between;">
 				<view class="tabs flex-row">
-					<view class="tab" :style="{color: formData.plusMinus == 1 ? '#EFB600' : '#999'}" @click="formData.plusMinus=1">
+					<view class="tab" :style="{color: formData.plusMinus == 1 ? '#EFB600' : '#999'}" @click="formData.plusMinus=1;formData.tradeType=10">
 						<text>收入</text>
 						<view class="line" v-if="formData.plusMinus == 1"></view>
 					</view>
-					<view class="tab" :style="{marginLeft: '60rpx', color: formData.plusMinus == 2 ? '#EFB600' : '#999'}" @click="formData.plusMinus=2">
+					<view class="tab" :style="{marginLeft: '60rpx', color: formData.plusMinus == 2 ? '#EFB600' : '#999'}" @click="formData.plusMinus=2;formData.tradeType=11">
 						<text>支出</text>
 						<view class="line" v-if="formData.plusMinus == 2"></view>
 					</view>
 				</view>
-				<picker mode="date" :value="getDate(formData.addTime, '-')" @change="bindDateChange">
-					<view class="add-time">{{getDate(formData.addTime)}}</view>
+				<picker mode="date" :value="formData.addTime" @change="bindDateChange" :end="moment(new Date()).format('YYYY-MM-DD')">
+					<view class="add-time">{{moment(new Date(formData.addTime)).format('YYYY年MM月DD日')}}</view>
 				</picker>
 			</view>
 			<view class="form-item flex-row">
 				<text class="label">类目</text>
 				<view class="value flex-1 flex-row" style="margin-right: 0;">
-					<view :class="['tabT', index == formData.tradeType ? 'inTabT' : '']" v-for="(item,index) in tradeTypeMap" :key="index"
-					 @click="formData.tradeType = index">
+					<view :class="['tabT', index == formData.tradeType ? 'inTabT' : '']" v-for="(item,index) in formData.plusMinus==1 ? spliceTrade([10,12,13,14]) : spliceTrade([11,15])"
+					 :key="index" @click="formData.tradeType = index">
 						<text>{{item}}</text>
 					</view>
 				</view>
@@ -61,12 +61,12 @@
 			</view>
 		</view>
 		<view class="btn-group flex-row">
-			<view class="btn-left flex-col flex-1">
+			<!-- <view class="btn-left flex-col flex-1">
 				<text>记一笔</text>
 			</view>
-			<view style="width: 34rpx;"></view>
+			<view style="width: 34rpx;"></view> -->
 			<view class="btn-right flex-col flex-1" @click="submit() ">
-				<text>完成</text>
+				<text>记一笔</text>
 			</view>
 		</view>
 	</view>
@@ -76,52 +76,46 @@
 	import {
 		accKeepCreate
 	} from "@/api/account.js"
+	import moment from "moment";
 	export default {
 		data() {
 			return {
+				moment,
 				formData: {
 					plusMinus: 1,
 					type: 2,
 					tradeType: 10,
-					addTime: new Date(),
-					goodsName: '商品名称',
+					addTime: moment(new Date()).format('YYYY-MM-DD'),
+					goodsName: '',
 					goodsPrice: undefined,
 					goodsNum: 1
 				},
 				tradeTypeMap: {
 					'10': '物流',
-					'11': '商品',
 					'12': '成本',
 					'13': '退款',
 					'14': '优惠',
+					'11': '商品',
 					'15': '自定义',
 				}
 			};
 		},
 		onLoad() {},
 		methods: {
-			getDate(date, type) {
-				// console.log(date)
-				if (date instanceof Date) {
-					let y = date.getFullYear()
-					let m = date.getMonth() + 1;
-					m = m > 9 ? m : '0' + m
-					let d = date.getDate();
-					d = d > 9 ? d : '0' + m
-					if (!type) {
-						return `${y}年${m}月${d}日`
-					} else {
-						return `${y}${type}${m}${type}${d}`
+			spliceTrade(arr) {
+				let obj = {};
+				Object.keys(this.tradeTypeMap).forEach(key => {
+					if (arr.indexOf(Number(key)) != -1) {
+						obj[key] = this.tradeTypeMap[key]
 					}
-				} else {
-					return date
-				}
+				})
+				return obj
 			},
 			bindDateChange(e) {
 				let {
 					value
 				} = e.detail
-				this.formData.addTime = new Date(value)
+				this.formData.addTime = moment(new Date(value)).format('YYYY-MM-DD')
 			},
 			changeNum(type) {
 				switch (type) {
@@ -159,7 +153,10 @@
 				}
 			},
 			submit() {
-				console.log(this.formData)
+				let time = moment(new Date()).format('HH:mm:ss')
+				let formData = this.formData;
+				formData.addTime = formData.addTime + ' ' + time
+				console.log(formData)
 				accKeepCreate(this.formData).then(res => {
 					uni.navigateBack({
 						delta: 1

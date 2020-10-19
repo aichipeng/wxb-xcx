@@ -2,7 +2,7 @@
 	<view class="activity-client-page">
 		<view class="header flex-col">
 			<text class="title">{{info.describe}}</text>
-			<text class="tips">仅剩{{(info.saleVolume || 0) - (info.soldVolume || 0)}}单可售</text>
+			<text class="tips">仅剩{{info.saleVolume || 0}}单可售</text>
 		</view>
 		<view class="body">
 			<view class="info-card">
@@ -16,7 +16,7 @@
 				</view> -->
 				<view class="info-item flex-row">
 					<text>总计</text>
-					<text>¥ {{(info.price || 0) +(info.freightPrice || 0)}}</text>
+					<text>¥ {{(info.price || 0) * (info.num || 0) + (info.freightPrice || 0)}}</text>
 				</view>
 			</view>
 			<view class="user-card" v-if="info.isShowWx">
@@ -29,12 +29,12 @@
 					<image class="avatar" :src="info.avatar || avatar"></image>
 					<view class="txt flex-1">
 						<view class="name acp-ellipsis">{{info.nickName}}</view>
-						<view class="contact" v-if="info.wechatNo">
-							<text>{{info.wechatNo}}</text>
-							<uni-icons type="compose" size="12" color="#5D5D5D" style="padding: 0 16rpx;"></uni-icons>
+						<view class="contact">
+							<text>{{info.wechatNo || '暂无微信号'}}</text>
+							<uni-icons @click="copeText(info.wechatNo)" type="compose" size="12" color="#5D5D5D" style="padding: 0 16rpx;"></uni-icons>
 						</view>
 					</view>
-					<!-- <text class="edit" @click="navigateTo('/pages/userSetting/userSetting')">修改名片</text> -->
+					<!-- <text class="edit" @click="navigateTo('/pages/userSetting/userSetting?id=' + id)">修改名片</text> -->
 				</view>
 			</view>
 		</view>
@@ -58,6 +58,7 @@
 			return {
 				token: undefined,
 				id: undefined,
+				channelId: undefined,
 				info: {},
 				avatar: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2476878483,4014399276&fm=26&gp=0.jpg',
 			};
@@ -66,8 +67,24 @@
 			UniAuth
 		},
 		onLoad(options) {
-			if (options.id) {
-				this.id = options.id
+			if (!options.scene) {
+				if (options.id) {
+					this.id = options.id
+				}
+				if (options.channelId) {
+					this.channelId = options.channelId
+				}
+			} else {
+				let scene = decodeURIComponent(options.scene)
+				if (typeof(scene) == 'string') {
+					scene = JSON.parse(scene);
+				}
+				if (scene.id) {
+					this.id = scene.id
+				}
+				if (scene.channelId) {
+					this.channelId = scene.channelId
+				}
 			}
 		},
 		onShow() {
@@ -84,16 +101,45 @@
 				this.$refs.popup && this.$refs.popup.open()
 			}
 		},
+		onShareAppMessage(res) {
+			return {
+				title: this.info.name || '内有微商',
+				path: '/pages/activityClient/activityClient?id=' + this.id + '&channelId=' + uni.getStorageSync('id')
+			}
+		},
 		methods: {
 			getInfo() {
 				activityDetail({
-					id: this.id
+					id: this.id,
+					channelId: this.channelId
 				}).then(res => {
 					this.info = res.data
 				})
 			},
 			refresh() {
+				const token = uni.getStorageSync('token');
 				this.getInfo()
+			},
+			copeText(data) {
+				if (!data) return;
+				uni.setClipboardData({
+					data: data,
+					success: function(data) {
+						uni.showToast({
+							title: '复制成功',
+							icon: 'none',
+							mask: true
+						})
+					},
+					fail: function(err) {
+						uni.showToast({
+							title: '复制失败',
+							icon: 'none',
+							mask: true
+						})
+					},
+					complete: function(res) {}
+				})
 			},
 			submit() {
 				if (this.token) {

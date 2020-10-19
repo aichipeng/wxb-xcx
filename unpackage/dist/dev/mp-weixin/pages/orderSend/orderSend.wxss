@@ -33,15 +33,19 @@
 }
 .activity-send .swiper .swiper-item.data-v-5280ebb4 {
   padding: 0 11rpx;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .activity-send .swiper .swiper-item .swiper-item-warp.data-v-5280ebb4 {
   background-color: #fff;
-  box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
-  border-radius: 10rpx;
+  -webkit-box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+          box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
   height: 100%;
   padding: 41rpx;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .activity-send .swiper .swiper-item .swiper-item-warp .user-info.data-v-5280ebb4 {
   margin-top: 40rpx;
@@ -49,7 +53,8 @@
 .activity-send .swiper .swiper-item .swiper-item-warp .user-info .avatar.data-v-5280ebb4 {
   width: 80rpx;
   height: 80rpx;
-  border-radius: 40rpx;
+  -webkit-border-radius: 40rpx;
+          border-radius: 40rpx;
 }
 .activity-send .swiper .swiper-item .swiper-item-warp .user-info .name.data-v-5280ebb4 {
   font-size: 30rpx;
@@ -81,9 +86,11 @@
 }
 .activity-send .swiper .swiper-item .swiper-item-warp .submit-btn.data-v-5280ebb4 {
   height: 90rpx;
-  border-radius: 45px;
+  -webkit-border-radius: 45px;
+          border-radius: 45px;
   background: #FFD44D;
-  box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
+  -webkit-box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
+          box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
   font-size: 30rpx;
   line-height: 42rpx;
   margin-top: 48rpx;

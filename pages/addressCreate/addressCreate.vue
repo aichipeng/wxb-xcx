@@ -46,15 +46,15 @@
 				addressList: [],
 				formData: {
 					id: undefined,
-					userName: 'aichipeng',
-					telNumber: '18612345678',
+					userName: undefined,
+					telNumber: undefined,
 					provinceId: undefined,
 					cityId: undefined,
 					areaId: undefined,
 					provinceName: undefined,
 					cityName: undefined,
 					countyName: undefined,
-					detailInfo: '滨江区',
+					detailInfo: undefined,
 					isDefault: false,
 					postcode: undefined
 				},
@@ -142,7 +142,7 @@
 				} else if (!telNumber) {
 					msg = '手机号码不能为空！'
 				} else if (!(/^1[3456789]\d{9}$/.test(telNumber))) {
-					msg = '手机号码不能为空！'
+					msg = '请输入正确手机号码！'
 				} else if (!provinceId) {
 					msg = '省市区不能为空！'
 				} else if (!detailInfo) {

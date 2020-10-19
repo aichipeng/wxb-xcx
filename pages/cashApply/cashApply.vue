@@ -4,8 +4,8 @@
 			<view class="title">提现金额</view>
 			<view class="form-item flex-row border-bottom">
 				<text class="sign">￥</text>
-				<input class="input flex-1" type="text" :focus="formData.amount < usable" v-model="formData.amount" @input="onKeyInput"
-				 placeholder="请输入提现金额" placeholder-class="input-place" />
+				<input ref="input" class="input flex-1" type="number" :focus="formData.amount < usable" :value="formData.amount"
+				 @input="onKeyInput" placeholder="请输入提现金额" placeholder-class="input-place" />
 				<text style="color: #EFB600;" @click="handleAll()">全部</text>
 			</view>
 			<view class="tips">可提现金额为<text style="color: #EFB600;">¥{{usable}}</text></view>
@@ -53,13 +53,29 @@
 				this.formData.amount = this.usable
 			},
 			onKeyInput(e) {
-				if (event.target.value > this.usable) {
+				// this.$refs.input.value = 10
+				if (e.target.value > this.usable) {
 					this.formData.amount = this.usable
 				} else {
-					this.formData.amount = event.target.value
+					this.formData.amount = e.target.value
 				}
 			},
 			submit() {
+				if (!this.formData.amount) {
+					uni.showToast({
+						title: '请输入提现金额',
+						icon: 'none',
+						mask: true
+					})
+					return
+				} else if (this.formData.amount > this.usable) {
+					uni.showToast({
+						title: '可提现金额不足',
+						icon: 'none',
+						mask: true
+					})
+					return
+				}
 				cashExtract(this.formData).then(res => {
 					uni.showToast({
 						title: '提交申请成功',
@@ -104,7 +120,7 @@
 				}
 
 				.input {
-					font-size: 52rpx;
+					font-size: 40rpx;
 					font-weight: 500;
 					line-height: 74rpx;
 					margin: 0 10rpx;

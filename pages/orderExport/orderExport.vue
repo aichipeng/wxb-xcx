@@ -41,17 +41,17 @@
 		methods: {
 			submit() {
 				const {
-					email
-				} = this.formData
+					formData
+				} = this
 				let reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
-				if (!email) {
+				if (!formData.email) {
 					uni.showToast({
 						title: "请输入邮箱！",
 						icon: "none",
 						mask: true
 					})
 					return
-				} else if (!reg.test(email)) {
+				} else if (!reg.test(formData.email)) {
 					uni.showToast({
 						title: "请输入正确邮箱！",
 						icon: "none",
@@ -60,15 +60,24 @@
 					return
 				}
 				uni.showModal({
-					title: email,
+					title: formData.email,
 					cancelColor: '#1677FF',
 					confirmColor: '#1677FF',
 					confirmText: '确认邮箱',
 					content: '请确认你的邮箱填写无误，账单流水包含个人重要隐私信息，请勿随意发送。',
 					success: function(res) {
 						if (res.confirm) {
-							orderExport(this.formData).then(res => {
-
+							orderExport(formData).then(res => {
+								uni.showToast({
+									title: "导出成功！",
+									icon: "none",
+									mask: true
+								})
+								setTimeout(() => {
+									uni.navigateBack({
+										delta: 1
+									})
+								}, 500)
 							})
 						} else if (res.cancel) {
 							console.log('用户点击取消');

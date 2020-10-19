@@ -1,7 +1,7 @@
 <template>
-	<view class="order-pay-page" :style="{paddingBottom: mode == 'server' ? '180rpx' : ''}">
+	<view class="order-pay-page" :style="{paddingBottom: mode == 'server' && info.orderStatus == 201 || info.orderStatus == 101 ? '180rpx' : '10rpx'}">
 		<view class="order-status">
-			<text>{{info.orderStatusText}}</text>
+			<text>{{info.orderStatusText}}<text v-if="info.orderStatus == 602">（原因：{{info.remark}}）</text> </text>
 		</view>
 		<block v-if="mode == 'server'">
 			<view v-if="info.orderStatus == 201" class="btn-group flex-row">
@@ -34,6 +34,12 @@
 				<text class="flex-1 acp-ellipsis-l2">{{info.address}}</text>
 			</view>
 		</view>
+		<view class="info-card" v-if="info.orderStatus == 301">
+			<view class="info-item flex-row" @click="navigateTo('/pages/orderExpress/orderExpress?no=' + info.shipSn + '&code=' + info.shipChannel)">
+				<text class="label">查看物流</text>
+				<uni-icons type="arrowright" size="14" color="#5D5D5D"></uni-icons>
+			</view>
+		</view>
 		<view class="info-card">
 			<view v-if="info.message" class="info-item flex-row border-bottom">
 				<text>{{info.message}}</text>
@@ -42,7 +48,8 @@
 				<text class="acp-ellipsis flex-1">{{info.goodsName}}</text>
 				<view class="flex-row flex-1" style="justify-content: space-between;">
 					<text>x{{info.goodsNum || 0}}</text>
-					<text>￥{{(info.goodsPrice || 0).toFixed(2)}}</text>
+					<text>￥{{Number(info.goodsPrice || 0).toFixed(2)}}</text>
+					<!-- <text>￥{{Number((info.goodsPrice || 0) * (info.goodsNum || 0)).toFixed(2)}}</text> -->
 				</view>
 			</view>
 			<view class="info-item flex-row border-bottom">
@@ -51,7 +58,7 @@
 			</view>
 			<view class="info-item flex-row">
 				<text>总计</text>
-				<text>¥ {{(info.goodsPrice || 0) +(info.freightPrice || 0)}}</text>
+				<text>¥ {{Number((info.actualPrice || 0)).toFixed(2)}}</text>
 			</view>
 		</view>
 		<view class="info-card">
@@ -59,7 +66,7 @@
 				<text>订单编号：</text>
 				<view class="flex-row">
 					<text>{{info.orderSn}}</text>
-					<uni-icons type="compose" size="12" color="#5D5D5D" style="margin-right: -2rpx; padding-left: 14rpx;"></uni-icons>
+					<uni-icons @click="copeText(info.orderSn)" type="compose" size="12" color="#5D5D5D" style="margin-right: -2rpx; padding-left: 14rpx;"></uni-icons>
 				</view>
 			</view>
 			<view class="info-item flex-row">
@@ -80,12 +87,12 @@
 				<image class="avatar" :src="info.sellerAvatar || avatar"></image>
 				<view class="txt flex-1">
 					<view class="name acp-ellipsis">{{info.sellerName}}</view>
-					<view class="contact" v-if="info.wechatNo">
-						<text>{{info.wechatNo}}</text>
-						<uni-icons type="compose" size="12" color="#5D5D5D" style="padding: 0 16rpx;"></uni-icons>
+					<view class="contact">
+						<text>{{info.wechatNo || '商家微信'}}</text>
+						<uni-icons @click="copeText(info.wechatNo)" type="compose" size="12" color="#5D5D5D" style="padding: 0 16rpx;"></uni-icons>
 					</view>
 				</view>
-				<!-- <text class="edit" @click="navigateTo('/pages/userSetting/userSetting')">修改名片</text> -->
+				<!-- <text class="edit" @click="navigateTo('/pages/userSetting/userSetting?id=' + id)">修改名片</text> -->
 			</view>
 		</view>
 		<block v-if="mode=='server'">
@@ -125,6 +132,10 @@
 			if (options.orderSn) {
 				this.orderSn = options.orderSn
 				this.mode = options.mode || 'client'
+			}
+		},
+		onShow() {
+			if (this.orderSn) {
 				this.getInfo();
 			}
 		},
@@ -172,6 +183,27 @@
 			handlePick() {
 				const checkedMap = [this.orderSn]
 				this.navigateTo('/pages/orderPick/orderPick?item=' + JSON.stringify(checkedMap))
+			},
+			copeText(data) {
+				if (!data) return;
+				uni.setClipboardData({
+					data: data,
+					success: function(data) {
+						uni.showToast({
+							title: '复制成功',
+							icon: 'none',
+							mask: true
+						})
+					},
+					fail: function(err) {
+						uni.showToast({
+							title: '复制失败',
+							icon: 'none',
+							mask: true
+						})
+					},
+					complete: function(res) {}
+				})
 			},
 			navigateTo(url) {
 				uni.navigateTo({

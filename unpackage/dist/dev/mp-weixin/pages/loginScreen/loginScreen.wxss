@@ -27,13 +27,40 @@
 .login-page {
   padding: 24rpx;
 }
-.login-page .login-item {
-  margin: 32rpx 0;
+.login-page .login-card {
+  height: 1136rpx;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 6rpx 0;
+  padding: 30rpx 50rpx;
+  -webkit-box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+          box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+  background-color: #fff;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
 }
-.login-page .submit-btn {
-  height: 80rpx;
-  border-radius: 40rpx;
-  background-color: green;
-  color: #fff;
+.login-page .login-card .login-item {
+  padding: 31rpx 0;
+}
+.login-page .login-card .login-item .label {
+  width: 52rpx;
+  height: 52rpx;
+  display: block;
+  margin-right: 20rpx;
+}
+.login-page .login-card .login-item .value {
+  font-size: 30rpx;
+  line-height: 42rpx;
+}
+.login-page .login-card .submit-btn {
+  height: 90rpx;
+  -webkit-border-radius: 45px;
+          border-radius: 45px;
+  background: #FFD44D;
+  -webkit-box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
+          box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
+  font-size: 30rpx;
+  line-height: 42rpx;
+  margin-top: 121rpx;
 }
 

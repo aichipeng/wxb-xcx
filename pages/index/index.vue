@@ -1,13 +1,13 @@
 <template>
 	<view class="index-page">
-		<view class="header-card">
+		<view class="header-card" @click="navigateTo('/pages/orderScreen/orderScreen')">
 			<view class="user-info flex-row">
 				<block v-if="token">
-					<image v-if="userInfo.avatar" class="avatar" :src="userInfo.avatar"></image>
-					<image v-else class="avatar" src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2476878483,4014399276&fm=26&gp=0.jpg"></image>
+					<image v-if="userInfo.avatar" class="avatar" :src="userInfo.avatar || avatar" @click.stop="navigateTo('/pages/userScreen/userScreen')"></image>
+					<image v-else class="avatar" :src="avatar"></image>
 					<text class="nick-name acp-ellipsis flex-1">{{userInfo.nickName}}</text>
 				</block>
-				<view v-else class="flex-row flex-1" @click="$refs.popup.open()">
+				<view v-else class="flex-row flex-1" @click.stop="$refs.popup.open()">
 					<image class="avatar" src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2476878483,4014399276&fm=26&gp=0.jpg"></image>
 					<text class="nick-name acp-ellipsis flex-1">未授权</text>
 				</view>
@@ -17,7 +17,7 @@
 				</button> -->
 				<view class="assets">
 					<view class="assets-bg"></view>
-					<view class="assets-wrap flex-row" @click="navigateTo('/pages/cashApply/cashApply')">
+					<view class="assets-wrap flex-row" @click.stop="navigateTo('/pages/cashScreen/cashScreen')">
 						<view class="flex-col">
 							<text class="amount acp-ellipsis">
 								<text style="font-size: 20rpx;font-weight: 400;">￥</text>
@@ -37,7 +37,7 @@
 					</text>
 					<text class="txt">今日营收</text>
 				</view>
-				<view class="count-item flex-col" @click="navigateTo('/pages/orderScreen/orderScreen')">
+				<view class="count-item flex-col">
 					<text class="num">{{todayTotal.orderNum || 0}}</text>
 					<text class="txt">订单</text>
 				</view>
@@ -59,27 +59,29 @@
 				</view>
 			</view>
 			<swiper class="rank-body" :current="current" @change="changeCurret" style="height: 160rpx;">
-				<swiper-item class="flex-row">
-					<block v-for="(item,index) in totalTop" :key="index">
-						<view class="flex-row flex-1" style="justify-content: center; overflow: hidden;">
+				<swiper-item class="flex-row" style="padding-right: 20rpx; box-sizing: border-box;">
+					<view class="swiper-item flex-1" v-for="(item,index) in totalTop" :key="index">
+						<image v-if="index == 0" class="badge" src="@/static/images/No1.png"></image>
+						<view class="rank-wrap flex-row flex-1">
 							<text class="index">{{index + 1}}</text>
-							<view class="flex-1" style="margin: 0 20rpx;overflow: hidden;">
+							<view class="flex-1" style="margin-left: 20rpx;overflow: hidden;">
 								<view class="name acp-ellipsis">{{item.goodsName}}</view>
 								<view class="num acp-ellipsis">{{item.automaticNum}}</view>
 							</view>
 						</view>
-					</block>
+					</view>
 				</swiper-item>
-				<swiper-item class="flex-row">
-					<block v-for="(item,index) in todayTop" :key="index">
-						<view class="flex-row flex-1" style="justify-content: center; overflow: hidden;">
+				<swiper-item class="flex-row" style="padding-right: 20rpx; box-sizing: border-box;">
+					<view class="swiper-item flex-1" v-for="(item,index) in todayTop" :key="index">
+						<image v-if="index == 0" class="badge" src="@/static/images/No1.png"></image>
+						<view class="rank-wrap flex-row flex-1">
 							<text class="index">{{index + 1}}</text>
-							<view class="flex-1" style="margin: 0 20rpx;overflow: hidden;">
+							<view class="flex-1 acp-ellipsis" style="margin: 0 20rpx;overflow: hidden;">
 								<view class="name acp-ellipsis">{{item.goodsName}}</view>
 								<view class="num acp-ellipsis">{{item.automaticNum}}</view>
 							</view>
 						</view>
-					</block>
+					</view>
 				</swiper-item>
 			</swiper>
 			<view class="rank-footer flex-col">
@@ -92,7 +94,7 @@
 		<view class="nav-list flex-row">
 			<view class="nav-item flex-row flex-1" @click="navigateTo('/pages/activityCreate/activityCreate')">
 				<view class="icon-box flex-row">
-					<image src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2476878483,4014399276&fm=26&gp=0.jpg" style="width: 48rpx; height: 48rpx"></image>
+					<image src="@/static/images/nav-index-1.png" style="width: 48rpx; height: 48rpx"></image>
 				</view>
 				<text class="txt flex-1 acp-ellipsis">多人收款</text>
 				<uni-icons type="arrowright" size="14" color="#BBB" style="margin-right: -8rpx;"></uni-icons>
@@ -100,13 +102,14 @@
 			<view style="width: 18rpx;"></view>
 			<view class="nav-item flex-row flex-1" @click="navigateTo('/pages/accountKeep/accountKeep')">
 				<view class="icon-box flex-row">
-					<image src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2476878483,4014399276&fm=26&gp=0.jpg" style="width: 41rpx; height: 48rpx"></image>
+					<image src="@/static/images/nav-index-2.png" style="width: 46rpx; height: 48rpx"></image>
 				</view>
 				<text class="txt flex-1 acp-ellipsis">记账</text>
 				<uni-icons type="arrowright" size="14" color="#BBB" style="margin-right: -8rpx;"></uni-icons>
 			</view>
 		</view>
-		<view class="record-list" v-if='list && list.length > 0'>
+		<!-- <view class="record-list" v-if='list && list.length > 0'> -->
+		<view class="record-list">
 			<view class="record-title flex-row">
 				<view class="title">
 					<text>待发货活动</text>
@@ -121,7 +124,8 @@
 				<uni-record-item :item="{...item}"></uni-record-item>
 			</block>
 		</view>
-		<uni-auth ref="popup" @refresh="refresh"></uni-auth>
+		<uni-auth ref="popup" @refresh="onRefresh"></uni-auth>
+		<uni-popup ref="mask" type="center"></uni-popup>
 	</view>
 </template>
 
@@ -131,13 +135,13 @@
 		todayTop,
 		todayTotal,
 		totalTop
-	} from '../../api/account.js'
+	} from '@/api/account.js'
 	import {
 		activityIndex
-	} from '../../api/activity.js'
+	} from '@/api/activity.js'
 	import {
 		userInfo
-	} from '../../api/user.js'
+	} from '@/api/user.js'
 	import uniRecordItem from "@/components/uni-record-item/uni-record-item.vue"
 	import uniAuth from "@/components/uni-auth/uni-auth.vue"
 	export default {
@@ -149,6 +153,7 @@
 		data() {
 			return {
 				token: undefined,
+				avatar: '/static/images/avatar.png',
 				userInfo: {},
 				account: {},
 				todayTop: [],
@@ -157,32 +162,49 @@
 				todayTotal: {},
 				queryList: {
 					page: 1,
-					size: 10
+					size: 10,
+					// status: 1
 				},
 				isLoading: false,
 				list: [],
 				finish: false
 			}
 		},
-		onShow() {
+		onLoad() {
 			this.token = uni.getStorageSync('token');
-			this.list = [];
-			this.queryList.page = 1;
 			this.init()
 		},
+		onShow() {
+			const pages = getCurrentPages()
+			const currPage = pages[pages.length - 1]
+			console.log(currPage)
+			if (currPage && currPage.data && currPage.data.refresh) {
+				this.onRefresh();
+				// #ifdef MP-WEIXIN
+				currPage.setData({
+					refresh: false
+				})
+				// #endif
+			}
+		},
+		onReady() {
+			if (!this.token) {
+				this.$refs.popup && this.$refs.popup.open()
+			} else {
+				const isFirst = uni.getStorageSync('isFirst')
+				if (!isFirst) {
+					this.$refs.mask && this.$refs.mask.open()
+				}
+			}
+		},
 		onPullDownRefresh() {
-			this.refresh()
+			this.onRefresh()
 		},
 		onReachBottom() {
 			if (!this.finish && !this.isLoading && this.token) {
 				this.isLoading = true
 				this.queryList.page++;
 				this.getActivity()
-			}
-		},
-		onReady() {
-			if (!this.token) {
-				this.$refs.popup && this.$refs.popup.open()
 			}
 		},
 		methods: {
@@ -196,10 +218,15 @@
 					uni.stopPullDownRefresh();
 				}
 			},
-			refresh() {
+			onRefresh() {
 				this.token = uni.getStorageSync('token');
-				this.list = [];
+				this.userInfo = {};
+				this.account = {};
+				this.todayTop = [];
+				this.totalTop = [];
+				this.todayTotal = {};
 				this.queryList.page = 1;
+				this.list = [];
 				this.init()
 			},
 			// 用户信息
@@ -390,26 +417,46 @@
 			}
 
 			.rank-body {
-				.index {
-					width: 68rpx;
-					height: 68rpx;
-					line-height: 68rpx;
-					border-radius: 34rpx;
-					text-align: center;
-					background-color: #F9F9F9;
-					font-weight: 500;
-				}
+				.swiper-item {
+					position: relative;
+					overflow: hidden;
+					padding: 30rpx 0rpx 30rpx 20rpx;
+					box-sizing: border-box;
 
-				.name {
-					font-size: 24rpx;
-					line-height: 36rpx;
-					color: #000;
-				}
+					.badge {
+						position: absolute;
+						width: 70rpx;
+						height: 50rpx;
+						left: 0rpx;
+						top: 6rpx;
+					}
 
-				.num {
-					font-size: 24rpx;
-					line-height: 36rpx;
-					color: #333;
+					.rank-wrap {
+						justify-content: center;
+						overflow: hidden;
+
+						.index {
+							width: 68rpx;
+							height: 68rpx;
+							line-height: 68rpx;
+							border-radius: 34rpx;
+							text-align: center;
+							background-color: #F9F9F9;
+							font-weight: 500;
+						}
+
+						.name {
+							font-size: 24rpx;
+							line-height: 36rpx;
+							color: #000;
+						}
+
+						.num {
+							font-size: 24rpx;
+							line-height: 36rpx;
+							color: #333;
+						}
+					}
 				}
 			}
 

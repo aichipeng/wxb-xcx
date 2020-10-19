@@ -11,65 +11,20 @@
 			</block>
 		</view>
 		<view class="account-content">
-			<block v-if="queryList.type == 0">
-				<block v-for="(item,index) in list" :key="index">
-					<view class="count-month flex-row">
-						<text class="">2020年{{index+1}}月</text>
-						<text class="">收入¥ 300.00</text>
-						<text class="">支出¥ 300.00</text>
-						<text class="">顾客100</text>
+			<block v-for="(item,index) in list" :key="index">
+				<view class="order-item" :style="{ borderBottom: index == list.length - 1 ? 'none':'' }">
+					<view class="order-item-top flex-row">
+						<view class="info flex-row acp-ellipsis">
+							<text class="name acp-ellipsis">{{item.remark}}</text>
+							<text class="tag">{{item.type == 2 ? '手动' : '自动'}}</text>
+						</view>
+						<!-- <text style="color: #EFB600;">+{{(item.goodsPrice||0).toFixed(2)}}</text> -->
 					</view>
-					<block v-for="(item,key) in [1,2]" :key="index + '_' + key">
-						<view class="count-day">
-							<view class="count flex-row">
-								<text class="">8月{{item}}日</text>
-								<view class="flex-row">
-									<view class="flex-row">
-										<text class="">收入¥ 300.00</text>
-									</view>
-									<view class="flex-row">
-										<text class="">支出¥ 300.00</text>
-									</view>
-								</view>
-							</view>
-							<block v-for="(item,index) in [1,2]" :key="index">
-								<view class="keep-item border-bottom" :style="{borderBottom: index == [1,2].length - 1 ? 'none' : ''}">
-									<view class="keep-item-top flex-row">
-										<view class="flex-row">
-											<text>SKII面膜</text>
-											<text class="tag">自动 || 手动</text>
-										</view>
-										<text>x1</text>
-									</view>
-									<view class="keep-item-bottom flex-row">
-										<text style="color: #999;">18:00:34</text>
-										<text style="color: #EFB600">-400.00</text>
-									</view>
-								</view>
-							</block>
-						</view>
-					</block>
-				</block>
-			</block>
-			<block v-else>
-				<block v-for="(item,index) in list" :key="index">
-					<view class="order-item" :style="{ borderBottom: index == list.length - 1 ? 'none':'' }">
-						<view class="order-item-top flex-row">
-							<view class="info flex-row acp-ellipsis">
-								<text class="name acp-ellipsis">{{item.goodsName}}</text>
-								<text style="margin: 0 10rpx;">单价 {{item.goodsPrice}}</text>
-								<text style="margin: 0 10rpx;">数量 {{item.goodsNum}}</text>
-							</view>
-							<text style="color: #EFB600;">+{{(item.goodsPrice||0).toFixed(2)}}</text>
-						</view>
-						<view class="order-item-bottom flex-row">
-							<text style="color: #999">订单支付时间：{{item.addTime}}</text>
-							<view v-if="item.type == 1" class="btn flex-col" @click="handleBtn">
-								<text>查看详情</text>
-							</view>
-						</view>
+					<view class="order-item-bottom flex-row">
+						<text style="color: #999">{{item.addTime}}</text>
+						<text style="color: #EFB600">{{item.plusMinus == 1 ? '+' : item.plusMinus == 2 ? '-' : ''}}{{Number(item.tradeMoney || 0).toFixed(2)}}</text>
 					</view>
-				</block>
+				</view>
 			</block>
 		</view>
 		<uni-keep-float />
@@ -78,18 +33,18 @@
 
 <script>
 	import {
-		orderList
-	} from "@/api/order.js"
+		accountList
+	} from "@/api/account.js"
 	import uniKeepFloat from "@/components/uni-keep-float/uni-keep-float.vue"
 	export default {
 		data() {
 			return {
 				tabList: [{
-						name: '日报',
-						type: 0
+						name: '全部',
+						type: ''
 					},
 					{
-						name: '订单',
+						name: '自动记账',
 						type: 1
 					},
 					{
@@ -100,7 +55,7 @@
 				queryList: {
 					page: 1,
 					size: 10,
-					type: 0
+					type: ''
 				},
 				isLoading: false,
 				list: [],
@@ -127,7 +82,7 @@
 		},
 		methods: {
 			getList() {
-				orderList(this.queryList).then(res => {
+				accountList(this.queryList).then(res => {
 					if (res.data && res.data.length > 0) {
 						this.list = this.list.concat(res.data)
 						this.finish = false
@@ -259,6 +214,8 @@
 				padding: 32rpx 24rpx;
 				border-bottom: solid 2rpx #EEEEEE;
 				background-color: #fff;
+				font-size: 28rpx;
+				line-height: 40rpx;
 
 				.order-item-top {
 					justify-content: space-between;
@@ -268,7 +225,16 @@
 						max-width: 75%;
 
 						.name {
-							margin-right: 10rpx;
+							margin-right: 24rpx;
+						}
+						.tag {
+							background-color: #F1F1F1;
+							border-radius: 4rpx;
+							font-size: 24rpx;
+							line-height: 34rpx;
+							font-weight: 500;
+							color: #999;
+							padding: 2rpx 8rpx;
 						}
 					}
 				}

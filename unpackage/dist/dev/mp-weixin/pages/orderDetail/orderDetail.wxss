@@ -38,9 +38,11 @@
 }
 .order-pay-page .btn-group .btn.data-v-c547daf4 {
   height: 136rpx;
-  box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+  -webkit-box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+          box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
   background-color: #fff;
-  border-radius: 10rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
 }
 .order-pay-page .btn-group .btn .name.data-v-c547daf4 {
   font-weight: 500;
@@ -54,9 +56,11 @@
   color: #999;
 }
 .order-pay-page .address-card.data-v-c547daf4 {
-  box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+  -webkit-box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+          box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
   background-color: #fff;
-  border-radius: 10rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
   padding: 34rpx 41rpx;
   margin: 40rpx 0;
 }
@@ -66,7 +70,8 @@
 .order-pay-page .address-card .seller-info .avatar.data-v-c547daf4 {
   width: 100rpx;
   height: 100rpx;
-  border-radius: 50rpx;
+  -webkit-border-radius: 50rpx;
+          border-radius: 50rpx;
 }
 .order-pay-page .address-card .seller-info .name.data-v-c547daf4 {
   margin: 0 16rpx;
@@ -82,9 +87,11 @@
   color: #999;
 }
 .order-pay-page .info-card.data-v-c547daf4 {
-  box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+  -webkit-box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+          box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
   background-color: #fff;
-  border-radius: 10rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
   padding: 0 41rpx;
   margin: 40rpx 0;
 }
@@ -97,9 +104,11 @@
   font-size: 30rpx;
 }
 .order-pay-page .user-card.data-v-c547daf4 {
-  box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+  -webkit-box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+          box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
   background-color: #fff;
-  border-radius: 10rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
   padding: 1rpx 40rpx;
   margin: 40rpx 0;
 }
@@ -115,7 +124,8 @@
 .order-pay-page .user-card .tips .dot.data-v-c547daf4 {
   width: 8rpx;
   height: 8rpx;
-  border-radius: 4rpx;
+  -webkit-border-radius: 4rpx;
+          border-radius: 4rpx;
   background: #D8D8D8;
   margin: 0 24rpx;
 }
@@ -125,7 +135,8 @@
 .order-pay-page .user-card .user-info .avatar.data-v-c547daf4 {
   width: 100rpx;
   height: 100rpx;
-  border-radius: 50rpx;
+  -webkit-border-radius: 50rpx;
+          border-radius: 50rpx;
 }
 .order-pay-page .user-card .user-info .txt.data-v-c547daf4 {
   overflow: hidden;
@@ -160,8 +171,10 @@
   right: 24rpx;
   height: 90rpx;
   background: #FFD44D;
-  box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
-  border-radius: 45rpx;
+  -webkit-box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
+          box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
+  -webkit-border-radius: 45rpx;
+          border-radius: 45rpx;
   font-size: 30rpx;
   line-height: 42rpx;
 }
@@ -183,8 +196,10 @@
   height: 90rpx;
   width: 100%;
   background: #FFD44D;
-  box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
-  border-radius: 45rpx;
+  -webkit-box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
+          box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
+  -webkit-border-radius: 45rpx;
+          border-radius: 45rpx;
   font-size: 30rpx;
   line-height: 42rpx;
 }

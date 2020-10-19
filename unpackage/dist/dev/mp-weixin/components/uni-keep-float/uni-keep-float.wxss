@@ -30,9 +30,11 @@
   bottom: 148rpx;
   width: 88rpx;
   height: 88rpx;
-  border-radius: 44rpx;
+  -webkit-border-radius: 44rpx;
+          border-radius: 44rpx;
   background-color: #FFD44D;
-  box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.28);
+  -webkit-box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.28);
+          box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.28);
   z-index: 99;
 }
 

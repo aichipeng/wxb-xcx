@@ -3,19 +3,21 @@
 		<view class="cell-group">
 			<view class="cell-item flex-row">
 				<text class="label">头像</text>
-				<view class="value flex-row" @click="handleImage">
-					<image class="avatar" v-if="formData.avatar" :src="formData.avatar"></image>
-					<text v-else style="color: #999;">请上传头像</text>
+				<!-- <view class="value flex-row" @click="handleImage"> -->
+				<view class="value flex-row">
+					<image class="avatar" :src="formData.avatar || avatar"></image>
+					<!-- <text v-else style="color: #999;">请上传头像</text> -->
 					<uni-icons type="arrowright" size="16" color="#999" style="margin-right: -8rpx; margin-left: 4rpx;"></uni-icons>
 				</view>
 			</view>
 			<view class="cell-item flex-row">
 				<text class="label">昵称</text>
-				<input class="value flex-1" v-model="formData.userName" type="text" placeholder="请输入新昵称" placeholder-style="color: #999; font-size: 30rpx;line-height: 42rpx;" />
+				<view class="value flex-1">{{formData.nickName}}</view>
+				<!-- <input class="value flex-1" v-model="formData.nickName" type="text" placeholder="请输入新昵称" placeholder-style="color: #999; font-size: 30rpx;line-height: 42rpx;" /> -->
 			</view>
 			<view class="cell-item flex-row" style="border-bottom: none;">
 				<text class="label">微信号</text>
-				<input class="value flex-1" v-model="formData.wxNo" type="text" placeholder="请输入微信号" placeholder-style="color: #999; font-size: 30rpx;line-height: 42rpx;" />
+				<input class="value flex-1" v-model="formData.wechatNo" type="text" placeholder="请输入微信号" placeholder-style="color: #999; font-size: 30rpx;line-height: 42rpx;" />
 			</view>
 		</view>
 		<view class="bottom-btn flex-col" @click="handleSumit">
@@ -26,9 +28,9 @@
 
 <script>
 	import {
-		userInfo,
-		updateUser
-	} from "@/api/user.js"
+		activityDetail,
+		updateWxNo
+	} from "@/api/activity.js"
 	import {
 		BASE_URL
 	} from "@/api/request.js"
@@ -36,14 +38,20 @@
 		data() {
 			return {
 				formData: {},
+				avatar: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2476878483,4014399276&fm=26&gp=0.jpg',
 			};
 		},
-		onLoad() {
-			this.getInfo()
+		onLoad(options) {
+			if (options.id) {
+				this.id = options.id
+				this.getInfo()
+			}
 		},
 		methods: {
 			getInfo() {
-				userInfo().then(res => {
+				activityDetail({
+					id: this.id
+				}).then(res => {
 					this.formData = res.data
 				})
 			},
@@ -70,7 +78,25 @@
 				});
 			},
 			handleSumit() {
-				updateUser(this.formData).then(res => {})
+				const {
+					id,
+					wechatNo
+				} = this.formData;
+				updateWxNo({
+					id,
+					wechatNo
+				}).then(res => {
+					uni.showToast({
+						title: '修改成功',
+						icon: 'none',
+						mask: true
+					})
+					setTimeout(() => {
+						uni.navigateBack({
+							delta: 1
+						})
+					}, 500)
+				})
 			}
 		}
 	}
@@ -99,11 +125,13 @@
 				.value {
 					text-align: right;
 					max-width: 70%;
+
 					.avatar {
 						height: 80rpx;
 						width: 80rpx;
 						border-radius: 40rpx;
 					}
+
 					.circle-box {
 						width: 36rpx;
 						height: 36rpx;
