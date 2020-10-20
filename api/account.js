@@ -16,6 +16,11 @@ export const balanceList = params => {
 	return ajax(params, '/account/balanceList', 'GET')
 }
 
+// 平台服务费
+export const configFee = params => {
+	return ajax(params, '/config/fee', 'GET')
+}
+
 // 今日销量top
 export const todayTop = params => {
 	return ajax(params, '/account/todayTop', 'GET')

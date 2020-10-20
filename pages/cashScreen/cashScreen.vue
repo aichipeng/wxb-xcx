@@ -12,7 +12,7 @@
 				<text class="value" v-else> {{setStar((usable || 0).toFixed(2))}}</text>
 			</view>
 			<view class="tips">
-				可提现金额为<text style="color: #EA864E;">¥{{(usable || 0).toFixed(2)}}</text>平台收取10%作为佣金）
+				可提现金额为<text style="color: #EA864E;">¥{{((usable || 0)-((usable || 0) * fee / 100)).toFixed(2)}}</text>（平台收取{{fee}}%作为佣金）
 			</view>
 			<view class="submit-btn flex-col" @click="navigateTo('/pages/cashApply/cashApply')">
 				<text>提现</text>
@@ -25,12 +25,14 @@
 <script>
 	import {
 		accountDetail,
+		configFee
 	} from '../../api/account.js'
 	export default {
 		data() {
 			return {
 				usable: 0,
-				pass: false
+				pass: false,
+				fee: 0,
 			};
 		},
 		onShow() {
@@ -40,6 +42,9 @@
 			getInfo() {
 				accountDetail().then(res => {
 					this.usable = res.data.usable
+				})
+				configFee().then(res => {
+					this.fee = res.data
 				})
 			},
 			handlePass() {

@@ -25,13 +25,7 @@
 /* 透明度 */
 /* 文章场景相关 */
 .order-page.data-v-fd537188 {
-  padding: 8rpx 24rpx;
-}
-.order-page .order-list .order-list_title.data-v-fd537188 {
-  padding: 8rpx 20rpx;
-  font-size: 28rpx;
-  font-weight: 500;
-  line-height: 40rpx;
+  padding: 1rpx 24rpx;
 }
 .order-page .order-list .order-list_wrap.data-v-fd537188 {
   background-color: #fff;
@@ -39,32 +33,38 @@
           box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
   -webkit-border-radius: 10rpx;
           border-radius: 10rpx;
-  padding: 0 20rpx;
-  margin: 8rpx 0;
+  padding: 0 40rpx;
+  margin: 40rpx 0;
 }
-.order-page .order-list .order-item.data-v-fd537188 {
-  padding: 32rpx 0;
+.order-page .order-list .order-list_wrap .order-list_title.data-v-fd537188 {
+  padding: 40rpx 0 0;
+  font-size: 32rpx;
+  font-weight: 500;
+  line-height: 44rpx;
+}
+.order-page .order-list .order-list_wrap .order-item.data-v-fd537188 {
+  padding: 40rpx 0;
   border-bottom: solid 2rpx #EEEEEE;
 }
-.order-page .order-list .order-item .order-item-top.data-v-fd537188 {
+.order-page .order-list .order-list_wrap .order-item .order-item-top.data-v-fd537188 {
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
           justify-content: space-between;
   font-size: 28rpx;
 }
-.order-page .order-list .order-item .order-item-top .info.data-v-fd537188 {
+.order-page .order-list .order-list_wrap .order-item .order-item-top .info.data-v-fd537188 {
   max-width: 75%;
 }
-.order-page .order-list .order-item .order-item-top .info .name.data-v-fd537188 {
+.order-page .order-list .order-list_wrap .order-item .order-item-top .info .name.data-v-fd537188 {
   margin-right: 10rpx;
 }
-.order-page .order-list .order-item .order-item-bottom.data-v-fd537188 {
+.order-page .order-list .order-list_wrap .order-item .order-item-bottom.data-v-fd537188 {
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
           justify-content: space-between;
   margin-top: 32rpx;
 }
-.order-page .order-list .order-item .order-item-bottom .btn.data-v-fd537188 {
+.order-page .order-list .order-list_wrap .order-item .order-item-bottom .btn.data-v-fd537188 {
   width: 168rpx;
   height: 60rpx;
   background-color: #FFD44D;

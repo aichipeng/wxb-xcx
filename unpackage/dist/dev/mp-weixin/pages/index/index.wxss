@@ -223,6 +223,7 @@
 }
 .index-page .record-list.data-v-57280228 {
   margin: 80rpx 0 24rpx;
+  min-height: 400rpx;
 }
 .index-page .record-list .record-title.data-v-57280228 {
   -webkit-box-pack: justify;
@@ -250,5 +251,29 @@
 .index-page .record-list .record-title .more.data-v-57280228 {
   font-size: 30rpx;
   line-height: 42rpx;
+}
+.index-page .mask-wrap.data-v-57280228 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 11;
+  color: #fff;
+  font-size: 29rpx;
+  line-height: 40rpx;
+  padding: 0 52rpx;
+}
+.index-page .mask-wrap .next-btn.data-v-57280228 {
+  width: 292rpx;
+  height: 88rpx;
+  background: #FFFFFF;
+  -webkit-border-radius: 44rpx;
+          border-radius: 44rpx;
+  margin: 80rpx auto 0;
+  font-size: 30rpx;
+  line-height: 42rpx;
+  font-weight: 500;
+  color: #333;
 }
 

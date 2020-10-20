@@ -11,3 +11,4 @@ export const cashList = params => {
 export const cashExtract = params => {
 	return ajax(params, '/cash/extract', 'POST')
 }
+

@@ -203,9 +203,7 @@
 				} else {
 					this.isAll = true;
 					list.forEach((item, index) => {
-						if (item.orderStatus == 201 || item.orderStatus == 201) {
-							checkedMap.push(item.orderSn)
-						}
+						checkedMap.push(item.orderSn)
 					});
 					this.checkedMap = checkedMap;
 				}

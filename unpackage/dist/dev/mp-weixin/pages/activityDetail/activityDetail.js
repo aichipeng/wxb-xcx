@@ -568,12 +568,25 @@ var uniRecordItem = function uniRecordItem() {Promise.all(/*! require.ensure | c
       }
       this.isAll = checkedMap.length == list.length;
     },
-    // filterList() {
-    // 	const {
-    // 		list
-    // 	} = this;
-    // 	return list.filter(item => item.orderStatus == 201 || item.orderStatus == 202)
-    // },
+    // 全选
+    selectAll: function selectAll() {var
+
+      isAll =
+
+      this.isAll,list = this.list;
+      var checkedMap = [];
+      if (isAll) {
+        this.isAll = false;
+        this.checkedMap = checkedMap;
+      } else {
+        this.isAll = true;
+        list.forEach(function (item, index) {
+          checkedMap.push(item.orderSn);
+        });
+        this.checkedMap = checkedMap;
+      }
+    },
+
     handleBtn: function handleBtn(item) {
       switch (Number(item.orderStatus)) {
         case 201:
@@ -594,26 +607,7 @@ var uniRecordItem = function uniRecordItem() {Promise.all(/*! require.ensure | c
 
       // console.log(item)
     },
-    // 全选
-    selectAll: function selectAll() {var
 
-      isAll =
-
-      this.isAll,list = this.list;
-      var checkedMap = [];
-      if (isAll) {
-        this.isAll = false;
-        this.checkedMap = checkedMap;
-      } else {
-        this.isAll = true;
-        list.forEach(function (item, index) {
-          if (item.orderStatus == 201 || item.orderStatus == 202) {
-            checkedMap.push(item.orderSn);
-          }
-        });
-        this.checkedMap = checkedMap;
-      }
-    },
     // 直接发货
     handleSend: function handleSend() {var
 

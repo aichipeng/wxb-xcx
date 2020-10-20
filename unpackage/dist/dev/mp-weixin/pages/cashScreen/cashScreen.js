@@ -103,7 +103,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   var g0 = !_vm.pass ? (_vm.usable || 0).toFixed(2) : null
   var m0 = !!_vm.pass ? _vm.setStar((_vm.usable || 0).toFixed(2)) : null
-  var g1 = (_vm.usable || 0).toFixed(2)
+  var g1 = ((_vm.usable || 0) - ((_vm.usable || 0) * _vm.fee) / 100).toFixed(2)
   _vm.$mp.data = Object.assign(
     {},
     {
@@ -196,7 +196,12 @@ var _account = __webpack_require__(/*! ../../api/account.js */ 21); //
 //
 //
 //
-var _default = { data: function data() {return { usable: 0, pass: false };}, onShow: function onShow() {this.getInfo();}, methods: { getInfo: function getInfo() {var _this = this;(0, _account.accountDetail)().then(function (res) {_this.usable = res.data.usable;});}, handlePass: function handlePass() {this.pass = !this.pass;}, setStar: function setStar(str) {var newStr = '';for (var i in str) {
+var _default = { data: function data() {return { usable: 0, pass: false, fee: 0 };}, onShow: function onShow() {this.getInfo();}, methods: { getInfo: function getInfo() {var _this = this;(0, _account.accountDetail)().then(function (res) {_this.usable = res.data.usable;});(0, _account.configFee)().then(function (res) {_this.fee = res.data;});}, handlePass: function handlePass() {
+      this.pass = !this.pass;
+    },
+    setStar: function setStar(str) {
+      var newStr = '';
+      for (var i in str) {
         if (str[i] == '.') {
           newStr = newStr + str[i];
         } else {

@@ -23,7 +23,7 @@
 			</view>
 			<view class="info-item flex-row">
 				<text>总计</text>
-				<text>¥ {{(info.goodsPrice || 0) +(info.freightPrice || 0)}}</text>
+				<text>¥ {{((info.goodsPrice || 0) * (info.goodsNum || 0)) +(info.freightPrice || 0)}}</text>
 			</view>
 		</view>
 		<view class="info-card">

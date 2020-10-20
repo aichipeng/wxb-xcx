@@ -8186,7 +8186,7 @@ var e,t,n = "[UMENG] -- ",p = (t = !1, function () {null === e && (e = new i());
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.accKeepCreate = exports.totalTop = exports.todayTotal = exports.todayTop = exports.balanceList = exports.accountDetail = exports.accountList = void 0;var _request = __webpack_require__(/*! ./request.js */ 9);
+Object.defineProperty(exports, "__esModule", { value: true });exports.accKeepCreate = exports.totalTop = exports.todayTotal = exports.todayTop = exports.configFee = exports.balanceList = exports.accountDetail = exports.accountList = void 0;var _request = __webpack_require__(/*! ./request.js */ 9);
 
 
 // 用户账户列表
@@ -8204,8 +8204,13 @@ exports.accountDetail = accountDetail;var balanceList = function balanceList(par
   return (0, _request.ajax)(params, '/account/balanceList', 'GET');
 };
 
+// 平台服务费
+exports.balanceList = balanceList;var configFee = function configFee(params) {
+  return (0, _request.ajax)(params, '/config/fee', 'GET');
+};
+
 // 今日销量top
-exports.balanceList = balanceList;var todayTop = function todayTop(params) {
+exports.configFee = configFee;var todayTop = function todayTop(params) {
   return (0, _request.ajax)(params, '/account/todayTop', 'GET');
 };
 
@@ -8327,7 +8332,7 @@ exports.storageUpload = storageUpload;var feedbackSubmit = function feedbackSubm
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.orderExportShow = exports.orderExport = exports.orderByActivityCount = exports.orderByActivity = exports.orderClose = exports.orderExpress = exports.orderDetail = exports.orderList = exports.updateOrder = exports.orderSubmit = void 0;var _request = __webpack_require__(/*! ./request.js */ 9);
+Object.defineProperty(exports, "__esModule", { value: true });exports.orderExportShow = exports.orderExport = exports.orderByActivityCount = exports.orderByActivity = exports.orderClose = exports.closeList = exports.orderExpress = exports.orderDetail = exports.orderList = exports.updateOrder = exports.orderSubmit = void 0;var _request = __webpack_require__(/*! ./request.js */ 9);
 
 
 
@@ -8356,8 +8361,13 @@ exports.orderDetail = orderDetail;var orderExpress = function orderExpress(param
   return (0, _request.ajax)(params, '/order/sendExpress', 'POST');
 };
 
+// 关闭原因列表
+exports.orderExpress = orderExpress;var closeList = function closeList(params) {
+  return (0, _request.ajax)(params, '/activity/closeList', 'GET');
+};
+
 // 关闭订单(卖家)
-exports.orderExpress = orderExpress;var orderClose = function orderClose(params) {
+exports.closeList = closeList;var orderClose = function orderClose(params) {
   return (0, _request.ajax)(params, '/order/closeOrder', 'POST');
 };
 

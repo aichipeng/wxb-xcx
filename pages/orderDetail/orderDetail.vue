@@ -96,19 +96,10 @@
 			</view>
 		</view>
 		<block v-if="mode=='server'">
-			<view v-if="info.orderStatus == 201 || info.orderStatus == 101" class="btn-bottom flex-col" @click="handleBtn">
+			<view v-if="info.orderStatus == 201 || info.orderStatus == 101" class="btn-bottom flex-col" @click="navigateTo('/pages/orderClose/orderClose?orderSn=' + info.orderSn)">
 				<text>关闭订单</text>
 			</view>
 		</block>
-		<uni-popup ref="close" type="bottom">
-			<view class="close-popup flex-col">
-				<view class="title">关闭原因</view>
-				<input class="remark" v-model="remark" type="text" placeholder="请输入关闭原因" placeholder-style="color: #999; font-size: 32rpx;line-height: 44rpx;" />
-				<view class="submit-btn flex-col" v-if="mode=='server'" @click="handleClose">
-					<text>确认关闭</text>
-				</view>
-			</view>
-		</uni-popup>
 	</view>
 </template>
 
@@ -146,33 +137,6 @@
 				}).then(res => {
 					this.info = res.data
 				})
-			},
-			handleBtn() {
-				this.remark = '',
-					this.$refs.close.open()
-			},
-			handleClose() {
-				const {
-					orderSn,
-					remark
-				} = this
-				orderClose({
-					orderNo: orderSn,
-					remark
-				}).then(res => {
-					uni.showToast({
-						title: '关闭成功',
-						icon: 'none',
-						mask: true
-					})
-					setTimeout(() => {
-						uni.navigateBack({
-							delta: 1
-						})
-					}, 500)
-					// _this.refresh()
-				})
-				this.$refs.close.close()
 			},
 			// 直接发货
 			handleSend() {
@@ -378,33 +342,6 @@
 			border-radius: 45rpx;
 			font-size: 30rpx;
 			line-height: 42rpx;
-		}
-
-		.close-popup {
-			background: #fff;
-			padding: 24rpx 24rpx 58rpx;
-
-			.title {
-				font-size: 32rpx;
-				line-height: 44rpx;
-			}
-
-			.remark {
-				margin: 50rpx 0;
-				font-size: 32rpx;
-				line-height: 44rpx;
-				width: 100%;
-			}
-
-			.submit-btn {
-				height: 90rpx;
-				width: 100%;
-				background: #FFD44D;
-				box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
-				border-radius: 45rpx;
-				font-size: 30rpx;
-				line-height: 42rpx;
-			}
 		}
 	}
 </style>

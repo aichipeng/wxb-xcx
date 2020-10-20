@@ -97,6 +97,26 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.filterList, function(item, index) {
+    var $orig = _vm.__get_orig(item)
+
+    var g0 = !item.label ? _vm.moment(item.date).format("MM月DD日") : null
+    var g1 = _vm.moment(item.addTime).format("MM.DD HH:mm:ss")
+    return {
+      $orig: $orig,
+      g0: g0,
+      g1: g1
+    }
+  })
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -163,7 +183,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _order = __webpack_require__(/*! @/api/order.js */ 32); //
+
+var _order = __webpack_require__(/*! @/api/order.js */ 32);
+
+
+var _moment = _interopRequireDefault(__webpack_require__(/*! moment */ 66));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
 //
@@ -195,21 +219,59 @@ var _order = __webpack_require__(/*! @/api/order.js */ 32); //
 //
 //
 //
-var _default = { name: 'OrderScreen', data: function data() {return { queryList: { page: 1, size: 10, type: 1 }, list: [], isLoading: false, finish: false };}, onLoad: function onLoad() {this.getList();}, onPullDownRefresh: function onPullDownRefresh() {this.list = [];this.queryList.page = 1;this.getList();}, onReachBottom: function onReachBottom() {if (!this.finish && !this.isLoading) {this.isLoading = true;this.queryList.page++;this.getList();}}, methods: {
-    getList: function getList() {var _this = this;
+//
+var _default = { name: 'OrderScreen', data: function data() {return { moment: _moment.default, queryList: { page: 1, size: 10, type: 1 }, list: [], filterList: [], isLoading: false, finish: false };}, onLoad: function onLoad() {this.getList();}, onPullDownRefresh: function onPullDownRefresh() {this.list = [];this.filterList = [];this.queryList.page = 1;this.getList();}, onReachBottom: function onReachBottom() {if (!this.finish && !this.isLoading) {this.isLoading = true;this.queryList.page++;this.getList();}}, methods: {
+    getList: function getList() {var _this2 = this;
       (0, _order.orderList)(this.queryList).then(function (res) {
         if (res.data && res.data.length > 0) {
-          _this.list = _this.list.concat(res.data);
-          _this.finish = false;
+          _this2.list = _this2.list.concat(res.data);
+          _this2.filterList = [];
+          _this2.getFilterList();
+          _this2.finish = false;
         } else {
-          _this.finish = true;
+          _this2.finish = true;
         }
-        _this.isLoading = false;
+        _this2.isLoading = false;
         uni.stopPullDownRefresh();
       }).catch(function () {
-        _this.isLoading = false;
+        _this2.isLoading = false;
         uni.stopPullDownRefresh();
       });
+    },
+    getFilterList: function getFilterList() {var _this3 = this;var
+
+      list =
+      this.list;
+      var _this = this;
+      list.forEach(function (item) {
+        // console.log(item)
+        var filterList = _this.filterList;
+        var time = (0, _moment.default)(item.addTime).format('YYYY-MM-DD');
+        var index = filterList.findIndex(function (item) {
+          return item.date == time;
+        });
+        var temp = filterList.find(function (item) {
+          return item.date == time;
+        }) || {};
+        // filterList[0].list.push(temp)
+        if (index == -1) {
+          temp.date = time;
+          if (time == (0, _moment.default)(new Date()).format('YYYY-MM-DD')) {
+            temp.label = '今天';
+          } else if (time == (0, _moment.default)(new Date().getTime() - 24 * 3600 * 1000).format('YYYY-MM-DD')) {
+            temp.label = '昨天';
+          }
+          temp.monthCount = item.monthCount || 0;
+          temp.list = [item];
+          filterList.push(temp);
+          // this.filterList = filterList
+        } else {
+          temp.list.push(item);
+          filterList[index] = temp;
+        }
+        _this3.filterList = filterList;
+      });
+      // console.log(this.filterList)
     },
     navigateTo: function navigateTo(url) {
       uni.navigateTo({

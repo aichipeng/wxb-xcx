@@ -53,6 +53,7 @@
 		},
 		onPullDownRefresh() {
 			this.list = [];
+			this.filterList = [];
 			this.queryList.page = 1;
 			this.getList()
 		},

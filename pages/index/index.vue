@@ -125,7 +125,47 @@
 			</block>
 		</view>
 		<uni-auth ref="popup" @refresh="onRefresh"></uni-auth>
-		<uni-popup ref="mask" type="center"></uni-popup>
+		<uni-popup ref="mask" type="center" :maskClick="false">
+			<view class="mask-wrap">
+				<block v-if="step == 1">
+					<view style="margin-top: 74rpx">
+						<image src="../../static/images/jt-1.png" style="width: 128rpx; height: 108rpx;margin-left: 359rpx;"></image>
+						<view style="margin-top: 7rpx; margin-left: 109rpx;">这里可以将赚到的钱提现到自己的账户</view>
+					</view>
+					<view style="margin-top: 94rpx">
+						<image src="../../static/images/jt-3.png" style="width: 123rpx; height: 115rpx;margin-left: 94rpx"></image>
+						<view style="margin-top: 6rpx; margin-left: 201rpx;">这里显示今日营收总额和订单数</view>
+					</view>
+					<view style="margin-top: 100rpx">
+						<image src="../../static/images/jt-2.png" style="width: 109rpx; height: 127rpx;"></image>
+						<view style="margin-right: 94rpx; margin-top: 28rpx;">这里显示数据分析，可以看到卖的最好的单品和买的最多的人</view>
+					</view>
+					<view class="flex-col next-btn" @click="handleNext">
+						<text>下一步</text>
+					</view>
+				</block>
+				<block v-if="step == 2">
+					<view class="flex-row" style="margin-top: 440rpx;">
+						<view>
+							<view style="margin-left: 6rpx;margin-bottom: 22rpx;">这里可以发布收款活动</view>
+							<image src="../../static/images/jt-4.png" style="width: 83rpx; height: 79rpx;margin-left: -14rpx;"></image>
+						</view>
+						<view style="width: 80rpx;"></view>
+						<view>
+							<view style="margin-left: 6rpx;margin-bottom: 22rpx;">这里可以手动记账</view>
+							<image src="../../static/images/jt-4.png" style="width: 83rpx; height: 79rpx;margin-left: -14rpx;"></image>
+						</view>
+					</view>
+					<view style="margin-top: 158rpx;">
+						<view style="margin-left: 6rpx; margin-bottom: 22rpx;">这里可以查看需要发货的订单</view>
+						<image src="../../static/images/jt-4.png" style="width: 83rpx; height: 79rpx;margin-left: -14rpx;"></image>
+					</view>
+					<view class="flex-col next-btn" @click="handleOver" style="margin-top: 170rpx;">
+						<text>结束引导</text>
+					</view>
+				</block>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
@@ -167,7 +207,8 @@
 				},
 				isLoading: false,
 				list: [],
-				finish: false
+				finish: false,
+				step: 1
 			}
 		},
 		onLoad() {
@@ -177,7 +218,7 @@
 		onShow() {
 			const pages = getCurrentPages()
 			const currPage = pages[pages.length - 1]
-			console.log(currPage)
+			// console.log(currPage)
 			if (currPage && currPage.data && currPage.data.refresh) {
 				this.onRefresh();
 				// #ifdef MP-WEIXIN
@@ -191,8 +232,8 @@
 			if (!this.token) {
 				this.$refs.popup && this.$refs.popup.open()
 			} else {
-				const isFirst = uni.getStorageSync('isFirst')
-				if (!isFirst) {
+				const notFirst = uni.getStorageSync('notFirst')
+				if (!notFirst) {
 					this.$refs.mask && this.$refs.mask.open()
 				}
 			}
@@ -219,7 +260,8 @@
 				}
 			},
 			onRefresh() {
-				this.token = uni.getStorageSync('token');
+				const token = uni.getStorageSync('token');
+				this.token = token
 				this.userInfo = {};
 				this.account = {};
 				this.todayTop = [];
@@ -227,7 +269,12 @@
 				this.todayTotal = {};
 				this.queryList.page = 1;
 				this.list = [];
-				this.init()
+				this.init();
+				const notFirst = uni.getStorageSync('notFirst')
+				if (!notFirst && token) {
+					this.step = 1
+					this.$refs.mask && this.$refs.mask.open()
+				}
 			},
 			// 用户信息
 			getUserInfo() {
@@ -272,6 +319,17 @@
 			},
 			changeCurret(e) {
 				this.current = e.detail.current
+			},
+			handleNext() {
+				uni.pageScrollTo({
+					scrollTop: 100,
+					duration: 300
+				});
+				this.step = 2
+			},
+			handleOver() {
+				uni.setStorageSync('notFirst', true);
+				this.$refs.mask && this.$refs.mask.close()
 			},
 			navigateTo(url) {
 				if (this.token) {
@@ -499,6 +557,7 @@
 
 		.record-list {
 			margin: 80rpx 0 24rpx;
+			min-height: 400rpx;
 
 			.record-title {
 				justify-content: space-between;
@@ -527,6 +586,34 @@
 					font-size: 30rpx;
 					line-height: 42rpx;
 				}
+			}
+		}
+
+		.mask-wrap {
+			position: fixed;
+			top: 0;
+			/* #ifdef H5 */
+			top: 88rpx;
+			/* #endif */
+			left: 0;
+			right: 0;
+			bottom: 0;
+			z-index: 11;
+			color: #fff;
+			font-size: 29rpx;
+			line-height: 40rpx;
+			padding: 0 52rpx;
+		
+			.next-btn {
+				width: 292rpx;
+				height: 88rpx;
+				background: #FFFFFF;
+				border-radius: 44rpx;
+				margin: 80rpx auto 0;
+				font-size: 30rpx;
+				line-height: 42rpx;
+				font-weight: 500;
+				color: #333;
 			}
 		}
 	}

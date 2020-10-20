@@ -330,6 +330,46 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _account = __webpack_require__(/*! @/api/account.js */ 21);
 
 
@@ -470,23 +510,56 @@ var _user = __webpack_require__(/*! @/api/user.js */ 23); //
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var uniRecordItem = function uniRecordItem() {Promise.all(/*! require.ensure | components/uni-record-item/uni-record-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-record-item/uni-record-item")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-record-item/uni-record-item.vue */ 411));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniAuth = function uniAuth() {Promise.all(/*! require.ensure | components/uni-auth/uni-auth */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-auth/uni-auth")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-auth/uni-auth.vue */ 418));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { name: 'Index', components: { uniRecordItem: uniRecordItem, uniAuth: uniAuth }, data: function data() {return { token: undefined, avatar: '/static/images/avatar.png', userInfo: {}, account: {}, todayTop: [], totalTop: [], current: 0, todayTotal: {}, queryList: { page: 1, size: 10 // status: 1
-      }, isLoading: false, list: [], finish: false };}, onLoad: function onLoad() {this.token = uni.getStorageSync('token');this.init();}, onShow: function onShow() {var pages = getCurrentPages();var currPage = pages[pages.length - 1];console.log(currPage);if (currPage && currPage.data && currPage.data.refresh) {this.onRefresh();currPage.setData({ refresh: false });}}, onReady: function onReady() {if (!this.token) {this.$refs.popup && this.$refs.popup.open();} else {var isFirst = uni.getStorageSync('isFirst');if (!isFirst) {this.$refs.mask && this.$refs.mask.open();}}}, onPullDownRefresh: function onPullDownRefresh() {this.onRefresh();}, onReachBottom: function onReachBottom() {if (!this.finish && !this.isLoading && this.token) {this.isLoading = true;this.queryList.page++;this.getActivity();}}, methods: { init: function init() {if (this.token) {this.getAccount();this.getActivity();this.getUserInfo();} else {this.$refs.popup && this.$refs.popup.open();uni.stopPullDownRefresh();}}, onRefresh: function onRefresh() {this.token = uni.getStorageSync('token');this.userInfo = {};this.account = {};this.todayTop = [];this.totalTop = [];this.todayTotal = {};this.queryList.page = 1;this.list = [];this.init();}, // 用户信息
+      }, isLoading: false, list: [], finish: false, step: 1 };}, onLoad: function onLoad() {this.token = uni.getStorageSync('token');this.init();}, onShow: function onShow() {var pages = getCurrentPages();var currPage = pages[pages.length - 1]; // console.log(currPage)
+    if (currPage && currPage.data && currPage.data.refresh) {this.onRefresh();currPage.setData({ refresh: false });}}, onReady: function onReady() {if (!this.token) {this.$refs.popup && this.$refs.popup.open();} else {var notFirst = uni.getStorageSync('notFirst');if (!notFirst) {this.$refs.mask && this.$refs.mask.open();}}}, onPullDownRefresh: function onPullDownRefresh() {this.onRefresh();}, onReachBottom: function onReachBottom() {if (!this.finish && !this.isLoading && this.token) {this.isLoading = true;this.queryList.page++;this.getActivity();}}, methods: { init: function init() {if (this.token) {this.getAccount();this.getActivity();this.getUserInfo();} else {this.$refs.popup && this.$refs.popup.open();uni.stopPullDownRefresh();}}, onRefresh: function onRefresh() {var token = uni.getStorageSync('token');this.token = token;this.userInfo = {};this.account = {};this.todayTop = [];this.totalTop = [];this.todayTotal = {};this.queryList.page = 1;this.list = [];this.init();var notFirst = uni.getStorageSync('notFirst');if (!notFirst && token) {this.step = 1;this.$refs.mask && this.$refs.mask.open();}}, // 用户信息
     getUserInfo: function getUserInfo() {var _this = this;(0, _user.userInfo)().then(function (res) {_this.userInfo = res.data;});}, // 资产统计相关信息
     getAccount: function getAccount() {var _this2 = this; // 总资产
       (0, _account.accountDetail)().then(function (res) {_this2.account = res.data;}); // 今天统计
       (0, _account.todayTotal)().then(function (res) {_this2.todayTotal = res.data;}); // 今日top
       (0, _account.todayTop)().then(function (res) {_this2.todayTop = res.data;}); // 累计top
       (0, _account.totalTop)().then(function (res) {_this2.totalTop = res.data;});}, // 活动列表
-    getActivity: function getActivity() {var _this3 = this;(0, _activity.activityIndex)(this.queryList).then(function (res) {if (res.data && res.data.length > 0) {_this3.list = _this3.list.concat(res.data);_this3.finish = false;} else {_this3.finish = true;}_this3.isLoading = false;uni.stopPullDownRefresh();}).catch(function () {_this3.isLoading = false;uni.stopPullDownRefresh();});}, changeCurret: function changeCurret(e) {this.current = e.detail.current;}, navigateTo: function navigateTo(url) {if (this.token) {uni.navigateTo({ url: url, fail: function fail(err) {uni.switchTab({
-              url: url });
-
-          } });
-
-      } else {
-        this.$refs.popup && this.$refs.popup.open();
-      }
-    } } };exports.default = _default;
+    getActivity: function getActivity() {var _this3 = this;(0, _activity.activityIndex)(this.queryList).then(function (res) {if (res.data && res.data.length > 0) {_this3.list = _this3.list.concat(res.data);_this3.finish = false;} else {_this3.finish = true;}_this3.isLoading = false;uni.stopPullDownRefresh();}).catch(function () {_this3.isLoading = false;uni.stopPullDownRefresh();});}, changeCurret: function changeCurret(e) {this.current = e.detail.current;}, handleNext: function handleNext() {uni.pageScrollTo({ scrollTop: 100, duration: 300 });this.step = 2;}, handleOver: function handleOver() {uni.setStorageSync('notFirst', true);this.$refs.mask && this.$refs.mask.close();}, navigateTo: function navigateTo(url) {if (this.token) {uni.navigateTo({ url: url, fail: function fail(err) {uni.switchTab({ url: url });} });} else {this.$refs.popup && this.$refs.popup.open();}} } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

@@ -21,7 +21,7 @@
 			<view class="footer-left">
 				<view class="name-wrap flex-row">
 					<text class="acp-ellipsis" style="max-width: 300rpx;">{{item.name || '商品名称'}}</text>
-					<text style="margin:0 24rpx; flex: 1; font-weight: 500;">¥{{item.price}}</text>
+					<text style="margin:0 24rpx; flex: 1; font-weight: 500;">¥{{((item.price || 0) * (item.num || 0)) + (item.freightPrice || 0)}}</text>
 				</view>
 				<view class="flex-row" style="font-size: 24rpx; color: #999; margin-top: 16rpx;">
 					<text>

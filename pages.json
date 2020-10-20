@@ -149,6 +149,11 @@
 				"navigationBarTitleText": "提现记录",
 				"enablePullDownRefresh": true
 			}
+		}, {
+			"path": "pages/orderClose/orderClose",
+			"style": {
+				"navigationBarTitleText": "关闭订单"
+			}
 		}
 	],
 	"globalStyle": {

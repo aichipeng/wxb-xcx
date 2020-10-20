@@ -178,29 +178,4 @@
   font-size: 30rpx;
   line-height: 42rpx;
 }
-.order-pay-page .close-popup.data-v-c547daf4 {
-  background: #fff;
-  padding: 24rpx 24rpx 58rpx;
-}
-.order-pay-page .close-popup .title.data-v-c547daf4 {
-  font-size: 32rpx;
-  line-height: 44rpx;
-}
-.order-pay-page .close-popup .remark.data-v-c547daf4 {
-  margin: 50rpx 0;
-  font-size: 32rpx;
-  line-height: 44rpx;
-  width: 100%;
-}
-.order-pay-page .close-popup .submit-btn.data-v-c547daf4 {
-  height: 90rpx;
-  width: 100%;
-  background: #FFD44D;
-  -webkit-box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
-          box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
-  -webkit-border-radius: 45rpx;
-          border-radius: 45rpx;
-  font-size: 30rpx;
-  line-height: 42rpx;
-}
 

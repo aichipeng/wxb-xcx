@@ -19,7 +19,7 @@
 				<view class="footer-left">
 					<view class="flex-row" style="padding: 4rpx 0;font-size: 28rpx;">
 						<!-- <text class="acp-ellipsis" style="margin-right: 24rpx">{{info.name || '商品名称'}}</text> -->
-						<text style="font-weight: 500;">¥{{info.price}}</text>
+						<text style="font-weight: 500;">¥{{((info.price || 0) * (info.num || 0)) + (info.freightPrice || 0)}}</text>
 						<text style="margin: 0 16rpx;">|</text>
 						<text class="flex-1" style="white-space: nowrap;">可售单量{{info.saleVolume || 0}}单</text>
 					</view>
@@ -371,12 +371,25 @@
 				}
 				this.isAll = checkedMap.length == list.length
 			},
-			// filterList() {
-			// 	const {
-			// 		list
-			// 	} = this;
-			// 	return list.filter(item => item.orderStatus == 201 || item.orderStatus == 202)
-			// },
+			// 全选
+			selectAll() {
+				const {
+					isAll,
+					list
+				} = this;
+				let checkedMap = [];
+				if (isAll) {
+					this.isAll = false;
+					this.checkedMap = checkedMap;
+				} else {
+					this.isAll = true;
+					list.forEach((item, index) => {
+						checkedMap.push(item.orderSn)
+					});
+					this.checkedMap = checkedMap;
+				}
+			},
+			
 			handleBtn(item) {
 				switch (Number(item.orderStatus)) {
 					case 201:
@@ -397,26 +410,7 @@
 				}
 				// console.log(item)
 			},
-			// 全选
-			selectAll() {
-				const {
-					isAll,
-					list
-				} = this;
-				let checkedMap = [];
-				if (isAll) {
-					this.isAll = false;
-					this.checkedMap = checkedMap;
-				} else {
-					this.isAll = true;
-					list.forEach((item, index) => {
-						if (item.orderStatus == 201 || item.orderStatus == 202) {
-							checkedMap.push(item.orderSn)
-						}
-					});
-					this.checkedMap = checkedMap;
-				}
-			},
+			
 			// 直接发货
 			handleSend() {
 				const {

@@ -27,6 +27,11 @@ export const orderExpress = params => {
 	return ajax(params, '/order/sendExpress', 'POST')
 }
 
+// 关闭原因列表
+export const closeList = params => {
+	return ajax(params, '/activity/closeList', 'GET')
+}
+
 // 关闭订单(卖家)
 export const orderClose = params => {
 	return ajax(params, '/order/closeOrder', 'POST')
