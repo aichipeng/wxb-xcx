@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uniIcons: function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 394))
+    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 419))
   }
 }
 var render = function() {
@@ -359,7 +359,7 @@ var _order = __webpack_require__(/*! @/api/order.js */ 32); //
 //
 //
 var _default = { data: function data() {return { mode: undefined, // server(卖家) client(买家)
-      orderSn: undefined, addressId: 1, info: {}, avatar: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2476878483,4014399276&fm=26&gp=0.jpg', remark: '' };}, onLoad: function onLoad(options) {if (options.orderSn) {this.orderSn = options.orderSn;this.mode = options.mode || 'client';}}, onShow: function onShow() {if (this.orderSn) {this.getInfo();}}, methods: { getInfo: function getInfo() {var _this = this;(0, _order.orderDetail)({ orderSn: this.orderSn }).then(function (res) {_this.info = res.data;});}, // 直接发货
+      orderSn: undefined, addressId: 1, info: {}, avatar: '/static/images/avatar.png', remark: '' };}, onLoad: function onLoad(options) {if (options.orderSn) {this.orderSn = options.orderSn;this.mode = options.mode || 'client';}}, onShow: function onShow() {if (this.orderSn) {this.getInfo();}}, methods: { getInfo: function getInfo() {var _this = this;(0, _order.orderDetail)({ orderSn: this.orderSn }).then(function (res) {_this.info = res.data;});}, // 直接发货
     handleSend: function handleSend() {var checkedMap = [this.orderSn];this.navigateTo('/pages/orderSend/orderSend?item=' + JSON.stringify(checkedMap));}, // 预约取件
     handlePick: function handlePick() {var checkedMap = [this.orderSn];this.navigateTo('/pages/orderPick/orderPick?item=' + JSON.stringify(checkedMap));}, copeText: function copeText(data) {if (!data) return;uni.setClipboardData({ data: data, success: function success(data) {uni.showToast({ title: '复制成功', icon: 'none', mask: true });}, fail: function fail(err) {uni.showToast({ title: '复制失败', icon: 'none', mask: true });}, complete: function complete(res) {} });}, navigateTo: function navigateTo(url) {uni.navigateTo({ url: url, fail: function fail(err) {uni.switchTab({ url: url });} });} } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

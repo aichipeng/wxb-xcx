@@ -52,6 +52,10 @@
   font-size: 30rpx;
   line-height: 42rpx;
 }
+.login-page .login-card .login-item .code-btn {
+  font-size: 30rpx;
+  line-height: 42rpx;
+}
 .login-page .login-card .submit-btn {
   height: 90rpx;
   -webkit-border-radius: 45px;

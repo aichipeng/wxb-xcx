@@ -99,7 +99,7 @@
 		<view class="border-bottom" style="padding: 80rpx 0;">
 			<view class="flex-row" style="justify-content: space-between;">
 				<text style="font-size: 40rpx; font-weight: 500;line-height: 56rpx;">商品销量排行</text>
-				<text style="font-size: 26rpx;">查看全部</text>
+				<text style="font-size: 26rpx;" @click="navigateTo('/pages/statGoods/statGoods?id=' + info.id)">查看全部</text>
 			</view>
 			<view class="stack-charts flex-col" style="margin: 60rpx 0 20rpx;">
 				<canvas canvasId="canvaStack" id="canvaStack" :style="{ width: sWidth + 'px', height: sHeight + 'px'}" @touchstart="touchColumn"></canvas>
@@ -111,13 +111,13 @@
 					<text style="width: 16rpx; height: 16rpx; background-color: #FAD673;"></text>
 					<text style="color: #8C8C8C; margin: 0 16rpx 0 10rpx;">订单</text>
 				</view>
-				<text style="font-size: 26rpx;">单位/件</text>
+				<text style="font-size: 26rpx;">单位/单</text>
 			</view>
 		</view>
 		<view style="padding: 80rpx 0 0;">
 			<view class="flex-row" style="justify-content: space-between;">
 				<text style="font-size: 40rpx; font-weight: 500;line-height: 56rpx;">买家排行</text>
-				<text style="font-size: 26rpx;">查看全部</text>
+				<text style="font-size: 26rpx;" @click="navigateTo('/pages/statBuys/statBuys?id=' + info.id)">查看全部</text>
 			</view>
 			<view class="" style="margin: 16rpx 0;font-size: 26rpx;">
 				<text>单位/元</text>
@@ -159,7 +159,7 @@
 		data() {
 			return {
 				moment,
-				avatar: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2476878483,4014399276&fm=26&gp=0.jpg',
+				avatar: '/static/images/avatar.png',
 				current: 1,
 				tabList: [{
 						name: '日报',
@@ -257,7 +257,7 @@
 						break
 				}
 				if (api) {
-					console.log(formData)
+					// console.log(formData)
 					api(obj).then(res => {
 						this.info = res.data || {};
 						this.setRingChart(res.data, 0)
@@ -296,11 +296,11 @@
 				const _self = this;
 				const series = [{
 					name: '记账总额',
-					data: type == 0 ? info.orderIncomeTotal || 0 : info.orderExpendTotal || 0,
+					data: type == 0 ? (info.bookkeepingIncomeTotal || 0) : (info.bookkeepingExpendTotal || 0),
 					color: '#FFDD79',
 				}, {
 					name: '订单总额',
-					data: type == 0 ? info.bookkeepingIncomeTotal || 0 : info.bookkeepingExpendTotal || 0,
+					data: type == 0 ? (info.orderIncomeTotal || 0) : (info.orderExpendTotal || 0),
 					color: '#FFAE00',
 				}]
 				this['canvaRing' + type] = new uCharts({
@@ -314,13 +314,13 @@
 					},
 					title: {
 						name: type == 0 ? '收入总额' : '支出总额',
-						color: '#999999',
+						color: '#999',
 						fontSize: 12 * _self.pixelRatio,
 					},
 					subtitle: {
-						name: '¥' + type == 0 ? Number(info.incomeTotal || 0).toFixed(2) : Number(info.expendTotal || 0).toFixed(2),
-						// Number(type == 0 ? info.incomeTotal || 0 : info.expendTotal || 0) || '0.00',
-						color: '#333333',
+						name: type == 0 ? '¥' + Number(info.incomeTotal || 0).toFixed(2) : '¥' + Number(info.expendTotal || 0).toFixed(
+							2),
+						color: '#333',
 						fontSize: 20 * _self.pixelRatio,
 					},
 					extra: {
@@ -330,7 +330,7 @@
 							lableWidth: 15
 						}
 					},
-					background: '#FFFFFF',
+					background: '#fff',
 					pixelRatio: 1,
 					series,
 					animation: true,
@@ -477,6 +477,16 @@
 					}
 				});
 			},
+			navigateTo(url) {
+				uni.navigateTo({
+					url,
+					fail: err => {
+						uni.switchTab({
+							url,
+						});
+					}
+				});
+			}
 		}
 	}
 </script>

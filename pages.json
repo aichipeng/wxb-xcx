@@ -155,7 +155,15 @@
 				"navigationBarTitleText": "关闭订单"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/statGoods/statGoods",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/statBuys/statBuys",
+            "style" : {}
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "内有微商",

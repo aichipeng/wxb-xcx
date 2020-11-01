@@ -94,10 +94,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uniIcons: function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 394))
+    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 419))
   },
   uniKeepFloat: function() {
-    return __webpack_require__.e(/*! import() | components/uni-keep-float/uni-keep-float */ "components/uni-keep-float/uni-keep-float").then(__webpack_require__.bind(null, /*! @/components/uni-keep-float/uni-keep-float.vue */ 425))
+    return __webpack_require__.e(/*! import() | components/uni-keep-float/uni-keep-float */ "components/uni-keep-float/uni-keep-float").then(__webpack_require__.bind(null, /*! @/components/uni-keep-float/uni-keep-float.vue */ 450))
   }
 }
 var render = function() {
@@ -182,7 +182,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -335,7 +335,7 @@ var _stat = __webpack_require__(/*! @/api/stat.js */ 294);
 var _common = __webpack_require__(/*! @/static/utils/common.js */ 295);
 
 
-var _moment = _interopRequireDefault(__webpack_require__(/*! moment */ 66));
+var _moment = _interopRequireDefault(__webpack_require__(/*! moment */ 33));
 
 var _uCharts = _interopRequireDefault(__webpack_require__(/*! @/static/stan-ucharts/u-charts/u-charts.js */ 296));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
@@ -481,12 +481,12 @@ var _uCharts = _interopRequireDefault(__webpack_require__(/*! @/static/stan-ucha
 //
 //
 // console.log(moment(new Date()).format("YYYY年"));
-var uniKeepFloat = function uniKeepFloat() {__webpack_require__.e(/*! require.ensure | components/uni-keep-float/uni-keep-float */ "components/uni-keep-float/uni-keep-float").then((function () {return resolve(__webpack_require__(/*! @/components/uni-keep-float/uni-keep-float.vue */ 425));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { data: function data() {return { moment: _moment.default, avatar: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2476878483,4014399276&fm=26&gp=0.jpg', current: 1, tabList: [{ name: '日报', type: 1 }, { name: '周报', type: 2 }, { name: '月报', type: 3 }], weekList: [], currentWeek: {}, end: (0, _moment.default)(new Date().getTime() - 24 * 60 * 60 * 1000).format("YYYY-MM-DD"), formData: { data: (0, _moment.default)(new Date().getTime() - 24 * 60 * 60 * 1000).format("YYYY-MM-DD"), month: (0, _moment.default)(new Date()).format("YYYY-MM"), num: 1 }, info: {}, pixelRatio: (0, _common.getRatio)(), rIndex: 0, rWidth: '', rHeight: '', qIndex: 0, qWidth: '', qHeight: '', sWidth: '', sHeight: '' };}, components: { uniKeepFloat: uniKeepFloat }, onLoad: function onLoad() {this.getInfo();this.getWeekList(); // console.log(this.pixelRatio)
-    this.rWidth = this.pixelRatio * 320;this.rHeight = this.pixelRatio * 320;this.qWidth = this.pixelRatio * 340;this.qHeight = this.pixelRatio * 400;this.sWidth = this.pixelRatio * 340;this.sHeight = this.pixelRatio * 320;}, methods: { toggleType: function toggleType(item) {if (this.current !== item.type) {this.info = {};this.current = item.type;this.getInfo();}}, getWeekList: function getWeekList() {var _this = this;(0, _stat.statisticsWeekList)().then(function (res) {var weekList = res.data || [];_this.weekList = weekList;if (res.data.length > 0) {_this.currentWeek = weekList[weekList.length - 1];}});}, getInfo: function getInfo() {var _this2 = this;var current = this.current,formData = this.formData,currentWeek = this.currentWeek,api = undefined,obj = {};switch (Number(current)) {case 1:api = _stat.statisticsDay;obj = { data: (0, _moment.default)(new Date(formData.data)).format("YYYYMMDD") };break;case 2:obj = { month: currentWeek.yearMonth || (0, _moment.default)(new Date(formData.month + '-01')).format("YYYYMM"), num: currentWeek.nameNum || 1 };api = _stat.statisticsWeek;break;case 3:obj = { data: (0, _moment.default)(new Date(formData.month + '-01')).format("YYYYMM") };api = _stat.statisticsMonth;break;default:break;}if (api) {console.log(formData);api(obj).then(function (res) {_this2.info = res.data || {};_this2.setRingChart(res.data, 0);_this2.setRingChart(res.data, 1);_this2.setQiunChart(res.data, 0);_this2.setQiunChart(res.data, 1);_this2.setStackChart(res.data);});}}, bindDateChange: function bindDateChange(e) {var value = e.detail.value; // console.log(value)
+var uniKeepFloat = function uniKeepFloat() {__webpack_require__.e(/*! require.ensure | components/uni-keep-float/uni-keep-float */ "components/uni-keep-float/uni-keep-float").then((function () {return resolve(__webpack_require__(/*! @/components/uni-keep-float/uni-keep-float.vue */ 450));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { data: function data() {return { moment: _moment.default, avatar: '/static/images/avatar.png', current: 1, tabList: [{ name: '日报', type: 1 }, { name: '周报', type: 2 }, { name: '月报', type: 3 }], weekList: [], currentWeek: {}, end: (0, _moment.default)(new Date().getTime() - 24 * 60 * 60 * 1000).format("YYYY-MM-DD"), formData: { data: (0, _moment.default)(new Date().getTime() - 24 * 60 * 60 * 1000).format("YYYY-MM-DD"), month: (0, _moment.default)(new Date()).format("YYYY-MM"), num: 1 }, info: {}, pixelRatio: (0, _common.getRatio)(), rIndex: 0, rWidth: '', rHeight: '', qIndex: 0, qWidth: '', qHeight: '', sWidth: '', sHeight: '' };}, components: { uniKeepFloat: uniKeepFloat }, onLoad: function onLoad() {this.getInfo();this.getWeekList(); // console.log(this.pixelRatio)
+    this.rWidth = this.pixelRatio * 320;this.rHeight = this.pixelRatio * 320;this.qWidth = this.pixelRatio * 340;this.qHeight = this.pixelRatio * 400;this.sWidth = this.pixelRatio * 340;this.sHeight = this.pixelRatio * 320;}, methods: { toggleType: function toggleType(item) {if (this.current !== item.type) {this.info = {};this.current = item.type;this.getInfo();}}, getWeekList: function getWeekList() {var _this = this;(0, _stat.statisticsWeekList)().then(function (res) {var weekList = res.data || [];_this.weekList = weekList;if (res.data.length > 0) {_this.currentWeek = weekList[weekList.length - 1];}});}, getInfo: function getInfo() {var _this2 = this;var current = this.current,formData = this.formData,currentWeek = this.currentWeek,api = undefined,obj = {};switch (Number(current)) {case 1:api = _stat.statisticsDay;obj = { data: (0, _moment.default)(new Date(formData.data)).format("YYYYMMDD") };break;case 2:obj = { month: currentWeek.yearMonth || (0, _moment.default)(new Date(formData.month + '-01')).format("YYYYMM"), num: currentWeek.nameNum || 1 };api = _stat.statisticsWeek;break;case 3:obj = { data: (0, _moment.default)(new Date(formData.month + '-01')).format("YYYYMM") };api = _stat.statisticsMonth;break;default:break;}if (api) {// console.log(formData)
+        api(obj).then(function (res) {_this2.info = res.data || {};_this2.setRingChart(res.data, 0);_this2.setRingChart(res.data, 1);_this2.setQiunChart(res.data, 0);_this2.setQiunChart(res.data, 1);_this2.setStackChart(res.data);});}}, bindDateChange: function bindDateChange(e) {var value = e.detail.value; // console.log(value)
       switch (Number(this.current)) {case 1:this.formData.data = value;this.getInfo();break;case 2: // console.log(this.weekList[value].isClick)
           this.currentWeek = this.weekList[value];this.getInfo();break;case 3:this.formData.month = value;this.getInfo();break;default:break;}}, // 收入、支出统计表
-    setRingChart: function setRingChart() {var info = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};var type = arguments.length > 1 ? arguments[1] : undefined;var _self = this;var series = [{ name: '记账总额', data: type == 0 ? info.orderIncomeTotal || 0 : info.orderExpendTotal || 0, color: '#FFDD79' }, { name: '订单总额', data: type == 0 ? info.bookkeepingIncomeTotal || 0 : info.bookkeepingExpendTotal || 0, color: '#FFAE00' }];
-
+    setRingChart: function setRingChart() {var info = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};var type = arguments.length > 1 ? arguments[1] : undefined;var _self = this;var series = [{ name: '记账总额', data: type == 0 ? info.bookkeepingIncomeTotal || 0 : info.bookkeepingExpendTotal || 0, color: '#FFDD79' }, { name: '订单总额', data: type == 0 ? info.orderIncomeTotal || 0 : info.orderExpendTotal || 0, color: '#FFAE00' }];
       this['canvaRing' + type] = new _uCharts.default({
         $this: _self,
         canvasId: 'canvaRing' + type,
@@ -498,13 +498,13 @@ var uniKeepFloat = function uniKeepFloat() {__webpack_require__.e(/*! require.en
 
         title: {
           name: type == 0 ? '收入总额' : '支出总额',
-          color: '#999999',
+          color: '#999',
           fontSize: 12 * _self.pixelRatio },
 
         subtitle: {
-          name: '¥' + type == 0 ? Number(info.incomeTotal || 0).toFixed(2) : Number(info.expendTotal || 0).toFixed(2),
-          // Number(type == 0 ? info.incomeTotal || 0 : info.expendTotal || 0) || '0.00',
-          color: '#333333',
+          name: type == 0 ? '¥' + Number(info.incomeTotal || 0).toFixed(2) : '¥' + Number(info.expendTotal || 0).toFixed(
+          2),
+          color: '#333',
           fontSize: 20 * _self.pixelRatio },
 
         extra: {
@@ -514,7 +514,7 @@ var uniKeepFloat = function uniKeepFloat() {__webpack_require__.e(/*! require.en
             lableWidth: 15 } },
 
 
-        background: '#FFFFFF',
+        background: '#fff',
         pixelRatio: 1,
         series: series,
         animation: true,
@@ -660,7 +660,18 @@ var uniKeepFloat = function uniKeepFloat() {__webpack_require__.e(/*! require.en
           return category + ' ' + item.name + ':' + item.data;
         } });
 
+    },
+    navigateTo: function navigateTo(url) {
+      uni.navigateTo({
+        url: url,
+        fail: function fail(err) {
+          uni.switchTab({
+            url: url });
+
+        } });
+
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

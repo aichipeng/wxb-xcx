@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uniIcons: function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 394))
+    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 419))
   }
 }
 var render = function() {
@@ -135,6 +135,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
+
 
 
 
@@ -265,11 +272,33 @@ var _express = __webpack_require__(/*! @/api/express.js */ 313); //
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 var _default = { data: function data() {return { current: 0, listExp: [], // 物流公司列表
-      list: [], finishNum: 0, formMap: [], avatar: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2476878483,4014399276&fm=26&gp=0.jpg' };}, onLoad: function onLoad(options) {var _this = this;if (options.item) {var item = JSON.parse(options.item); // console.log(item)
-      this.getExpressList();item.forEach(function (item, index) {_this.getInfo(item);});}}, methods: { getInfo: function getInfo(orderSn) {var _this2 = this;var list = this.list,formMap = this.formMap;(0, _order.orderDetail)({ orderSn: orderSn }).then(function (res) {list.push(res.data);formMap.push({ expressIndex: 0, expressCode: undefined, expressName: undefined, expressNo: undefined, freightPrice: undefined, orderNo: orderSn, finished: false });_this2.list = list;_this2.formMap = formMap;});}, getExpressList: function getExpressList() {var _this3 = this;(0, _express.expressList)().then(function (res) {_this3.listExp = res.data;});}, swiperChange: function swiperChange(e) {// console.log(e)
-      this.current = e.detail.current;}, pickerExpressCode: function pickerExpressCode(e) {var current = this.current,listExp = this.listExp,formMap = this.formMap; // console.log(current, e.detail.value)
-      var index = e.detail.value;var cuurretExp = listExp[index];formMap[current].expressCode = cuurretExp.code;formMap[current].expressName = cuurretExp.name;
+      list: [], finishNum: 0, formMap: [], avatar: '/static/images/avatar.png' };}, onLoad: function onLoad(options) {var _this = this;if (options.item) {var item = JSON.parse(options.item); // console.log(item)
+      this.getExpressList();item.forEach(function (item, index) {_this.getInfo(item);});}}, methods: { getInfo: function getInfo(orderSn) {var _this2 = this;var list = this.list,formMap = this.formMap;(0, _order.orderDetail)({ orderSn: orderSn }).then(function (res) {list.push(res.data);formMap.push({ expressIndex: 0, expressCode: undefined, expressName: undefined, expressNo: undefined, freightPrice: undefined, orderNo: orderSn, finished: false });_this2.list = list;_this2.formMap = formMap;});}, getExpressList: function getExpressList() {var _this3 = this;(0, _express.expressList)().then(function (res) {_this3.listExp = res.data;});}, copeText: function copeText(data) {if (!data) return;uni.setClipboardData({ data: data, success: function success(data) {uni.showToast({ title: '复制成功', icon: 'none', mask: true });}, fail: function fail(err) {uni.showToast({ title: '复制失败', icon: 'none', mask: true });}, complete: function complete(res) {} });
+    },
+
+    swiperChange: function swiperChange(e) {
+      // console.log(e)
+      this.current = e.detail.current;
+    },
+    pickerExpressCode: function pickerExpressCode(e) {var
+
+      current =
+
+
+      this.current,listExp = this.listExp,formMap = this.formMap;
+      // console.log(current, e.detail.value)
+      var index = e.detail.value;
+      var cuurretExp = listExp[index];
+      formMap[current].expressCode = cuurretExp.code;
+      formMap[current].expressName = cuurretExp.name;
       formMap[current].expressIndex = index;
     },
     handleSumbit: function handleSumbit(index) {var _this4 = this;var
@@ -280,33 +309,58 @@ var _default = { data: function data() {return { current: 0, listExp: [], // 物
       this.formMap,finishNum = this.finishNum,list = this.list;
       // console.log(this.current)
       var formData = formMap[index];
-      if (!formMap[index].finished) {
-        (0, _order.orderExpress)(formData).then(function (res) {
-          formMap[index].finished = true;
-          _this4.finishNum = finishNum + 1;
-          if (finishNum + 1 >= list.length) {
-            uni.showToast({
-              title: "全部提交成功！",
-              icon: "none",
-              mask: true });
+      var msg = this.verifyForm(formData);
+      if (!msg) {
+        if (!formMap[index].finished) {
+          (0, _order.orderExpress)(formData).then(function (res) {
+            formMap[index].finished = true;
+            _this4.finishNum = finishNum + 1;
+            if (finishNum + 1 >= list.length) {
+              uni.showToast({
+                title: "全部提交成功！",
+                icon: "none",
+                mask: true });
 
-            setTimeout(function () {
-              uni.navigateBack({
-                delta: 1 });
+              setTimeout(function () {
+                uni.navigateBack({
+                  delta: 1 });
 
-            }, 500);
-          } else {
-            uni.showToast({
-              title: "提交成功！下一个",
-              icon: "none",
-              mask: true });
+              }, 500);
+            } else {
+              uni.showToast({
+                title: "提交成功！下一个",
+                icon: "none",
+                mask: true });
 
-            _this4.goNext();
-          }
-        });
+              _this4.goNext();
+            }
+          });
+        }
+      } else {
+        uni.showToast({
+          title: msg,
+          icon: 'none',
+          mask: true });
+
       }
     },
+    // 校验表单
+    verifyForm: function verifyForm(formData) {var
 
+      expressCode =
+
+
+      formData.expressCode,expressNo = formData.expressNo,freightPrice = formData.freightPrice;
+      var msg = '';
+      if (!expressNo) {
+        msg = '请输入物流单号！';
+      } else if (!expressCode) {
+        msg = '请选择物流公司！';
+      } else if (!freightPrice) {
+        msg = '请输入物流成本！';
+      }
+      return msg;
+    },
     goNext: function goNext() {var
 
       formMap =

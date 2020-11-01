@@ -4,7 +4,7 @@
 			<view class="cell-item flex-row">
 				<text class="label">头像</text>
 				<!-- <view class="value flex-row" @click="handleImage"> -->
-				<view class="value flex-row">
+				<view class="value flex-row" @click="handleImage">
 					<image class="avatar" :src="formData.avatar || avatar"></image>
 					<!-- <text v-else style="color: #999;">请上传头像</text> -->
 					<uni-icons type="arrowright" size="16" color="#999" style="margin-right: -8rpx; margin-left: 4rpx;"></uni-icons>
@@ -12,8 +12,8 @@
 			</view>
 			<view class="cell-item flex-row">
 				<text class="label">昵称</text>
-				<view class="value flex-1">{{formData.nickName}}</view>
-				<!-- <input class="value flex-1" v-model="formData.nickName" type="text" placeholder="请输入新昵称" placeholder-style="color: #999; font-size: 30rpx;line-height: 42rpx;" /> -->
+				<!-- <view class="value flex-1">{{formData.nickName}}</view> -->
+				<input class="value flex-1" v-model="formData.nickName" type="text" placeholder="请输入新昵称" placeholder-style="color: #999; font-size: 30rpx;line-height: 42rpx;" />
 			</view>
 			<view class="cell-item flex-row" style="border-bottom: none;">
 				<text class="label">微信号</text>
@@ -38,7 +38,7 @@
 		data() {
 			return {
 				formData: {},
-				avatar: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2476878483,4014399276&fm=26&gp=0.jpg',
+				avatar: '/static/images/avatar.png',
 			};
 		},
 		onLoad(options) {
@@ -80,11 +80,15 @@
 			handleSumit() {
 				const {
 					id,
-					wechatNo
+					wechatNo,
+					avatar,
+					nickName
 				} = this.formData;
 				updateWxNo({
 					id,
-					wechatNo
+					wechatNo,
+					avatar,
+					nickName
 				}).then(res => {
 					uni.showToast({
 						title: '修改成功',

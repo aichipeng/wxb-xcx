@@ -32,7 +32,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "",
-	"appid": "wxba53cbbd2c36d4b7",
+	"appid": "wx192e7809f53d8892",
 	"projectname": "wxb-xcx",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
@@ -45,43 +45,13 @@
 			"current": -1,
 			"list": []
 		},
-		"plugin": {
-			"current": -1,
-			"list": []
-		},
 		"game": {
-			"current": -1,
-			"list": []
-		},
-		"gamePlugin": {
 			"current": -1,
 			"list": []
 		},
 		"miniprogram": {
 			"current": -1,
-			"list": [
-				{
-					"id": 0,
-					"name": "pages/activityShare/activityShare",
-					"pathName": "pages/activityShare/activityShare",
-					"query": "id=68&channelId=1",
-					"scene": null
-				},
-				{
-					"id": 1,
-					"name": "pages/a",
-					"pathName": "pages/activityClient/activityClient",
-					"query": "id=68&channelId=1",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/addressScreen/addressScreen",
-					"pathName": "pages/addressScreen/addressScreen",
-					"query": "",
-					"scene": null
-				}
-			]
+			"list": []
 		}
 	}
 }

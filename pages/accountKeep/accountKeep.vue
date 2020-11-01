@@ -11,19 +11,44 @@
 			</block>
 		</view>
 		<view class="account-content">
-			<block v-for="(item,index) in list" :key="index">
-				<view class="order-item" :style="{ borderBottom: index == list.length - 1 ? 'none':'' }">
-					<view class="order-item-top flex-row">
-						<view class="info flex-row acp-ellipsis">
-							<text class="name acp-ellipsis">{{item.remark}}</text>
-							<text class="tag">{{item.type == 2 ? '手动' : '自动'}}</text>
+			<block v-for="(i,k) in filterList" :key="k">
+				<view class="month-count flex-row">
+					<view class="month">{{moment(i.date).format('YYYY年MM月')}}</view>
+					<view class="">收入¥ {{i.inMonthCount}}</view>
+					<view class="">支出¥ {{i.payMonthCount}}</view>
+					<view v-if="queryList.type != 2">顾客{{i.customerNum}}</view>
+				</view>
+				<view class="month-card">
+					<block v-for="(val,key) in i.list" :key="k + '_' + key">
+						<view class="day-count flex-row">
+							<view class="day">{{moment(val.date).format('MM月DD日')}}</view>
+							<view class="count">
+								<view class="flex-row" style="margin: 8rpx 0;">
+									<image class="icon" src="/static/images/sr.png"></image>
+									<text class="txt">￥{{val.inDayCount}}</text>
+								</view>
+								<view class="flex-row" style="margin: 8rpx 0;">
+									<image class="icon" src="/static/images/zc.png"></image>
+									<text class="txt">￥{{val.payDayCount}}</text>
+								</view>
+							</view>
 						</view>
-						<!-- <text style="color: #EFB600;">+{{(item.goodsPrice||0).toFixed(2)}}</text> -->
-					</view>
-					<view class="order-item-bottom flex-row">
-						<text style="color: #999">{{item.addTime}}</text>
-						<text style="color: #EFB600">{{item.plusMinus == 1 ? '+' : item.plusMinus == 2 ? '-' : ''}}{{Number(item.tradeMoney || 0).toFixed(2)}}</text>
-					</view>
+						<block v-for="(item,index) in val.list" :key="k + '_' + key + '_' + index">
+							<view class="order-item" :style="{ borderBottom: index == val.list.length - 1 ? 'none':'' }">
+								<view class="order-item-top flex-row">
+									<view class="info flex-row acp-ellipsis">
+										<text class="name acp-ellipsis">{{item.remark}}</text>
+										<text class="tag">{{item.type == 2 ? '手动' : '自动'}}</text>
+									</view>
+									<text v-if="item.plusMinus == 1 && item.num">X {{item.num}}</text>
+								</view>
+								<view class="order-item-bottom flex-row">
+									<text style="color: #999">{{moment(item.addTime).format('HH:mm:ss')}}</text>
+									<text style="color: #EFB600">{{item.plusMinus == 1 ? '+' : item.plusMinus == 2 ? '-' : ''}}{{Number(item.tradeMoney || 0).toFixed(2)}}</text>
+								</view>
+							</view>
+						</block>
+					</block>
 				</view>
 			</block>
 		</view>
@@ -35,10 +60,12 @@
 	import {
 		accountList
 	} from "@/api/account.js"
+	import moment from "moment";
 	import uniKeepFloat from "@/components/uni-keep-float/uni-keep-float.vue"
 	export default {
 		data() {
 			return {
+				moment,
 				tabList: [{
 						name: '全部',
 						type: ''
@@ -54,22 +81,27 @@
 				],
 				queryList: {
 					page: 1,
-					size: 10,
+					limit: 10,
 					type: ''
 				},
 				isLoading: false,
 				list: [],
+				filterList: [],
 				finish: false
 			};
 		},
 		components: {
 			uniKeepFloat
 		},
-		onLoad() {
+		onShow() {
+			this.list = [];
+			this.filterList = [];
+			this.queryList.page = 1;
 			this.getList()
 		},
 		onPullDownRefresh() {
 			this.list = [];
+			this.filterList = [];
 			this.queryList.page = 1;
 			this.getList()
 		},
@@ -85,6 +117,7 @@
 				accountList(this.queryList).then(res => {
 					if (res.data && res.data.length > 0) {
 						this.list = this.list.concat(res.data)
+						this.getFilterList();
 						this.finish = false
 					} else {
 						this.finish = true
@@ -101,6 +134,7 @@
 					this.queryList.type = item.type
 					this.queryList.page = 1
 					this.list = [];
+					this.filterList = [];
 					this.getList()
 				}
 			},
@@ -111,6 +145,69 @@
 				if (type == 1) {
 					this.navigateTo('/pages/orderDetail/orderDetail?orderSn=' + item.orderSn + '&mode=server')
 				}
+			},
+			getFilterList() {
+				const {
+					list,
+				} = this;
+				const _this = this
+				let filterList = []
+				list.forEach(item => {
+					// console.log(item)
+					const time = moment(item.addTime).format('YYYY-MM');
+					const index = filterList.findIndex(item => {
+						return item.date == time
+					})
+					let temp = filterList.find(item => {
+						return item.date == time
+					}) || {};
+					// filterList[0].list.push(temp)
+					if (index == -1) {
+						temp.date = time;
+						temp.customerNum = item.customerNum || 0
+						temp.inMonthCount = item.inMonthCount || 0
+						temp.payMonthCount = item.payMonthCount || 0
+						temp.list = [item];
+						filterList.push(temp);
+						// this.filterList = filterList
+					} else {
+						temp.list.push(item);
+						filterList[index] = temp
+					}
+				})
+				// this.filterList = filterList
+				// console.log(filterList)
+				this.getFilterList1(filterList)
+			},
+			getFilterList1(list) {
+				// console.log(list)
+				list.forEach((item, index) => {
+					const data = [];
+					item.list.forEach(value => {
+						const day = moment(value.addTime).format('YYYY-MM-DD');
+						const index = data.findIndex(e => {
+							return e.date == day
+						})
+						const temp = data.find(e => {
+							return e.date == day
+						}) || {};
+						// filterList[0].list.push(temp)
+						if (index == -1) {
+							temp.date = day;
+							temp.payDayCount = value.payDayCount || 0
+							temp.inDayCount = value.inDayCount || 0
+							temp.list = [value];
+							data.push(temp);
+							// this.filterList = filterList
+						} else {
+							temp.list.push(value);
+							data[index] = temp
+						}
+					})
+					list[index].list = data
+				})
+				// console.log(list)
+				this.filterList = list
 			},
 			navigateTo(url) {
 				uni.navigateTo({
@@ -165,92 +262,89 @@
 		}
 
 		.account-content {
-			.count-month {
+			padding: 10rpx 24rpx;
+
+			.month-count {
 				justify-content: space-between;
-				height: 82rpx;
-				padding: 0 24rpx;
+				padding: 24rpx 0;
 			}
 
-			.count-day {
-				padding: 40rpx 24rpx 0;
-				background-color: #fff;
+			.month-card {
+				background: #FFF;
+				box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+				border-radius: 10rpx;
+				overflow: hidden;
 
-				.count {
+				.day-count {
+					background-color: #EEE;
+					padding: 12rpx 40rpx;
 					justify-content: space-between;
-					// margin: 20rpx 0;
-					background-color: #F9F9F9;
-					padding: 10rpx 20rpx;
-					border-radius: 12rpx;
-				}
+					border-radius: 12rpx 12rpx 0 0;
 
-				.keep-item {
-					padding: 34rpx 0;
-					font-size: 29rpx;
-					line-height: 40rpx;
-
-					.keep-item-top {
-						justify-content: space-between;
-						margin: 6rpx 0;
-
-						.tag {
-							font-size: 24rpx;
-							line-height: 34rpx;
-							font-weight: 500;
-							background-color: #F1F1F1;
-							margin: 0 16rpx;
-							padding: 2rpx 8rpx;
-							color: #999;
-						}
-					}
-
-					.keep-item-bottom {
-						justify-content: space-between;
-						margin: 6rpx 0;
-					}
-				}
-			}
-
-			.order-item {
-				padding: 32rpx 24rpx;
-				border-bottom: solid 2rpx #EEEEEE;
-				background-color: #fff;
-				font-size: 28rpx;
-				line-height: 40rpx;
-
-				.order-item-top {
-					justify-content: space-between;
-					font-size: 28rpx;
-
-					.info {
-						max-width: 75%;
-
-						.name {
-							margin-right: 24rpx;
-						}
-						.tag {
-							background-color: #F1F1F1;
-							border-radius: 4rpx;
-							font-size: 24rpx;
-							line-height: 34rpx;
-							font-weight: 500;
-							color: #999;
-							padding: 2rpx 8rpx;
-						}
-					}
-				}
-
-				.order-item-bottom {
-					justify-content: space-between;
-					margin-top: 32rpx;
-
-					.btn {
-						width: 168rpx;
-						height: 60rpx;
-						background-color: #FFD44D;
-						box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
-						border-radius: 45rpx;
+					.day {
 						font-size: 28rpx;
 						line-height: 40rpx;
+						font-weight: 500;
+					}
+
+					.count {
+						.icon {
+							width: 40rpx;
+							height: 40rpx;
+							margin: 0 44rpx;
+						}
+
+						.txt {
+							font-weight: 500;
+							text-align: right;
+							flex: 1;
+						}
+					}
+				}
+
+				.order-item {
+					padding: 40rpx 0;
+					margin: 0 24rpx;
+					border-bottom: solid 2rpx #EEEEEE;
+					font-size: 28rpx;
+					line-height: 40rpx;
+
+					.order-item-top {
+						justify-content: space-between;
+						font-size: 28rpx;
+
+						.info {
+							max-width: 75%;
+
+							.name {
+								margin-right: 24rpx;
+							}
+
+							.tag {
+								background-color: #F1F1F1;
+								border-radius: 4rpx;
+								font-size: 24rpx;
+								line-height: 34rpx;
+								font-weight: 500;
+								color: #999;
+								padding: 2rpx 8rpx;
+							}
+						}
+					}
+
+					.order-item-bottom {
+						justify-content: space-between;
+						margin-top: 10rpx;
+
+						.btn {
+							width: 168rpx;
+							height: 60rpx;
+							background-color: #FFD44D;
+							box-shadow: 0 6rpx 12rpx 0 rgba(255, 212, 77, 0.2);
+							border-radius: 45rpx;
+							font-size: 28rpx;
+							line-height: 40rpx;
+						}
 					}
 				}
 			}

@@ -66,7 +66,7 @@
 				<text>订单编号：</text>
 				<view class="flex-row">
 					<text>{{info.orderSn}}</text>
-					<uni-icons @click="copeText(info.orderSn)" type="compose" size="12" color="#5D5D5D" style="margin-right: -2rpx; padding-left: 14rpx;"></uni-icons>
+					<image src="/static/images/copy.png" @click="copeText(info.orderSn)" style="width: 32rpx;height: 32rpx; margin-left: 10rpx; margin-right: -4rpx;"></image>
 				</view>
 			</view>
 			<view class="info-item flex-row">
@@ -87,9 +87,9 @@
 				<image class="avatar" :src="info.sellerAvatar || avatar"></image>
 				<view class="txt flex-1">
 					<view class="name acp-ellipsis">{{info.sellerName}}</view>
-					<view class="contact">
-						<text>{{info.wechatNo || '商家微信'}}</text>
-						<uni-icons @click="copeText(info.wechatNo)" type="compose" size="12" color="#5D5D5D" style="padding: 0 16rpx;"></uni-icons>
+					<view class="contact flex-row">
+						<text>{{info.wechatNo || '暂无微信'}}</text>
+						<image src="/static/images/copy.png" @click="copeText(info.wechatNo)" style="width: 32rpx;height: 32rpx; margin-left: 10rpx;"></image>
 					</view>
 				</view>
 				<!-- <text class="edit" @click="navigateTo('/pages/userSetting/userSetting?id=' + id)">修改名片</text> -->
@@ -115,7 +115,7 @@
 				orderSn: undefined,
 				addressId: 1,
 				info: {},
-				avatar: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2476878483,4014399276&fm=26&gp=0.jpg',
+				avatar: '/static/images/avatar.png',
 				remark: ''
 			};
 		},

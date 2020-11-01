@@ -1,7 +1,6 @@
 {
   "navigationBarTitleText": "活动详情",
   "usingComponents": {
-    "uni-icons": "/components/uni-icons/uni-icons",
     "uni-auth": "/components/uni-auth/uni-auth"
   }
 }

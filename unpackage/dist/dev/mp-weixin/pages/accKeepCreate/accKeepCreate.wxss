@@ -25,7 +25,7 @@
 /* 透明度 */
 /* 文章场景相关 */
 .account-keep-create.data-v-72bc38cc {
-  padding: 24rpx 24rpx 180rpx;
+  padding: 1rpx 24rpx 180rpx;
 }
 .account-keep-create .keep-card.data-v-72bc38cc {
   -webkit-box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
@@ -34,6 +34,7 @@
   -webkit-border-radius: 10rpx;
           border-radius: 10rpx;
   padding: 24rpx 30rpx;
+  margin: 24rpx 0;
 }
 .account-keep-create .keep-card .header .tabs .tab.data-v-72bc38cc {
   font-size: 29rpx;
@@ -104,6 +105,12 @@
   margin: 10rpx;
   font-size: 29rpx;
   line-height: 40rpx;
+}
+.account-keep-create .keep-card .del-btn.data-v-72bc38cc {
+  color: #bbb;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  margin-bottom: 10rpx;
 }
 .account-keep-create .btn-group.data-v-72bc38cc {
   position: fixed;

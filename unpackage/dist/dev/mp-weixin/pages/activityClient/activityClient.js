@@ -93,11 +93,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
-  uniIcons: function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 394))
-  },
   uniAuth: function() {
-    return Promise.all(/*! import() | components/uni-auth/uni-auth */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-auth/uni-auth")]).then(__webpack_require__.bind(null, /*! @/components/uni-auth/uni-auth.vue */ 418))
+    return Promise.all(/*! import() | components/uni-auth/uni-auth */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-auth/uni-auth")]).then(__webpack_require__.bind(null, /*! @/components/uni-auth/uni-auth.vue */ 443))
   }
 }
 var render = function() {
@@ -235,14 +232,9 @@ var _order = __webpack_require__(/*! @/api/order.js */ 32); //
 //
 //
 //
-var UniAuth = function UniAuth() {Promise.all(/*! require.ensure | components/uni-auth/uni-auth */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-auth/uni-auth")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-auth/uni-auth.vue */ 418));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { data: function data() {return { token: undefined, id: undefined, channelId: undefined, info: {}, avatar: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2476878483,4014399276&fm=26&gp=0.jpg' };}, components: { UniAuth: UniAuth }, onLoad: function onLoad(options) {if (!options.scene) {if (options.id) {this.id = options.id;}if (options.channelId) {this.channelId = options.channelId;}} else {var scene = decodeURIComponent(options.scene);if (typeof scene == 'string') {scene = JSON.parse(scene);}if (scene.id) {this.id = scene.id;}if (scene.channelId) {this.channelId = scene.channelId;}}}, onShow: function onShow() {var token = uni.getStorageSync('token');if (token) {this.token = token;this.getInfo();} else {this.$refs.popup && this.$refs.popup.open();}}, onReady: function onReady() {
-    if (!this.token) {
-      this.$refs.popup && this.$refs.popup.open();
-    }
-  },
-  onShareAppMessage: function onShareAppMessage(res) {
-    return {
-      title: this.info.name || '内有微商',
+var UniAuth = function UniAuth() {Promise.all(/*! require.ensure | components/uni-auth/uni-auth */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-auth/uni-auth")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-auth/uni-auth.vue */ 443));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { data: function data() {return { token: undefined, id: undefined, channelId: undefined, info: {}, avatar: '/static/images/avatar.png' };}, components: { UniAuth: UniAuth }, onLoad: function onLoad(options) {if (!options.scene) {if (options.id) {this.id = options.id;}if (options.channelId) {this.channelId = options.channelId;}} else {var scene = decodeURIComponent(options.scene); // console.log(scene)
+      scene = scene.split('&');this.id = scene[0] || '';this.channelId = scene[1] || '';}}, onShow: function onShow() {var token = uni.getStorageSync('token');if (token) {this.token = token;this.getInfo();} else {this.$refs.popup && this.$refs.popup.open();}}, onReady: function onReady() {if (!this.token) {this.$refs.popup && this.$refs.popup.open();}}, onShareAppMessage: function onShareAppMessage(res) {return {
+      title: "\u4F60\u5173\u6CE8\u7684\u70ED\u9500\u5355\u54C1 \u201C".concat(this.info.name || '内有微商', "\u201D \u5DF2\u9650\u65F6\u51FA\u552E,\u5FEB\u6765\u4E0B\u5355\u62A2\u8D2D\u5427"),
       path: '/pages/activityClient/activityClient?id=' + this.id + '&channelId=' + uni.getStorageSync('id') };
 
   },

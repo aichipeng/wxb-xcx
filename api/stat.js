@@ -21,4 +21,14 @@ export const statisticsMonth = params => {
 	return ajax(params, '/statistics/month', 'GET')
 }
 
+// 商品销量统计
+export const statisticsGoods = params => {
+	return ajax(params, '/statistics/goods', 'GET')
+}
+
+// 买家排行榜
+export const statisticsBuys = params => {
+	return ajax(params, '/statistics/buys', 'GET')
+}
+
 

@@ -3,18 +3,13 @@
 		<view class="header-card" @click="navigateTo('/pages/orderScreen/orderScreen')">
 			<view class="user-info flex-row">
 				<block v-if="token">
-					<image v-if="userInfo.avatar" class="avatar" :src="userInfo.avatar || avatar" @click.stop="navigateTo('/pages/userScreen/userScreen')"></image>
-					<image v-else class="avatar" :src="avatar"></image>
+					<image class="avatar" :src="userInfo.avatar || avatar" @click.stop="navigateTo('/pages/userScreen/userScreen')"></image>
 					<text class="nick-name acp-ellipsis flex-1">{{userInfo.nickName}}</text>
 				</block>
 				<view v-else class="flex-row flex-1" @click.stop="$refs.popup.open()">
-					<image class="avatar" src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2476878483,4014399276&fm=26&gp=0.jpg"></image>
+					<image class="avatar" src="/static/images/avatar.png"></image>
 					<text class="nick-name acp-ellipsis flex-1">未授权</text>
 				</view>
-				<!-- 	<button v-else class="flex-row flex-1" open-type="getUserInfo" @getuserinfo="userAuth">
-					<image class="avatar" src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2476878483,4014399276&fm=26&gp=0.jpg"></image>
-					<text class="nick-name acp-ellipsis flex-1">未授权</text>
-				</button> -->
 				<view class="assets">
 					<view class="assets-bg"></view>
 					<view class="assets-wrap flex-row" @click.stop="navigateTo('/pages/cashScreen/cashScreen')">
@@ -60,27 +55,37 @@
 			</view>
 			<swiper class="rank-body" :current="current" @change="changeCurret" style="height: 160rpx;">
 				<swiper-item class="flex-row" style="padding-right: 20rpx; box-sizing: border-box;">
-					<view class="swiper-item flex-1" v-for="(item,index) in totalTop" :key="index">
-						<image v-if="index == 0" class="badge" src="@/static/images/No1.png"></image>
-						<view class="rank-wrap flex-row flex-1">
-							<text class="index">{{index + 1}}</text>
-							<view class="flex-1" style="margin-left: 20rpx;overflow: hidden;">
-								<view class="name acp-ellipsis">{{item.goodsName}}</view>
-								<view class="num acp-ellipsis">{{item.automaticNum}}</view>
+					<block v-if="totalTop.length > 0">
+						<view class="swiper-item flex-1" v-for="(item,index) in totalTop" :key="index">
+							<image v-if="index == 0" class="badge" src="@/static/images/No1.png"></image>
+							<view class="rank-wrap flex-row flex-1">
+								<text class="index">{{index + 1}}</text>
+								<view class="flex-1" style="margin-left: 20rpx;overflow: hidden;">
+									<view class="name acp-ellipsis">{{item.goodsName}}</view>
+									<view class="num acp-ellipsis">{{item.automaticNum}}</view>
+								</view>
 							</view>
 						</view>
+					</block>
+					<view v-else class="flex-1 flex-col">
+						<text style="font-size: 30rpx; line-height: 42rpx;">~暂无排行数据~</text>
 					</view>
 				</swiper-item>
 				<swiper-item class="flex-row" style="padding-right: 20rpx; box-sizing: border-box;">
-					<view class="swiper-item flex-1" v-for="(item,index) in todayTop" :key="index">
-						<image v-if="index == 0" class="badge" src="@/static/images/No1.png"></image>
-						<view class="rank-wrap flex-row flex-1">
-							<text class="index">{{index + 1}}</text>
-							<view class="flex-1 acp-ellipsis" style="margin: 0 20rpx;overflow: hidden;">
-								<view class="name acp-ellipsis">{{item.goodsName}}</view>
-								<view class="num acp-ellipsis">{{item.automaticNum}}</view>
+					<block v-if="totalTop.length > 0">
+						<view class="swiper-item flex-1" v-for="(item,index) in todayTop" :key="index">
+							<image v-if="index == 0" class="badge" src="@/static/images/No1.png"></image>
+							<view class="rank-wrap flex-row flex-1">
+								<text class="index">{{index + 1}}</text>
+								<view class="flex-1 acp-ellipsis" style="margin: 0 20rpx;overflow: hidden;">
+									<view class="name acp-ellipsis">{{item.goodsName}}</view>
+									<view class="num acp-ellipsis">{{item.automaticNum}}</view>
+								</view>
 							</view>
 						</view>
+					</block>
+					<view v-else class="flex-1 flex-col">
+						<text style="font-size: 30rpx; line-height: 42rpx;">~暂无排行数据~</text>
 					</view>
 				</swiper-item>
 			</swiper>
@@ -120,11 +125,21 @@
 					<uni-icons type="arrowright" size="12" color="#333" style="transform: translate(8rpx, 2rpx);"></uni-icons>
 				</view>
 			</view>
-			<block class="record-item" v-for="(item,index) in list" :key="index">
-				<uni-record-item :item="{...item}"></uni-record-item>
+			<block v-if="list.length > 0">
+				<view class="record-item" v-for="(item,index) in list" :key="index">
+					<uni-record-item :item="{...item}"></uni-record-item>
+				</view>
 			</block>
+			<view v-else class="flex-col" style="height: 300rpx; font-size: 30rpx; line-height: 42rpx;">
+				<text>~暂无待发货活动~</text>
+			</view>
 		</view>
 		<uni-auth ref="popup" @refresh="onRefresh"></uni-auth>
+		<uni-popup ref="bind" type="bottom">
+			<view class="bind-wrap">
+				<button class="phone-btn" open-type="getPhoneNumber" @getphonenumber="decryptPhoneNumber">绑定手机号</button>
+			</view>
+		</uni-popup>
 		<uni-popup ref="mask" type="center" :maskClick="false">
 			<view class="mask-wrap">
 				<block v-if="step == 1">
@@ -180,7 +195,8 @@
 		activityIndex
 	} from '@/api/activity.js'
 	import {
-		userInfo
+		userInfo,
+		wxBindPhone
 	} from '@/api/user.js'
 	import uniRecordItem from "@/components/uni-record-item/uni-record-item.vue"
 	import uniAuth from "@/components/uni-auth/uni-auth.vue"
@@ -280,6 +296,11 @@
 			getUserInfo() {
 				userInfo().then(res => {
 					this.userInfo = res.data;
+					// console.log(res)
+					const notFirst = uni.getStorageSync('notFirst')
+					if (!res.data.mobile && notFirst) {
+						this.$refs.bind && this.$refs.bind.open()
+					}
 				})
 			},
 			// 资产统计相关信息
@@ -320,6 +341,21 @@
 			changeCurret(e) {
 				this.current = e.detail.current
 			},
+			// 绑定手机号
+			decryptPhoneNumber(e) {
+				// console.log(e.detail)
+				this.$refs.bind && this.$refs.bind.close()
+				if (e.detail.encryptedData) {
+					wxBindPhone(e.detail).then(res => {
+						uni.showToast({
+							title: '绑定成功！',
+							icon: 'none',
+							mask: true
+						})
+						this.getUserInfo()
+					})
+				}
+			},
 			handleNext() {
 				uni.pageScrollTo({
 					scrollTop: 100,
@@ -330,6 +366,9 @@
 			handleOver() {
 				uni.setStorageSync('notFirst', true);
 				this.$refs.mask && this.$refs.mask.close()
+				if (!this.userInfo.mobile) {
+					this.$refs.bind && this.$refs.bind.open()
+				}
 			},
 			navigateTo(url) {
 				if (this.token) {
@@ -480,6 +519,8 @@
 					overflow: hidden;
 					padding: 30rpx 0rpx 30rpx 20rpx;
 					box-sizing: border-box;
+					width: 100%;
+					height: 100%;
 
 					.badge {
 						position: absolute;
@@ -589,6 +630,22 @@
 			}
 		}
 
+		.bind-wrap {
+			padding: 20rpx 80rpx;
+			border-radius: 20rpx 20rpx 0 0;
+			background-color: #fff;
+
+			.phone-btn {
+				background: #FFD44D;
+				height: 90rpx;
+				margin: 30rpx 0;
+				text-align: center;
+				font-size: 30rpx;
+				line-height: 90rpx;
+				border-radius: 10rpx;
+			}
+		}
+
 		.mask-wrap {
 			position: fixed;
 			top: 0;
@@ -603,7 +660,7 @@
 			font-size: 29rpx;
 			line-height: 40rpx;
 			padding: 0 52rpx;
-		
+
 			.next-btn {
 				width: 292rpx;
 				height: 88rpx;

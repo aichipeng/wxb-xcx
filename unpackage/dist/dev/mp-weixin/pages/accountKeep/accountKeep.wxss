@@ -54,72 +54,69 @@
   -webkit-border-radius: 2rpx;
           border-radius: 2rpx;
 }
-.account-keep-page .account-content .count-month.data-v-d877a1a8 {
+.account-keep-page .account-content.data-v-d877a1a8 {
+  padding: 10rpx 24rpx;
+}
+.account-keep-page .account-content .month-count.data-v-d877a1a8 {
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
           justify-content: space-between;
-  height: 82rpx;
-  padding: 0 24rpx;
+  padding: 24rpx 0;
 }
-.account-keep-page .account-content .count-day.data-v-d877a1a8 {
-  padding: 40rpx 24rpx 0;
-  background-color: #fff;
+.account-keep-page .account-content .month-card.data-v-d877a1a8 {
+  background: #FFF;
+  -webkit-box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+          box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
+  overflow: hidden;
 }
-.account-keep-page .account-content .count-day .count.data-v-d877a1a8 {
+.account-keep-page .account-content .month-card .day-count.data-v-d877a1a8 {
+  background-color: #EEE;
+  padding: 12rpx 40rpx;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
           justify-content: space-between;
-  background-color: #F9F9F9;
-  padding: 10rpx 20rpx;
-  -webkit-border-radius: 12rpx;
-          border-radius: 12rpx;
+  -webkit-border-radius: 12rpx 12rpx 0 0;
+          border-radius: 12rpx 12rpx 0 0;
 }
-.account-keep-page .account-content .count-day .keep-item.data-v-d877a1a8 {
-  padding: 34rpx 0;
-  font-size: 29rpx;
+.account-keep-page .account-content .month-card .day-count .day.data-v-d877a1a8 {
+  font-size: 28rpx;
   line-height: 40rpx;
-}
-.account-keep-page .account-content .count-day .keep-item .keep-item-top.data-v-d877a1a8 {
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-          justify-content: space-between;
-  margin: 6rpx 0;
-}
-.account-keep-page .account-content .count-day .keep-item .keep-item-top .tag.data-v-d877a1a8 {
-  font-size: 24rpx;
-  line-height: 34rpx;
   font-weight: 500;
-  background-color: #F1F1F1;
-  margin: 0 16rpx;
-  padding: 2rpx 8rpx;
-  color: #999;
 }
-.account-keep-page .account-content .count-day .keep-item .keep-item-bottom.data-v-d877a1a8 {
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-          justify-content: space-between;
-  margin: 6rpx 0;
+.account-keep-page .account-content .month-card .day-count .count .icon.data-v-d877a1a8 {
+  width: 40rpx;
+  height: 40rpx;
+  margin: 0 44rpx;
 }
-.account-keep-page .account-content .order-item.data-v-d877a1a8 {
-  padding: 32rpx 24rpx;
+.account-keep-page .account-content .month-card .day-count .count .txt.data-v-d877a1a8 {
+  font-weight: 500;
+  text-align: right;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+}
+.account-keep-page .account-content .month-card .order-item.data-v-d877a1a8 {
+  padding: 40rpx 0;
+  margin: 0 24rpx;
   border-bottom: solid 2rpx #EEEEEE;
-  background-color: #fff;
   font-size: 28rpx;
   line-height: 40rpx;
 }
-.account-keep-page .account-content .order-item .order-item-top.data-v-d877a1a8 {
+.account-keep-page .account-content .month-card .order-item .order-item-top.data-v-d877a1a8 {
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
           justify-content: space-between;
   font-size: 28rpx;
 }
-.account-keep-page .account-content .order-item .order-item-top .info.data-v-d877a1a8 {
+.account-keep-page .account-content .month-card .order-item .order-item-top .info.data-v-d877a1a8 {
   max-width: 75%;
 }
-.account-keep-page .account-content .order-item .order-item-top .info .name.data-v-d877a1a8 {
+.account-keep-page .account-content .month-card .order-item .order-item-top .info .name.data-v-d877a1a8 {
   margin-right: 24rpx;
 }
-.account-keep-page .account-content .order-item .order-item-top .info .tag.data-v-d877a1a8 {
+.account-keep-page .account-content .month-card .order-item .order-item-top .info .tag.data-v-d877a1a8 {
   background-color: #F1F1F1;
   -webkit-border-radius: 4rpx;
           border-radius: 4rpx;
@@ -129,13 +126,13 @@
   color: #999;
   padding: 2rpx 8rpx;
 }
-.account-keep-page .account-content .order-item .order-item-bottom.data-v-d877a1a8 {
+.account-keep-page .account-content .month-card .order-item .order-item-bottom.data-v-d877a1a8 {
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
           justify-content: space-between;
-  margin-top: 32rpx;
+  margin-top: 10rpx;
 }
-.account-keep-page .account-content .order-item .order-item-bottom .btn.data-v-d877a1a8 {
+.account-keep-page .account-content .month-card .order-item .order-item-bottom .btn.data-v-d877a1a8 {
   width: 168rpx;
   height: 60rpx;
   background-color: #FFD44D;

@@ -149,6 +149,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 var _login = __webpack_require__(/*! ../../api/login.js */ 8); //
 //
 //
@@ -167,25 +169,103 @@ var _login = __webpack_require__(/*! ../../api/login.js */ 8); //
 //
 //
 //
-var _default = { data: function data() {return { formData: { mobile: '', password: '' // mobile: '18578747704',
+//
+//
+var _default = { data: function data() {return { formData: { channel: 'wx', mobile: '', code: '' // mobile: '18578747704',
         // password: 'a1111111'
-      } };}, methods: { login: function login() {(0, _login.loginAuth)(this.formData).then(function (res) {// console.log(res)
-        try {uni.setStorageSync('token', res.data.token);uni.setStorageSync('id', res.data.id || '');uni.setStorageSync('userInfo', res.data.userInfo || {});
-          var pages = getCurrentPages();
-          var prevPage = pages[pages.length - 2];
-          // console.log(prevPage)
+      }, codeTime: 0, time: null };}, destroyed: function destroyed() {if (this.time) {clearInterval(this.time);}
+  },
+  methods: {
+    login: function login() {
+      var msg = this.verifyForm();
+      if (!msg) {
+        (0, _login.loginCode)(this.formData).then(function (res) {
+          // console.log(res)
+          try {
+            uni.setStorageSync('token', res.data.token);
+            uni.setStorageSync('id', res.data.id || '');
+            uni.setStorageSync('userInfo', res.data.userInfo || {});
+            var pages = getCurrentPages();
+            var prevPage = pages[pages.length - 2];
+            // console.log(prevPage)
 
-          prevPage.setData({
-            refresh: true });
+            prevPage.setData({
+              refresh: true });
 
 
-          uni.navigateBack({
-            delta: 1 });
+            uni.navigateBack({
+              delta: 1 });
 
-        } catch (e) {
-          // error
-        }
+          } catch (e) {
+            // error
+          }
+        });
+      } else {
+        uni.showToast({
+          title: msg,
+          icon: 'none',
+          mask: true });
+
+      }
+    },
+    verifyForm: function verifyForm() {var _this$formData =
+
+
+
+      this.formData,mobile = _this$formData.mobile,code = _this$formData.code;
+      var msg = '';
+      if (!mobile) {
+        msg = '请输入您的账号！';
+      } else if (!/^1[3456789]\d{9}$/.test(mobile)) {
+        msg = '请输入正确的账号！';
+      } else if (!code) {
+        msg = '请输入您的验证码！';
+      }
+      return msg;
+    },
+    getCode: function getCode() {var _this = this;var
+
+      mobile =
+      this.formData.mobile;
+      if (this.codeTime) {
+        return;
+      } else if (!mobile) {
+        uni.showToast({
+          title: "请输入您的账号!",
+          icon: "none",
+          mask: true });
+
+        return;
+      } else if (!/^1[3456789]\d{9}$/.test(mobile)) {
+        uni.showToast({
+          title: "请输入正确的账号!",
+          icon: "none",
+          mask: true });
+
+        return;
+      }
+      (0, _login.regCaptcha)({
+        mobile: mobile }).
+      then(function (res) {
+        uni.showToast({
+          title: "发送成功",
+          icon: "none",
+          mask: true });
+
+        _this.countDown();
       });
+    },
+    countDown: function countDown() {
+      var that = this;
+      var codeTime = 60;
+      that.time = setInterval(function () {
+        that.codeTime = codeTime;
+        if (!codeTime) {
+          clearInterval(that.time);
+        } else {
+          codeTime--;
+        }
+      }, 1000);
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

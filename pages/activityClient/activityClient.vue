@@ -29,9 +29,9 @@
 					<image class="avatar" :src="info.avatar || avatar"></image>
 					<view class="txt flex-1">
 						<view class="name acp-ellipsis">{{info.nickName}}</view>
-						<view class="contact">
-							<text>{{info.wechatNo || '暂无微信号'}}</text>
-							<uni-icons @click="copeText(info.wechatNo)" type="compose" size="12" color="#5D5D5D" style="padding: 0 16rpx;"></uni-icons>
+						<view class="contact flex-row">
+							<text>{{info.wechatNo || '暂无微信'}}</text>
+							<image src="/static/images/copy.png" @click="copeText(info.wechatNo)" style="width: 32rpx;height: 32rpx; margin-left: 10rpx;"></image>
 						</view>
 					</view>
 					<!-- <text class="edit" @click="navigateTo('/pages/userSetting/userSetting?id=' + id)">修改名片</text> -->
@@ -60,7 +60,7 @@
 				id: undefined,
 				channelId: undefined,
 				info: {},
-				avatar: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2476878483,4014399276&fm=26&gp=0.jpg',
+				avatar: '/static/images/avatar.png',
 			};
 		},
 		components: {
@@ -76,15 +76,10 @@
 				}
 			} else {
 				let scene = decodeURIComponent(options.scene)
-				if (typeof(scene) == 'string') {
-					scene = JSON.parse(scene);
-				}
-				if (scene.id) {
-					this.id = scene.id
-				}
-				if (scene.channelId) {
-					this.channelId = scene.channelId
-				}
+				// console.log(scene)
+				scene = scene.split('&')
+				this.id = scene[0] || ''
+				this.channelId = scene[1] || ''
 			}
 		},
 		onShow() {
@@ -103,7 +98,7 @@
 		},
 		onShareAppMessage(res) {
 			return {
-				title: this.info.name || '内有微商',
+				title: `你关注的热销单品 “${this.info.name || '内有微商'}” 已限时出售,快来下单抢购吧`,
 				path: '/pages/activityClient/activityClient?id=' + this.id + '&channelId=' + uni.getStorageSync('id')
 			}
 		},

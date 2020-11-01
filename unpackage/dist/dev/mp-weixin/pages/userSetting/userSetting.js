@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uniIcons: function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 394))
+    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 419))
   }
 }
 var render = function() {
@@ -195,7 +195,7 @@ var _request = __webpack_require__(/*! @/api/request.js */ 9); //
 //
 //
 //
-var _default = { data: function data() {return { formData: {}, avatar: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2476878483,4014399276&fm=26&gp=0.jpg' };}, onLoad: function onLoad(options) {if (options.id) {this.id = options.id;this.getInfo();}}, methods: { getInfo: function getInfo() {var _this2 = this;(0, _activity.activityDetail)({ id: this.id }).then(function (res) {_this2.formData = res.data;});}, handleImage: function handleImage() {var _this = this;uni.chooseImage({ count: 1, //默认9
+var _default = { data: function data() {return { formData: {}, avatar: '/static/images/avatar.png' };}, onLoad: function onLoad(options) {if (options.id) {this.id = options.id;this.getInfo();}}, methods: { getInfo: function getInfo() {var _this2 = this;(0, _activity.activityDetail)({ id: this.id }).then(function (res) {_this2.formData = res.data;});}, handleImage: function handleImage() {var _this = this;uni.chooseImage({ count: 1, //默认9
         sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
         success: function success(res) {console.log(res.tempFilePaths);
           uni.uploadFile({
@@ -217,10 +217,14 @@ var _default = { data: function data() {return { formData: {}, avatar: 'https://
 
 
 
-      this.formData,id = _this$formData.id,wechatNo = _this$formData.wechatNo;
+
+
+      this.formData,id = _this$formData.id,wechatNo = _this$formData.wechatNo,avatar = _this$formData.avatar,nickName = _this$formData.nickName;
       (0, _activity.updateWxNo)({
         id: id,
-        wechatNo: wechatNo }).
+        wechatNo: wechatNo,
+        avatar: avatar,
+        nickName: nickName }).
       then(function (res) {
         uni.showToast({
           title: '修改成功',

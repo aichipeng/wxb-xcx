@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uniIcons: function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 394))
+    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 419))
   }
 }
 var render = function() {
@@ -275,16 +275,41 @@ var _payment = __webpack_require__(/*! @/api/payment.js */ 261); //
 //
 //
 //
-var _default = { data: function data() {return { orderSn: undefined, info: {}, avatar: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2476878483,4014399276&fm=26&gp=0.jpg', formData: { id: undefined, address: undefined, consignee: undefined, mobile: undefined } };}, onLoad: function onLoad(options) {if (options.orderSn) {this.orderSn = options.orderSn;this.getInfo();}}, onShow: function onShow() {var pages = getCurrentPages();var currPage = pages[pages.length - 1];if (currPage && currPage.data) {var addressInfo = currPage.data.addressInfo;if (addressInfo) {this.formData.address = addressInfo.provinceName + addressInfo.cityName + addressInfo.countyName + addressInfo.detailInfo;this.formData.consignee = addressInfo.userName;this.formData.mobile = addressInfo.telNumber;}}}, methods: { getInfo: function getInfo() {var _this = this;(0, _order.orderDetail)({ orderSn: this.orderSn }).then(function (res) {_this.info = res.data;_this.formData = { id: res.data.id, address: res.data.address, consignee: res.data.consignee, mobile: res.data.mobile };});}, handleSubmit: function handleSubmit() {// console.log(this.formData)
-      var address = this.formData.address;if (!address) {uni.showToast({ title: "请选择地址", icon: "none", mask: true });return;}(0, _order.updateOrder)(this.formData).then(function (res) {(0, _payment.payOK)({ orderNo: res.data }).then(function (e) {uni.showToast({ title: "支付成功",
-            icon: "none",
-            mask: true });
+var _default = { data: function data() {return { orderSn: undefined, info: {}, avatar: '/static/images/avatar.png', formData: { id: undefined, address: undefined, consignee: undefined, mobile: undefined } };}, onLoad: function onLoad(options) {if (options.orderSn) {this.orderSn = options.orderSn;this.getInfo();}}, onShow: function onShow() {var pages = getCurrentPages();var currPage = pages[pages.length - 1];if (currPage && currPage.data) {var addressInfo = currPage.data.addressInfo;if (addressInfo) {this.formData.address = addressInfo.provinceName + addressInfo.cityName + addressInfo.countyName + addressInfo.detailInfo;this.formData.consignee = addressInfo.userName;this.formData.mobile = addressInfo.telNumber;}}}, methods: { getInfo: function getInfo() {var _this = this;(0, _order.orderDetail)({ orderSn: this.orderSn }).then(function (res) {_this.info = res.data;_this.formData = { id: res.data.id, address: res.data.address, consignee: res.data.consignee, mobile: res.data.mobile };});}, handleSubmit: function handleSubmit() {// console.log(this.formData)
+      var address = this.formData.address;if (!address) {uni.showToast({ title: "请选择地址", icon: "none", mask: true });return;}(0, _order.updateOrder)(this.formData).then(function (o) {(0, _payment.payWeChat)({ orderSn: o.data }).then(function (e) {uni.requestPayment({ provider: 'wxpay',
+            timeStamp: e.data.timeStamp.toString(),
+            nonceStr: e.data.nonceStr,
+            package: e.data.packageValue,
+            signType: e.data.signType,
+            paySign: e.data.paySign,
+            success: function success(res) {
+              // console.log(111, JSON.stringify(res))
+              setTimeout(function () {
+                uni.requestSubscribeMessage({
+                  tmplIds: ['V2OCVzUxGzlfaRMyTbLM8AwHRzKsb8TT_Rct-82qLxY'],
+                  success: function success(r) {
+                    uni.showToast({
+                      title: "支付成功",
+                      icon: "none",
+                      mask: true });
 
-          setTimeout(function () {
-            uni.redirectTo({
-              url: "/pages/orderDetail/orderDetail?orderSn=" + res.data });
+                    setTimeout(function () {
+                      uni.redirectTo({
+                        url: "/pages/orderDetail/orderDetail?orderSn=" + o.data });
 
-          }, 500);
+                    }, 500);
+                  } });
+
+              }, 200);
+            },
+            fail: function fail(err) {
+              uni.showToast({
+                title: "支付失败",
+                icon: "none",
+                mask: true });
+
+            } });
+
         });
       });
     },

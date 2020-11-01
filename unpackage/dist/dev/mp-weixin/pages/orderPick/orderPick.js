@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uniIcons: function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 394))
+    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 419))
   }
 }
 var render = function() {
@@ -191,7 +191,7 @@ var _express = __webpack_require__(/*! @/api/express.js */ 313);
 
 
 
-var _moment = _interopRequireDefault(__webpack_require__(/*! moment */ 66));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+var _moment = _interopRequireDefault(__webpack_require__(/*! moment */ 33));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
 //
@@ -232,7 +232,7 @@ var _moment = _interopRequireDefault(__webpack_require__(/*! moment */ 66));func
 //
 //
 //
-var DataTimePicker = function DataTimePicker() {Promise.all(/*! require.ensure | components/biaofun-datetime-picker/biaofun-datetime-picker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/biaofun-datetime-picker/biaofun-datetime-picker")]).then((function () {return resolve(__webpack_require__(/*! @/components/biaofun-datetime-picker/biaofun-datetime-picker.vue */ 432));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { data: function data() {return { moment: _moment.default, listExp: [], expressIndex: 0, formData: { startDate: (0, _moment.default)(new Date()).format('YYYY-MM-DD hh') + ':00:00', endDate: (0, _moment.default)(new Date()).format('YYYY-MM-DD hh') + ':00:00', code: undefined, expressName: undefined, mobile: undefined, name: undefined, address: undefined, orderNo: undefined, payType: 1 } };}, components: { DataTimePicker: DataTimePicker }, onLoad: function onLoad(options) {// this.getInfo()
+var DataTimePicker = function DataTimePicker() {Promise.all(/*! require.ensure | components/biaofun-datetime-picker/biaofun-datetime-picker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/biaofun-datetime-picker/biaofun-datetime-picker")]).then((function () {return resolve(__webpack_require__(/*! @/components/biaofun-datetime-picker/biaofun-datetime-picker.vue */ 457));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { data: function data() {return { moment: _moment.default, listExp: [], expressIndex: 0, formData: { startDate: (0, _moment.default)(new Date()).format('YYYY-MM-DD hh') + ':00:00', endDate: (0, _moment.default)(new Date()).format('YYYY-MM-DD hh') + ':00:00', code: undefined, expressName: undefined, mobile: undefined, name: undefined, address: undefined, orderNo: undefined, payType: 1 } };}, components: { DataTimePicker: DataTimePicker }, onLoad: function onLoad(options) {// this.getInfo()
     if (options.item) {var item = JSON.parse(options.item);this.formData.orderNo = item; // console.log(item)
       this.getExpressList();}}, onShow: function onShow() {var pages = getCurrentPages();var currPage = pages[pages.length - 1];if (currPage && currPage.data) {var addressInfo = currPage.data.addressInfo;if (addressInfo) {this.formData.address = addressInfo.provinceName + addressInfo.cityName + addressInfo.countyName + addressInfo.detailInfo;this.formData.name = addressInfo.userName;this.formData.mobile = addressInfo.telNumber;
       }

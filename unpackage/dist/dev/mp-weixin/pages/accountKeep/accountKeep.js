@@ -94,20 +94,46 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uniKeepFloat: function() {
-    return __webpack_require__.e(/*! import() | components/uni-keep-float/uni-keep-float */ "components/uni-keep-float/uni-keep-float").then(__webpack_require__.bind(null, /*! @/components/uni-keep-float/uni-keep-float.vue */ 425))
+    return __webpack_require__.e(/*! import() | components/uni-keep-float/uni-keep-float */ "components/uni-keep-float/uni-keep-float").then(__webpack_require__.bind(null, /*! @/components/uni-keep-float/uni-keep-float.vue */ 450))
   }
 }
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var l0 = _vm.__map(_vm.list, function(item, index) {
-    var $orig = _vm.__get_orig(item)
+  var l2 = _vm.__map(_vm.filterList, function(i, k) {
+    var $orig = _vm.__get_orig(i)
 
-    var g0 = Number(item.tradeMoney || 0).toFixed(2)
+    var g0 = _vm.moment(i.date).format("YYYY年MM月")
+
+    var l1 = _vm.__map(i.list, function(val, key) {
+      var $orig = _vm.__get_orig(val)
+
+      var g1 = _vm.moment(val.date).format("MM月DD日")
+
+      var l0 = _vm.__map(val.list, function(item, index) {
+        var $orig = _vm.__get_orig(item)
+
+        var g2 = _vm.moment(item.addTime).format("HH:mm:ss")
+        var g3 = Number(item.tradeMoney || 0).toFixed(2)
+        return {
+          $orig: $orig,
+          g2: g2,
+          g3: g3
+        }
+      })
+
+      return {
+        $orig: $orig,
+        g1: g1,
+        l0: l0
+      }
+    })
+
     return {
       $orig: $orig,
-      g0: g0
+      g0: g0,
+      l1: l1
     }
   })
 
@@ -115,7 +141,7 @@ var render = function() {
     {},
     {
       $root: {
-        l0: l0
+        l2: l2
       }
     }
   )
@@ -186,7 +212,35 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _account = __webpack_require__(/*! @/api/account.js */ 21); //
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _account = __webpack_require__(/*! @/api/account.js */ 21);
+
+
+var _moment = _interopRequireDefault(__webpack_require__(/*! moment */ 33));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
 //
@@ -219,34 +273,39 @@ var _account = __webpack_require__(/*! @/api/account.js */ 21); //
 //
 //
 //
-var uniKeepFloat = function uniKeepFloat() {__webpack_require__.e(/*! require.ensure | components/uni-keep-float/uni-keep-float */ "components/uni-keep-float/uni-keep-float").then((function () {return resolve(__webpack_require__(/*! @/components/uni-keep-float/uni-keep-float.vue */ 425));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { data: function data() {return { tabList: [{ name: '全部', type: '' }, { name: '自动记账', type: 1 }, { name: '手动记账', type: 2 }], queryList: { page: 1, size: 10, type: '' }, isLoading: false, list: [], finish: false };}, components: { uniKeepFloat: uniKeepFloat }, onLoad: function onLoad() {
-    this.getList();
-  },
-  onPullDownRefresh: function onPullDownRefresh() {
-    this.list = [];
-    this.queryList.page = 1;
-    this.getList();
-  },
-  onReachBottom: function onReachBottom() {
-    if (!this.finish && !this.isLoading) {
-      this.isLoading = true;
-      this.queryList.page++;
-      this.getList();
-    }
-  },
-  methods: {
-    getList: function getList() {var _this = this;
-      (0, _account.accountList)(this.queryList).then(function (res) {
-        if (res.data && res.data.length > 0) {
-          _this.list = _this.list.concat(res.data);
-          _this.finish = false;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var uniKeepFloat = function uniKeepFloat() {__webpack_require__.e(/*! require.ensure | components/uni-keep-float/uni-keep-float */ "components/uni-keep-float/uni-keep-float").then((function () {return resolve(__webpack_require__(/*! @/components/uni-keep-float/uni-keep-float.vue */ 450));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { data: function data() {return { moment: _moment.default, tabList: [{ name: '全部', type: '' }, { name: '自动记账', type: 1 }, { name: '手动记账', type: 2 }], queryList: { page: 1, limit: 10, type: '' }, isLoading: false, list: [], filterList: [], finish: false };}, components: { uniKeepFloat: uniKeepFloat }, onShow: function onShow() {this.list = [];this.filterList = [];this.queryList.page = 1;this.getList();}, onPullDownRefresh: function onPullDownRefresh() {this.list = [];this.filterList = [];this.queryList.page = 1;this.getList();}, onReachBottom: function onReachBottom() {if (!this.finish && !this.isLoading) {this.isLoading = true;this.queryList.page++;this.getList();}}, methods: { getList: function getList() {var _this2 = this;(0, _account.accountList)(this.queryList).then(function (res) {if (res.data && res.data.length > 0) {_this2.list = _this2.list.concat(res.data);_this2.getFilterList();_this2.finish = false;
         } else {
-          _this.finish = true;
+          _this2.finish = true;
         }
-        _this.isLoading = false;
+        _this2.isLoading = false;
         uni.stopPullDownRefresh();
       }).catch(function () {
-        _this.isLoading = false;
+        _this2.isLoading = false;
         uni.stopPullDownRefresh();
       });
     },
@@ -255,6 +314,7 @@ var uniKeepFloat = function uniKeepFloat() {__webpack_require__.e(/*! require.en
         this.queryList.type = item.type;
         this.queryList.page = 1;
         this.list = [];
+        this.filterList = [];
         this.getList();
       }
     },
@@ -265,6 +325,69 @@ var uniKeepFloat = function uniKeepFloat() {__webpack_require__.e(/*! require.en
       if (type == 1) {
         this.navigateTo('/pages/orderDetail/orderDetail?orderSn=' + item.orderSn + '&mode=server');
       }
+    },
+    getFilterList: function getFilterList() {var
+
+      list =
+      this.list;
+      var _this = this;
+      var filterList = [];
+      list.forEach(function (item) {
+        // console.log(item)
+        var time = (0, _moment.default)(item.addTime).format('YYYY-MM');
+        var index = filterList.findIndex(function (item) {
+          return item.date == time;
+        });
+        var temp = filterList.find(function (item) {
+          return item.date == time;
+        }) || {};
+        // filterList[0].list.push(temp)
+        if (index == -1) {
+          temp.date = time;
+          temp.customerNum = item.customerNum || 0;
+          temp.inMonthCount = item.inMonthCount || 0;
+          temp.payMonthCount = item.payMonthCount || 0;
+          temp.list = [item];
+          filterList.push(temp);
+          // this.filterList = filterList
+        } else {
+          temp.list.push(item);
+          filterList[index] = temp;
+        }
+      });
+      // this.filterList = filterList
+      // console.log(filterList)
+      this.getFilterList1(filterList);
+    },
+    getFilterList1: function getFilterList1(list) {
+      // console.log(list)
+      list.forEach(function (item, index) {
+        var data = [];
+        item.list.forEach(function (value) {
+          var day = (0, _moment.default)(value.addTime).format('YYYY-MM-DD');
+          var index = data.findIndex(function (e) {
+            return e.date == day;
+          });
+          var temp = data.find(function (e) {
+            return e.date == day;
+          }) || {};
+          // filterList[0].list.push(temp)
+          if (index == -1) {
+            temp.date = day;
+            temp.payDayCount = value.payDayCount || 0;
+            temp.inDayCount = value.inDayCount || 0;
+            temp.list = [value];
+            data.push(temp);
+            // this.filterList = filterList
+          } else {
+            temp.list.push(value);
+            data[index] = temp;
+          }
+        });
+        list[index].list = data;
+      });
+      // console.log(list)
+      this.filterList = list;
     },
     navigateTo: function navigateTo(url) {
       uni.navigateTo({

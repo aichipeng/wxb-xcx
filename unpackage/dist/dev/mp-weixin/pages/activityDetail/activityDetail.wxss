@@ -190,6 +190,19 @@
   color: #EFB600;
   width: 100rpx;
 }
+.activity-detail-page .activity-order .order-list .order-item .item-center .status-tag.data-v-5cc0a8c6 {
+  font-size: 20rpx;
+  line-height: 28rpx;
+  margin: 4rpx 0;
+  height: 40rpx;
+  -webkit-border-radius: 20rpx;
+          border-radius: 20rpx;
+  line-height: 40rpx;
+  padding: 0 12rpx;
+  font-weight: 500;
+  background-color: #FFF9E7;
+  color: #EFB600;
+}
 .activity-detail-page .activity-order .order-list .order-item .item-center .avatar.data-v-5cc0a8c6 {
   width: 60rpx;
   height: 60rpx;

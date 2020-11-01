@@ -90,7 +90,7 @@
 				<image class="img" src="@/static/images/guide.png" mode="widthFix" style="width: 100%;"></image>
 				<view class="site-wrap flex-row">
 					<text>登录网址：{{site}}</text>
-					<uni-icons @click="copeText(site)" type="compose" size="16" color="#5D5D5D" style="padding: 0 16rpx; margin-left: 20rpx;"></uni-icons>
+					<image src="/static/images/copy.png" @click="copeText(site)" style="width: 32rpx;height: 32rpx; margin-left: 16rpx"></image>
 				</view>
 				<view class="submit-btn flex-col" @click="$refs.guide && $refs.guide.close()">
 					<text>知道了</text>
@@ -109,7 +109,7 @@
 			return {
 				id: undefined,
 				name: undefined,
-				avatar: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2476878483,4014399276&fm=26&gp=0.jpg',
+				avatar: '/static/images/avatar.png',
 				queryList: {
 					status: 201,
 					page: 1,

@@ -64,7 +64,7 @@
 				id: undefined,
 				info: {},
 				showDrawer: true,
-				avatar: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2476878483,4014399276&fm=26&gp=0.jpg',
+				avatar: '/static/images/avatar.png',
 			};
 		},
 		onLoad(options) {

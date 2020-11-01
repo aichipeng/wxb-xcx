@@ -1,72 +1,80 @@
 <template>
 	<view class="account-keep-create">
-		<view class="keep-card">
-			<view class="header flex-row" style="justify-content: space-between;">
-				<view class="tabs flex-row">
-					<view class="tab" :style="{color: formData.plusMinus == 1 ? '#EFB600' : '#999'}" @click="formData.plusMinus=1;formData.tradeType=10">
-						<text>收入</text>
-						<view class="line" v-if="formData.plusMinus == 1"></view>
-					</view>
-					<view class="tab" :style="{marginLeft: '60rpx', color: formData.plusMinus == 2 ? '#EFB600' : '#999'}" @click="formData.plusMinus=2;formData.tradeType=11">
-						<text>支出</text>
-						<view class="line" v-if="formData.plusMinus == 2"></view>
-					</view>
-				</view>
-				<picker mode="date" :value="formData.addTime" @change="bindDateChange" :end="moment(new Date()).format('YYYY-MM-DD')">
-					<view class="add-time">{{moment(new Date(formData.addTime)).format('YYYY年MM月DD日')}}</view>
-				</picker>
-			</view>
-			<view class="form-item flex-row">
-				<text class="label">类目</text>
-				<view class="value flex-1 flex-row" style="margin-right: 0;">
-					<view :class="['tabT', index == formData.tradeType ? 'inTabT' : '']" v-for="(item,index) in formData.plusMinus==1 ? spliceTrade([10,12,13,14]) : spliceTrade([11,15])"
-					 :key="index" @click="formData.tradeType = index">
-						<text>{{item}}</text>
-					</view>
-				</view>
-			</view>
-			<view class="form-item flex-row">
-				<text class="label">名称</text>
-				<input class="value flex-1" type="text" v-model="formData.goodsName" placeholder="请输入物商品名称" placeholder-style="color: #DDD; font-size: 29rpx;line-height: 40rpx;" />
-			</view>
-			<view class="form-item flex-row">
-				<view class="flex-1 flex-row">
-					<text class="label">单价</text>
-					<input class="value flex-1" type="number" v-model="formData.goodsPrice" placeholder="¥ 0.00" placeholder-style="color: #DDD; font-size: 29rpx;line-height: 40rpx;" />
-				</view>
-				<view class="flex-1 flex-row">
-					<text class="label">数量</text>
-					<view class="value flex-1 flex-row">
-						<view class="circle-box flex-col" @click="changeNum('minus')" @longpress="changeNum('minus_max')">
-							<!-- <text style="margin-bottom: 6rpx;">-</text> -->
-							<uni-icons type="minus-filled" size="20" :color="formData.goodsNum > 1 ? '#FFD44D' : '#ddd'"></uni-icons>
+		<block v-for="(item,index) in formMap" :key="index">
+			<view class="keep-card">
+				<view class="header flex-row" style="justify-content: space-between;">
+					<view class="tabs flex-row">
+						<view class="tab" :style="{color: item.plusMinus == 1 ? '#EFB600' : '#999'}" @click="changeType(index,1)">
+							<text>收入</text>
+							<view class="line" v-if="item.plusMinus == 1"></view>
 						</view>
-						<!-- <text style="padding: 10rpx 30rpx;">1</text> -->
-						<view class="input-box flex-col">
-							<input class="num-input" maxlength="8" type="number" v-model="formData.goodsNum" data-name="goodsNum" @input="filterMath"
-							 @blur="filterMath" />
-							<text v-if="formData.goodsNum > 999" class="absolute-row-center tips">{{formData.goodsNum}}</text>
+						<view class="tab" :style="{marginLeft: '60rpx', color: item.plusMinus == 2 ? '#EFB600' : '#999'}" @click="changeType(index,2)">
+							<text>支出</text>
+							<view class="line" v-if="item.plusMinus == 2"></view>
 						</view>
-						<view class="circle-box flex-col" @click="changeNum('plus')" @longpress="changeNum('plus_max')">
-							<!-- <text style="margin-bottom: 6rpx;">+</text> -->
-							<uni-icons type="plus-filled" size="20" color="#FFD44D"></uni-icons>
+					</view>
+					<picker mode="date" :value="item.addTime" @change="bindDateChange" :data-index="index" :end="moment(new Date()).format('YYYY-MM-DD')">
+						<view class="add-time">{{moment(item.addTime).format('YYYY年MM月DD日')}}</view>
+					</picker>
+				</view>
+				<view class="form-item flex-row">
+					<text class="label">类目</text>
+					<view class="value flex-1 flex-row" style="margin-right: 0;">
+						<view :class="['tabT', key == item.tradeType ? 'inTabT' : '']" v-for="(val,key) in item.plusMinus==1 ? spliceTrade([11,15]) : spliceTrade([10,12,13,14]) "
+						 :key="key" @click="changeTrade(index,key)">
+							<text>{{val}}</text>
 						</view>
 					</view>
 				</view>
+				<view class="form-item flex-row">
+					<text class="label">名称</text>
+					<input class="value flex-1" type="text" v-model="item.goodsName" placeholder="请输入物商品名称" placeholder-style="color: #DDD; font-size: 29rpx;line-height: 40rpx;" />
+				</view>
+				<view class="form-item flex-row">
+					<view class="flex-1 flex-row">
+						<text class="label">单价</text>
+						<input class="value flex-1" type="number" v-model="item.goodsPrice" placeholder="¥ 0.00" placeholder-style="color: #DDD; font-size: 29rpx;line-height: 40rpx;" />
+					</view>
+					<view v-if="item.plusMinus == 1" class="flex-1 flex-row">
+						<text class="label">数量</text>
+						<view class="value flex-1 flex-row">
+							<view class="circle-box flex-col" @click="changeNum('minus')" @longpress="changeNum('minus_max')">
+								<!-- <text style="margin-bottom: 6rpx;">-</text> -->
+								<uni-icons type="minus-filled" size="20" :color="item.goodsNum > 1 ? '#FFD44D' : '#ddd'"></uni-icons>
+							</view>
+							<!-- <text style="padding: 10rpx 30rpx;">1</text> -->
+							<view class="input-box flex-col">
+								<input class="num-input" maxlength="8" type="number" v-model="item.goodsNum" data-name="goodsNum" @input="filterMath"
+								 @blur="filterMath" />
+								<text v-if="item.goodsNum > 999" class="absolute-row-center tips">{{item.goodsNum}}</text>
+							</view>
+							<view class="circle-box flex-col" @click="changeNum('plus')" @longpress="changeNum('plus_max')">
+								<!-- <text style="margin-bottom: 6rpx;">+</text> -->
+								<uni-icons type="plus-filled" size="20" color="#FFD44D"></uni-icons>
+							</view>
+						</view>
+					</view>
+				</view>
+				<view class="form-item flex-row" v-if="item.plusMinus == 1">
+					<text class="label">总额</text>
+					<text class="value flex-1" :style="{color:item.goodsPrice ? '#333' : '#ddd'}">{{item.goodsPrice ? item.goodsNum * item.goodsPrice : '￥0.00'}}</text>
+					<!-- <input class="value flex-1" type="number" v-model="item.allPrice" placeholder="¥ 0.00" placeholder-style="color: #DDD; font-size: 29rpx;line-height: 40rpx;" /> -->
+				</view>
+				<view class="del-btn flex-col" @click="delForm(index)" v-if="formMap.length > 1">
+					<view class="flex-row">
+						<uni-icons type="trash" size="16" color="#BBB" style="margin: 0 10rpx;"></uni-icons>
+						<text>删除记录</text>
+					</view>
+				</view>
 			</view>
-			<view class="form-item flex-row">
-				<text class="label">总额</text>
-				<text class="value flex-1" :style="{color:formData.goodsPrice ? '#333' : '#ddd'}">{{formData.goodsPrice ? formData.goodsNum * formData.goodsPrice : '￥0.00'}}</text>
-				<!-- <input class="value flex-1" type="number" v-model="formData.allPrice" placeholder="¥ 0.00" placeholder-style="color: #DDD; font-size: 29rpx;line-height: 40rpx;" /> -->
-			</view>
-		</view>
+		</block>
 		<view class="btn-group flex-row">
-			<!-- <view class="btn-left flex-col flex-1">
+			<view class="btn-left flex-col flex-1" @click="addForm">
 				<text>记一笔</text>
 			</view>
-			<view style="width: 34rpx;"></view> -->
-			<view class="btn-right flex-col flex-1" @click="submit() ">
-				<text>记一笔</text>
+			<view style="width: 34rpx;"></view>
+			<view class="btn-right flex-col flex-1" @click="submit">
+				<text>完成</text>
 			</view>
 		</view>
 	</view>
@@ -81,15 +89,15 @@
 		data() {
 			return {
 				moment,
-				formData: {
+				formMap: [{
 					plusMinus: 1,
 					type: 2,
-					tradeType: 10,
-					addTime: moment(new Date()).format('YYYY-MM-DD'),
+					tradeType: 11,
+					addTime: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
 					goodsName: '',
 					goodsPrice: undefined,
 					goodsNum: 1
-				},
+				}],
 				tradeTypeMap: {
 					'10': '物流',
 					'12': '成本',
@@ -102,6 +110,24 @@
 		},
 		onLoad() {},
 		methods: {
+			// 支出、收入类型切换
+			changeType(index, type = 1) {
+				const {
+					formMap
+				} = this
+				formMap[index].plusMinus = type
+				formMap[index].tradeType = type == 1 ? 11 : 10;
+				this.formMap = formMap
+				console.log(index, this.formMap)
+			},
+			changeTrade(index, type) {
+				const {
+					formMap
+				} = this
+				formMap[index].tradeType = type
+				this.formMap = formMap
+				console.log(index, this.formMap)
+			},
 			spliceTrade(arr) {
 				let obj = {};
 				Object.keys(this.tradeTypeMap).forEach(key => {
@@ -112,10 +138,19 @@
 				return obj
 			},
 			bindDateChange(e) {
-				let {
+				const {
 					value
 				} = e.detail
-				this.formData.addTime = moment(new Date(value)).format('YYYY-MM-DD')
+				const {
+					index
+				} = e.target.dataset
+				const {
+					formMap
+				} = this
+				console.log(index, value)
+				const time = moment(new Date()).format('HH:mm:ss')
+				formMap[index].addTime = moment(value).format('YYYY-MM-DD') + ' ' + time
+				this.formMap = formMap
 			},
 			changeNum(type) {
 				switch (type) {
@@ -152,12 +187,36 @@
 					this.formData[name] = 1
 				}
 			},
+			delForm(index) {
+				const that = this
+				uni.showModal({
+					title: '提示',
+					content: '是否确定删除该记录',
+					success: function(res) {
+						if (res.confirm) {
+							that.formMap.splice(index, 1)
+							console.log(that.formMap)
+						} else if (res.cancel) {
+							console.log('用户点击取消');
+						}
+					}
+				});
+			},
+			addForm() {
+				this.formMap.push({
+					plusMinus: 1,
+					type: 2,
+					tradeType: 11,
+					addTime: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
+					goodsName: '',
+					goodsPrice: undefined,
+					goodsNum: 1
+				});
+				console.log(this.formMap)
+			},
 			submit() {
-				let time = moment(new Date()).format('HH:mm:ss')
-				let formData = this.formData;
-				formData.addTime = formData.addTime + ' ' + time
-				console.log(formData)
-				accKeepCreate(this.formData).then(res => {
+				console.log(this.formMap)
+				accKeepCreate({bookKeepingPARAMList: this.formMap}).then(res => {
 					uni.navigateBack({
 						delta: 1
 					})
@@ -169,13 +228,14 @@
 
 <style lang="scss" scoped>
 	.account-keep-create {
-		padding: 24rpx 24rpx 180rpx;
+		padding: 1rpx 24rpx 180rpx;
 
 		.keep-card {
 			box-shadow: 0 8rpx 20rpx 0 rgba(0, 0, 0, 0.02);
 			background-color: #fff;
 			border-radius: 10rpx;
 			padding: 24rpx 30rpx;
+			margin: 24rpx 0;
 
 			.header {
 				.tabs {
@@ -258,6 +318,13 @@
 					}
 				}
 			}
+
+			.del-btn {
+				color: #bbb;
+				font-size: 28rpx;
+				line-height: 40rpx;
+				margin-bottom: 10rpx;
+			}
 		}
 
 		.btn-group {
@@ -284,5 +351,7 @@
 				line-height: 42rpx;
 			}
 		}
+	}
+</style>
 	}
 </style>

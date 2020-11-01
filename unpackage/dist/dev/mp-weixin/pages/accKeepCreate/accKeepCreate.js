@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   uniIcons: function() {
-    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 394))
+    return Promise.all(/*! import() | components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/components/uni-icons/uni-icons.vue */ 419))
   }
 }
 var render = function() {
@@ -102,41 +102,27 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   var g0 = _vm.moment(new Date()).format("YYYY-MM-DD")
-  var g1 = _vm.moment(new Date(_vm.formData.addTime)).format("YYYY年MM月DD日")
-  var m0 =
-    _vm.formData.plusMinus == 1 ? _vm.spliceTrade([10, 12, 13, 14]) : null
-  var m1 = !(_vm.formData.plusMinus == 1) ? _vm.spliceTrade([11, 15]) : null
 
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      _vm.formData.plusMinus = 1
-      _vm.formData.tradeType = 10
+  var l0 = _vm.__map(_vm.formMap, function(item, index) {
+    var $orig = _vm.__get_orig(item)
+
+    var g1 = _vm.moment(item.addTime).format("YYYY年MM月DD日")
+    var m0 = item.plusMinus == 1 ? _vm.spliceTrade([11, 15]) : null
+    var m1 = !(item.plusMinus == 1) ? _vm.spliceTrade([10, 12, 13, 14]) : null
+    return {
+      $orig: $orig,
+      g1: g1,
+      m0: m0,
+      m1: m1
     }
-
-    _vm.e1 = function($event) {
-      _vm.formData.plusMinus = 2
-      _vm.formData.tradeType = 11
-    }
-
-    _vm.e2 = function($event, index) {
-      var _temp = arguments[arguments.length - 1].currentTarget.dataset,
-        _temp2 = _temp.eventParams || _temp["event-params"],
-        index = _temp2.index
-
-      var _temp, _temp2
-
-      _vm.formData.tradeType = index
-    }
-  }
+  })
 
   _vm.$mp.data = Object.assign(
     {},
     {
       $root: {
         g0: g0,
-        g1: g1,
-        m0: m0,
-        m1: m1
+        l0: l0
       }
     }
   )
@@ -248,10 +234,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
 var _account = __webpack_require__(/*! @/api/account.js */ 21);
 
 
-var _moment = _interopRequireDefault(__webpack_require__(/*! moment */ 66));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+var _moment = _interopRequireDefault(__webpack_require__(/*! moment */ 33));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
 //
@@ -325,14 +319,65 @@ var _moment = _interopRequireDefault(__webpack_require__(/*! moment */ 66));func
 //
 //
 //
-var _default = { data: function data() {return { moment: _moment.default, formData: { plusMinus: 1, type: 2, tradeType: 10, addTime: (0, _moment.default)(new Date()).format('YYYY-MM-DD'), goodsName: '', goodsPrice: undefined, goodsNum: 1 }, tradeTypeMap: { '10': '物流', '12': '成本', '13': '退款', '14': '优惠', '11': '商品', '15': '自定义' } };}, onLoad: function onLoad() {}, methods: { spliceTrade: function spliceTrade(arr) {var _this = this;var obj = {};Object.keys(this.tradeTypeMap).forEach(function (key) {if (arr.indexOf(Number(key)) != -1) {obj[key] = _this.tradeTypeMap[key];}});return obj;}, bindDateChange: function bindDateChange(e) {var value = e.detail.value;this.formData.addTime = (0, _moment.default)(new Date(value)).format('YYYY-MM-DD');}, changeNum: function changeNum(type) {switch (type) {case 'plus':this.formData.goodsNum++;break;case 'plus_max':this.formData.goodsNum++;break;case 'minus':if (this.formData.goodsNum > 1) {this.formData.goodsNum--;}break;case 'minus_max':if (this.formData.goodsNum > 1) {this.formData.goodsNum--;}break;default:break;}}, filterMath: function filterMath(e) {var name = e.currentTarget.dataset.name;var value = e.detail.value;if (value) {this.formData[name] = Math.ceil(value);} else {this.formData[name] = 1;}
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = { data: function data() {return { moment: _moment.default, formMap: [{ plusMinus: 1, type: 2, tradeType: 11, addTime: (0, _moment.default)(new Date()).format('YYYY-MM-DD HH:mm:ss'), goodsName: '', goodsPrice: undefined, goodsNum: 1 }], tradeTypeMap: { '10': '物流', '12': '成本', '13': '退款', '14': '优惠', '11': '商品', '15': '自定义' } };}, onLoad: function onLoad() {}, methods: { // 支出、收入类型切换
+    changeType: function changeType(index) {var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;var formMap = this.formMap;formMap[index].plusMinus = type;formMap[index].tradeType = type == 1 ? 11 : 10;this.formMap = formMap;console.log(index, this.formMap);}, changeTrade: function changeTrade(index, type) {var formMap = this.formMap;formMap[index].tradeType = type;this.formMap = formMap;console.log(index, this.formMap);}, spliceTrade: function spliceTrade(arr) {var _this = this;var obj = {};Object.keys(this.tradeTypeMap).forEach(function (key) {if (arr.indexOf(Number(key)) != -1) {obj[key] = _this.tradeTypeMap[key];}});return obj;}, bindDateChange: function bindDateChange(e) {var value = e.detail.value;var index = e.target.dataset.index;var formMap = this.formMap;console.log(index, value);var time = (0, _moment.default)(new Date()).format('HH:mm:ss');formMap[index].addTime = (0, _moment.default)(value).format('YYYY-MM-DD') + ' ' + time;this.formMap = formMap;}, changeNum: function changeNum(type) {switch (type) {case 'plus':this.formData.goodsNum++;break;case 'plus_max':this.formData.goodsNum++;break;case 'minus':if (this.formData.goodsNum > 1) {this.formData.goodsNum--;}break;case 'minus_max':if (this.formData.goodsNum > 1) {this.formData.goodsNum--;
+          }
+          break;
+        default:
+          break;}
+
+    },
+    filterMath: function filterMath(e) {var
+
+      name =
+      e.currentTarget.dataset.name;var
+
+      value =
+      e.detail.value;
+      if (value) {
+        this.formData[name] = Math.ceil(value);
+      } else {
+        this.formData[name] = 1;
+      }
+    },
+    delForm: function delForm(index) {
+      var that = this;
+      uni.showModal({
+        title: '提示',
+        content: '是否确定删除该记录',
+        success: function success(res) {
+          if (res.confirm) {
+            that.formMap.splice(index, 1);
+            console.log(that.formMap);
+          } else if (res.cancel) {
+            console.log('用户点击取消');
+          }
+        } });
+
+    },
+    addForm: function addForm() {
+      this.formMap.push({
+        plusMinus: 1,
+        type: 2,
+        tradeType: 11,
+        addTime: (0, _moment.default)(new Date()).format('YYYY-MM-DD HH:mm:ss'),
+        goodsName: '',
+        goodsPrice: undefined,
+        goodsNum: 1 });
+
+      console.log(this.formMap);
     },
     submit: function submit() {
-      var time = (0, _moment.default)(new Date()).format('HH:mm:ss');
-      var formData = this.formData;
-      formData.addTime = formData.addTime + ' ' + time;
-      console.log(formData);
-      (0, _account.accKeepCreate)(this.formData).then(function (res) {
+      console.log(this.formMap);
+      (0, _account.accKeepCreate)({ bookKeepingPARAMList: this.formMap }).then(function (res) {
         uni.navigateBack({
           delta: 1 });
 

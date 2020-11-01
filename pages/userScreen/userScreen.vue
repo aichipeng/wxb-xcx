@@ -7,14 +7,16 @@
 					<view class="nickName">{{info.nickName}}</view>
 					<view class="flex-row info">
 						<text class="label">微信号：</text>
-						<view class="flex-row" v-if="info.wechatNo || showWx">
-							<input class="input-wx" type="text" placeholder="请输入微信号" v-model="info.wechatNo" :disabled="info.wechatNo && !showWx" />
+						<view class="flex-row flex-1" v-if="info.wechatNo || showWx">
+							<input class="input-wx flex-1" type="text" placeholder="请输入微信号" v-model="info.wechatNo" :disabled="info.wechatNo && !showWx" />
 							<block v-if="showWx">
 								<text class="edit-btn" style="border-color: #999; color: #999;" @click="showWx = false">取消</text>
 								<text class="edit-btn" @click="handleWx">确定</text>
 							</block>
+							<block v-else>
+								<text class="edit-btn" style="border-color: #EFB600; color: #EFB600;" @click="showWx = true">修改</text>
+							</block>
 						</view>
-						<!-- <view>{{info.wechatNo}}</view> -->
 						<view class="phone-btn" v-else @click="showWx = true">点击输入</view>
 					</view>
 					<view class="flex-row info">

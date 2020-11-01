@@ -29,7 +29,9 @@
     "pages/contactUs/contactUs",
     "pages/cashList/cashList",
     "pages/cashLogs/cashLogs",
-    "pages/orderClose/orderClose"
+    "pages/orderClose/orderClose",
+    "pages/statGoods/statGoods",
+    "pages/statBuys/statBuys"
   ],
   "subPackages": [],
   "window": {
@@ -40,5 +42,6 @@
   "usingComponents": {
     "uni-icons": "/components/uni-icons/uni-icons",
     "uni-popup": "/components/uni-popup/uni-popup"
-  }
+  },
+  "sitemapLocation": "sitemap16.json"
 }

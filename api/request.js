@@ -26,13 +26,13 @@ export const ajax = (data = {}, url, method = 'GET', isLoading = false) => {
 						mask: true
 					});
 					reject(res)
-					if (res.data.errno == 401) {
-						setTimeout(function() {
-							uni.navigateTo({
-								url: '/pages/loginScreen/loginScreen',
-							});
-						}, 1000);
-					}
+					// if (res.data.errno == 401) {
+					// 	setTimeout(function() {
+					// 		uni.navigateTo({
+					// 			url: '/pages/loginScreen/loginScreen',
+					// 		});
+					// 	}, 1000);
+					// }
 				} else {
 					resolve(res.data)
 				}

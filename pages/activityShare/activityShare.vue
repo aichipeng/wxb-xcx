@@ -1,7 +1,6 @@
 <template>
 	<view class="activity-share-page" :style="{paddingBottom:showDrawer ? '444rpx' : 0}">
-		<!-- <image :src="qrcodeImg" mode=""></image>
-		<text>{{qrcodeImg}}</text> -->
+		<!-- <image :src="qrcodeImg" mode="widthFix"></image> -->
 		<canvas canvas-id="myCanvas" class="poster-canvas" :style="{height: (canvasHeight*ratio) + 'px', width: (canvasWidth*ratio) + 'px'}"></canvas>
 		<view class="header flex-col">
 			<text class="title">{{info.describe || '暂无描述'}}</text>
@@ -79,6 +78,7 @@
 	import {
 		getWacodeunlimit
 	} from "@/api/login.js"
+	import base64src from "@/static/utils/base64src.js"
 	export default {
 		data() {
 			return {
@@ -107,7 +107,7 @@
 		},
 		onShareAppMessage(res) {
 			let obj = {
-				title: this.info.name || '内有微商',
+				title: `你关注的热销单品 “${this.info.name || '内有微商'}” 已限时出售,快来下单抢购吧`,
 				path: '/pages/activityClient/activityClient?id=' + this.id + '&channelId=' + uni.getStorageSync('id'),
 				imageUrl: this.poster
 			}
@@ -119,10 +119,7 @@
 					id: this.id
 				}).then(res => {
 					this.info = res.data
-					const scene = JSON.stringify({
-						id: this.id,
-						channelId: uni.getStorageSync('id')
-					})
+					const scene = `${this.id}&${uni.getStorageSync('id')}`
 					const obj = {
 						scene,
 						autoColor: false,
@@ -137,8 +134,6 @@
 					}
 					getWacodeunlimit(obj).then(res => {
 						this.qrcodeImg = "data:image/png;base64," + res.data;
-						this.createPoster()
-					}).catch(() => {
 						this.createPoster()
 					})
 				})
@@ -188,35 +183,16 @@
 				context.fillText(`x${info.num || 0}`, Number((canvasWidth - 24) * ratio), Number(238 * ratio));
 				const price = (info.price || 0) * (info.num || 0) + (info.freightPrice || 0)
 				context.fillText(`￥${price}`, Number((canvasWidth - 24) * ratio), Number(355 * ratio));
-				// console.log(canvasWidth, info);
-				if (that.qrcodeImg) {
-					// uni.getImageInfo({
-					// 	src: that.qrcodeImg,
-					// 	success: function(res) {
-					// 		// console.log(res);
-					context.drawImage(that.qrcodeImg, 0, 0, Number(120 * ratio), Number(120 * ratio))
-					// context.drawImage(that.qrcodeImg, 0, 0, res.width, res.height, Number(204 * ratio), Number(406 * ratio), Number(120 *
-					// 	ratio), Number(120 * ratio));
+				base64src(that.qrcodeImg).then(res => {
+					console.log(res)
+					context.drawImage(res, 0, 0, 430, 430, Number(204 * ratio), Number(406 * ratio), Number(120 * ratio),
+						Number(120 * ratio))
 					context.draw();
 					setTimeout(() => {
 						that.savePoster()
-					}, 100)
-					// 	},
-					// 	fail: function(err) {
-					// 		context.draw();
-					// 		setTimeout(() => {
-					// 			that.savePoster()
-					// 		}, 100)
-					// 	}
-					// });
-				} else {
-					context.draw();
-					setTimeout(() => {
-						that.savePoster()
-					}, 100)
-				}
+					}, 1000)
+				})
 			},
-
 			// 圆角矩形
 			roundRect(ctx, x, y, w, h, r) {
 				if (w < 2 * r) r = w / 2;
@@ -229,6 +205,7 @@
 				ctx.arcTo(x, y, x + w, y, r);
 				ctx.closePath();
 			},
+			// 生成图片
 			savePoster() {
 				const that = this
 				const {
@@ -251,6 +228,7 @@
 					fail: err => {}
 				})
 			},
+			// 保存图片
 			download() {
 				const that = this
 				uni.saveImageToPhotosAlbum({
@@ -432,8 +410,6 @@
 		}
 
 		.poster-wrap {
-			.poster {}
-
 			.save-btn {
 				font-size: 29rpx;
 				width: 336rpx;

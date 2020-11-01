@@ -26,27 +26,34 @@
 							<text class="label">订单单号:</text>
 							<view class="flex-row flex-1 acp-ellipsis">
 								<text class="acp-ellipsis">{{item.orderSn}}</text>
-								<uni-icons type="compose" size="12" color="#5D5D5D" style="margin-left: 26rpx;"></uni-icons>
+								<image src="/static/images/copy.png" @click="copeText(info.orderSn)" style="width: 32rpx;height: 32rpx; margin-left: 22rpx;"></image>
+								<!-- <uni-icons @click="copeText(item.orderSn)" type="compose" size="12" color="#5D5D5D" style="margin-left: 26rpx;"></uni-icons> -->
 							</view>
 						</view>
 					</view>
 					<view class="form-group">
 						<view class="form-item flex-row border-bottom">
 							<text class="label">物流单号</text>
-							<input :disabled="formMap[index].finished" class="value" v-model="formMap[index].expressNo" type="number"
-							 placeholder="请输入物流单号" placeholder-style="color: #999; font-size: 29rpx;line-height: 40rpx;" />
+							<view class="flex-row">
+								<input :disabled="formMap[index].finished" class="value" v-model="formMap[index].expressNo" type="number"
+								 placeholder="请输入物流单号" placeholder-style="color: #999; font-size: 29rpx;line-height: 40rpx;" />
+								<image src="/static/images/sys.png" style="width: 32rpx; height: 32rpx; margin-left: 16rpx;"></image>
+							</view>
 						</view>
 						<view class="form-item flex-row border-bottom">
 							<text class="label">物流公司</text>
 							<picker :disabled="formMap[index].finished" @change="pickerExpressCode" :value="formMap[index].expressIndex"
 							 :range="listExp" range-key="name">
-								<view class="value" :style="{color: formMap[index].expressCode ? '#333' : '#999'}">{{formMap[index].expressName || '请选择物流公司'}}</view>
+								<view class="flex-row">
+									<view class="value" :style="{color: formMap[index].expressCode ? '#333' : '#999'}">{{formMap[index].expressName || '请选择物流公司'}}</view>
+									<uni-icons type="arrowright" size="14" color="#333" style="margin-left: 12rpx; margin-right: -6rpx;"></uni-icons>
+								</view>
 							</picker>
 						</view>
 						<view class="form-item flex-row border-bottom">
 							<text class="label">物流成本</text>
 							<input :disabled="formMap[index].finished" class="value" v-model="formMap[index].freightPrice" type="number"
-							 placeholder="请选择输入物流成本" placeholder-style="color: #999; font-size: 29rpx;line-height: 40rpx;" />
+							 placeholder="请输入物流成本" placeholder-style="color: #999; font-size: 29rpx;line-height: 40rpx;" />
 						</view>
 					</view>
 					<view class="submit-btn flex-col" @click="handleSumbit(index)">
@@ -77,7 +84,7 @@
 				list: [],
 				finishNum: 0,
 				formMap: [],
-				avatar: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2476878483,4014399276&fm=26&gp=0.jpg',
+				avatar: '/static/images/avatar.png',
 			};
 		},
 		onLoad(options) {
@@ -119,6 +126,28 @@
 					this.listExp = res.data
 				})
 			},
+			copeText(data) {
+				if (!data) return;
+				uni.setClipboardData({
+					data: data,
+					success: function(data) {
+						uni.showToast({
+							title: '复制成功',
+							icon: 'none',
+							mask: true
+						})
+					},
+					fail: function(err) {
+						uni.showToast({
+							title: '复制失败',
+							icon: 'none',
+							mask: true
+						})
+					},
+					complete: function(res) {}
+				})
+			},
+
 			swiperChange(e) {
 				// console.log(e)
 				this.current = e.detail.current
@@ -143,34 +172,59 @@
 					list
 				} = this
 				// console.log(this.current)
-				const formData = formMap[index]
-				if (!formMap[index].finished) {
-					orderExpress(formData).then(res => {
-						formMap[index].finished = true;
-						this.finishNum = finishNum + 1
-						if (finishNum + 1 >= list.length) {
-							uni.showToast({
-								title: "全部提交成功！",
-								icon: "none",
-								mask: true
-							})
-							setTimeout(() => {
-								uni.navigateBack({
-									delta: 1
+				const formData = formMap[index];
+				const msg = this.verifyForm(formData);
+				if (!msg) {
+					if (!formMap[index].finished) {
+						orderExpress(formData).then(res => {
+							formMap[index].finished = true;
+							this.finishNum = finishNum + 1
+							if (finishNum + 1 >= list.length) {
+								uni.showToast({
+									title: "全部提交成功！",
+									icon: "none",
+									mask: true
 								})
-							}, 500)
-						} else {
-							uni.showToast({
-								title: "提交成功！下一个",
-								icon: "none",
-								mask: true
-							})
-							this.goNext()
-						}
+								setTimeout(() => {
+									uni.navigateBack({
+										delta: 1
+									})
+								}, 500)
+							} else {
+								uni.showToast({
+									title: "提交成功！下一个",
+									icon: "none",
+									mask: true
+								})
+								this.goNext()
+							}
+						})
+					}
+				} else {
+					uni.showToast({
+						title: msg,
+						icon: 'none',
+						mask: true
 					})
 				}
 			},
-
+			// 校验表单
+			verifyForm(formData) {
+				const {
+					expressCode,
+					expressNo,
+					freightPrice,
+				} = formData;
+				let msg = '';
+				if (!expressNo) {
+					msg = '请输入物流单号！'
+				} else if (!expressCode) {
+					msg = '请选择物流公司！'
+				} else if (!freightPrice) {
+					msg = '请输入物流成本！'
+				}
+				return msg
+			},
 			goNext() {
 				const {
 					formMap,

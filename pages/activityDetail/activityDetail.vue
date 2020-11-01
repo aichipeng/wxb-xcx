@@ -72,7 +72,10 @@
 								</view>
 							</view>
 							<view class="item-center flex-row flex-1">
-								<text class="status">{{statusMap[item.orderStatus] || '待付款'}}</text>
+								<view class="flex-col" style="text-align: center;">
+									<text class="status">{{statusMap[item.orderStatus] || '待付款'}}</text>
+									<text class="status-tag" :style="{backgroundColor: item.orderStatus == 202 ? '#FFF9E7':'#F1F1F1',color:  item.orderStatus == 202 ? '#EFB600':'#999'}" v-if="item.orderStatus == 203 || item.orderStatus == 202">{{item.orderStatus == 202 ? '预约取件':'已导出'}}</text>
+								</view>
 								<image class="avatar" :src="item.avatar || avatar"></image>
 								<text class="name acp-ellipsis flex-1">{{item.nickName}}</text>
 							</view>
@@ -148,12 +151,12 @@
 					1: '关闭活动',
 					2: '已结束',
 				},
-				avatar: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2476878483,4014399276&fm=26&gp=0.jpg',
+				avatar: '/static/images/avatar.png',
 				statusMap: {
 					101: '待付款',
 					201: '待发货',
-					202: '预约中',
-					203: '已导出',
+					202: '待发货',
+					203: '待发货',
 					301: '运输中',
 					601: '已结束',
 					602: '已关闭',
@@ -389,17 +392,17 @@
 					this.checkedMap = checkedMap;
 				}
 			},
-			
+
 			handleBtn(item) {
 				switch (Number(item.orderStatus)) {
 					case 201:
-						this.navigateTo('/pages/sendScreen/sendScreen?id=' + this.id + '&name=' + this.info.name)
+						this.navigateTo('/pages/orderSend/orderSend?item=' + JSON.stringify([item.orderSn]))
 						break;
 					case 202:
-						this.navigateTo('/pages/sendScreen/sendScreen?id=' + this.id + '&name=' + this.info.name)
+						this.navigateTo('/pages/orderSend/orderSend?item=' + JSON.stringify([item.orderSn]))
 						break;
 					case 203:
-						this.navigateTo('/pages/sendScreen/sendScreen?id=' + this.id + '&name=' + this.info.name)
+						this.navigateTo('/pages/orderSend/orderSend?item=' + JSON.stringify([item.orderSn]))
 						break;
 					case 301:
 						this.navigateTo('/pages/orderExpress/orderExpress?no=' + item.shipSn + '&code=' + item.shipChannel)
@@ -410,7 +413,7 @@
 				}
 				// console.log(item)
 			},
-			
+
 			// 直接发货
 			handleSend() {
 				const {
@@ -635,6 +638,19 @@
 							font-size: 28rpx;
 							color: #EFB600;
 							width: 100rpx;
+						}
+
+						.status-tag {
+							font-size: 20rpx;
+							line-height: 28rpx;
+							margin: 4rpx 0;
+							height: 40rpx;
+							border-radius: 20rpx;
+							line-height: 40rpx;
+							padding: 0 12rpx;
+							font-weight: 500;
+							background-color: #FFF9E7;
+							color: #EFB600;
 						}
 
 						.avatar {

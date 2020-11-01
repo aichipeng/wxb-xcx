@@ -52,9 +52,9 @@
 				<image class="avatar" :src="info.sellerAvatar || avatar"></image>
 				<view class="txt flex-1">
 					<view class="name acp-ellipsis">{{info.sellerName || '商家名称'}}</view>
-					<view class="contact">
+					<view class="contact flex-row">
 						<text>{{info.wechatNo || '商家微信'}}</text>
-						<uni-icons @click="copeText(info.wechatNo)" type="compose" size="12" color="#5D5D5D" style="padding: 0 16rpx;"></uni-icons>
+						<image src="/static/images/copy.png" @click="copeText(info.wechatNo)" style="width: 32rpx;height: 32rpx; margin-left: 10rpx;"></image>
 					</view>
 				</view>
 				<!-- <text class="edit" @click="navigateTo('/pages/userSetting/userSetting')">修改名片</text> -->
@@ -72,14 +72,14 @@
 		updateOrder
 	} from "@/api/order.js"
 	import {
-		payOK
+		payWeChat
 	} from "@/api/payment.js"
 	export default {
 		data() {
 			return {
 				orderSn: undefined,
 				info: {},
-				avatar: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2476878483,4014399276&fm=26&gp=0.jpg',
+				avatar: '/static/images/avatar.png',
 				formData: {
 					id: undefined,
 					address: undefined,
@@ -135,20 +135,45 @@
 					})
 					return
 				}
-				updateOrder(this.formData).then(res => {
-					payOK({
-						orderNo: res.data
+				updateOrder(this.formData).then(o => {
+					payWeChat({
+						orderSn: o.data
 					}).then(e => {
-						uni.showToast({
-							title: "支付成功",
-							icon: "none",
-							mask: true,
+						uni.requestPayment({
+							provider: 'wxpay',
+							timeStamp: e.data.timeStamp.toString(),
+							nonceStr: e.data.nonceStr,
+							package: e.data.packageValue,
+							signType: e.data.signType,
+							paySign: e.data.paySign,
+							success: function(res) {
+								// console.log(111, JSON.stringify(res))
+								setTimeout(() => {
+									uni.requestSubscribeMessage({
+										tmplIds: ['V2OCVzUxGzlfaRMyTbLM8AwHRzKsb8TT_Rct-82qLxY'],
+										success(r) {
+											uni.showToast({
+												title: "支付成功",
+												icon: "none",
+												mask: true,
+											})
+											setTimeout(() => {
+												uni.redirectTo({
+													url: "/pages/orderDetail/orderDetail?orderSn=" + o.data
+												});
+											}, 500)
+										}
+									})
+								}, 200)
+							},
+							fail: function(err) {
+								uni.showToast({
+									title: "支付失败",
+									icon: "none",
+									mask: true,
+								})
+							}
 						})
-						setTimeout(() => {
-							uni.redirectTo({
-								url: "/pages/orderDetail/orderDetail?orderSn=" + res.data
-							});
-						}, 500)
 					})
 				})
 			},
